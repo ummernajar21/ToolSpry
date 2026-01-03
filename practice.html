@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Practice SQL for Beginners | SQL Practice</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- SQLite WASM -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+
+  <meta name="description" content="Practice beginner SQL with real-world datasets. No login. Runs fully in your browser." />
+</head>
+
+<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+
+<!-- ================= NAVBAR ================= -->
+<header class="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <a href="/" class="text-xl font-semibold">SQL Practice</a>
+
+    <nav class="hidden md:flex space-x-6 text-sm">
+      <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
+      <a href="/practice.html" class="font-medium">Practice</a>
+      <a href="/learn/index.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Learn</a>
+      <a href="/about.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About</a>
+      <a href="/contact.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main class="flex-grow max-w-7xl mx-auto px-4 py-8">
+
+<h1 class="text-2xl font-semibold mb-2">Practice SQL</h1>
+<p class="text-sm text-gray-600 dark:text-gray-400 mb-6">
+  Beginner-only SQL playground · No login · Real-world data
+</p>
+
+<!-- Dataset Selector -->
+<div class="mb-6">
+  <label class="block text-sm font-medium mb-1">Dataset</label>
+  <select id="dataset-select"
+    class="w-full md:w-80 px-3 py-2 rounded border
+           bg-white dark:bg-gray-800
+           border-gray-300 dark:border-gray-600">
+    <option value="customers">Customers (CRM)</option>
+    <option value="orders">Customers & Orders (E-commerce)</option>
+    <option value="employees">Employees (HR)</option>
+  </select>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+<!-- LEFT -->
+<aside class="space-y-6">
+
+<section class="border rounded p-4 bg-white dark:bg-gray-800 dark:border-gray-700">
+  <h2 class="font-semibold mb-2">Task</h2>
+  <p id="task-text"></p>
+</section>
+
+<section class="border rounded p-4 bg-white dark:bg-gray-800 dark:border-gray-700">
+  <h2 class="font-semibold mb-2">Schema</h2>
+  <pre id="schema-box"
+    class="text-sm p-3 rounded border
+           bg-gray-50 dark:bg-gray-900
+           border-gray-300 dark:border-gray-700"></pre>
+  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+    Tip: Always read the schema before writing SQL.
+  </p>
+</section>
+
+</aside>
+
+<!-- RIGHT -->
+<section class="lg:col-span-2 space-y-6">
+
+<section class="border rounded p-4 bg-white dark:bg-gray-800 dark:border-gray-700">
+  <h2 class="font-semibold mb-2">SQL Editor</h2>
+  <textarea id="sql-input" spellcheck="false"
+    class="w-full h-44 p-3 font-mono text-sm rounded border
+           bg-white dark:bg-gray-900
+           border-gray-300 dark:border-gray-700
+           focus:outline-none focus:ring"></textarea>
+</section>
+
+<button id="run-btn"
+  class="px-6 py-2 rounded bg-gray-900 text-white
+         hover:bg-gray-800
+         dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white">
+  Execute Query
+</button>
+
+<section id="output"
+  class="border rounded p-4 text-sm bg-white dark:bg-gray-800 dark:border-gray-700">
+  Run a query to see results and explanations.
+</section>
+
+</section>
+</div>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="border-t bg-white dark:bg-gray-800 dark:border-gray-700 text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
+    <p class="text-gray-600 dark:text-gray-400">
+      © <span id="year"></span> SQL Practice
+    </p>
+    <div class="space-x-4 mt-2 md:mt-0">
+      <a href="https://ko-fi.com/YOUR_KOFI_USERNAME"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="text-sm underline text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">
+  Support this project ☕
+</a>
+      <a href="/privacy.html" class="hover:underline">Privacy</a>
+      <a href="/terms.html" class="hover:underline">Terms</a>
+      <a href="/contact.html" class="hover:underline">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+let SQL, db;
+
+/* -------- DATASET CONFIG -------- */
+
+const DATASETS = {
+  customers: {
+    json: ["/datasets/customers.json"],
+    task: "Show all customers from the country 'United States'.",
+    starter: "SELECT * FROM customers LIMIT 10;",
+    learning: "You practiced filtering rows using WHERE.",
+    learnLink: "/learn/sql-errors-beginners.html"
+  },
+  orders: {
+    json: [
+      "/datasets/customers.json",
+      "/datasets/orders.json"
+    ],
+    task: "Show total order amount for each customer.",
+    starter:
+`SELECT c.full_name, SUM(o.order_amount) AS total_spent
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.full_name;`,
+    learning: "You practiced JOIN and GROUP BY.",
+    learnLink: "/learn/real-world-sql-queries.html"
+  },
+  employees: {
+    json: ["/datasets/employees.json"],
+    task: "Show average salary for each department.",
+    starter:
+`SELECT department, AVG(salary)
+FROM employees
+GROUP BY department;`,
+    learning: "You practiced GROUP BY and AVG.",
+    learnLink: "/learn/sql-empty-results.html"
+  }
+};
+
+/* -------- CORE ENGINE -------- */
+
+function resetDatabase() {
+  db = new SQL.Database();
+}
+
+async function loadDataset(name) {
+  const meta = DATASETS[name];
+  resetDatabase();
+
+  let schemaText = "";
+
+  for (const path of meta.json) {
+    const res = await fetch(path);
+    const data = await res.json();
+
+    const columns = data.schema.map(c => `${c[0]} ${c[1]}`).join(", ");
+    db.run(`CREATE TABLE ${data.table} (${columns});`);
+
+    const placeholders = data.schema.map(() => "?").join(",");
+    const stmt = db.prepare(
+      `INSERT INTO ${data.table} VALUES (${placeholders});`
+    );
+    data.rows.forEach(row => stmt.run(row));
+    stmt.free();
+
+    schemaText += `${data.table}\n------------\n`;
+    schemaText += data.schema.map(c => `${c[0]} (${c[1]})`).join("\n");
+    schemaText += "\n\n";
+  }
+
+  document.getElementById("task-text").textContent = meta.task;
+  document.getElementById("schema-box").textContent = schemaText.trim();
+  document.getElementById("sql-input").value = meta.starter;
+  document.getElementById("output").textContent =
+    "Run a query to see results and explanations.";
+}
+
+function explainError(msg) {
+  msg = msg.toLowerCase();
+  if (msg.includes("syntax error"))
+    return ["Syntax error", "Check SQL keywords and commas.", "/learn/sql-errors-beginners.html"];
+  if (msg.includes("no such table"))
+    return ["Missing table", "Check table name in schema.", "/learn/sql-errors-beginners.html"];
+  if (msg.includes("no such column"))
+    return ["Missing column", "Check column name in schema.", "/learn/sql-errors-beginners.html"];
+  return ["Query error", "Review the schema and simplify the query.", "/learn/sql-errors-beginners.html"];
+}
+
+/* -------- INIT SQLITE -------- */
+
+initSqlJs({
+  locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}`
+}).then(s => {
+  SQL = s;
+  loadDataset("customers");
+});
+
+/* -------- EVENTS -------- */
+
+document.getElementById("dataset-select").addEventListener("change", e => {
+  loadDataset(e.target.value);
+});
+
+document.getElementById("run-btn").addEventListener("click", () => {
+  const output = document.getElementById("output");
+  const name = document.getElementById("dataset-select").value;
+  const meta = DATASETS[name];
+
+  try {
+    const res = db.exec(document.getElementById("sql-input").value);
+
+    if (!res.length) {
+      output.innerHTML = `
+        <p class="font-medium">Query executed correctly.</p>
+        <p class="text-gray-600 dark:text-gray-400 mt-1">
+          No rows matched your condition.
+        </p>
+        <a href="/learn/sql-empty-results.html"
+           class="underline text-sm mt-2 inline-block">
+          Read explanation →
+        </a>`;
+      return;
+    }
+
+    const { columns, values } = res[0];
+
+    output.innerHTML = `
+      <table class="border w-full text-sm mb-3">
+        <tr>${columns.map(c => `<th class="border px-2 py-1">${c}</th>`).join("")}</tr>
+        ${values.map(r =>
+          `<tr>${r.map(v => `<td class="border px-2 py-1">${v}</td>`).join("")}</tr>`
+        ).join("")}
+      </table>
+
+      <div class="text-sm">
+        <strong>What you just learned:</strong>
+        <p>${meta.learning}</p>
+        <a href="${meta.learnLink}" class="underline mt-1 inline-block">
+          Learn more →
+        </a>
+      </div>`;
+  } catch (err) {
+    const [type, help, link] = explainError(err.message);
+    output.innerHTML = `
+      <p class="font-medium text-red-500">Error: ${type}</p>
+      <p class="mt-1">${help}</p>
+      <a href="${link}" class="underline text-sm mt-2 inline-block">
+        Read explanation →
+      </a>`;
+  }
+});
+</script>
+
+</body>
+</html>

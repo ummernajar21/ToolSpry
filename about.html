@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About | SQL Practice</title>
+
+  <meta name="description"
+        content="Learn why SQL Practice exists and who it is built for." />
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+
+<!-- NAVBAR -->
+<header class="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <a href="/" class="text-xl font-semibold">SQL Practice</a>
+
+    <nav class="hidden md:flex space-x-6 text-sm">
+      <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
+      <a href="/practice.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Practice</a>
+      <a href="/learn/index.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Learn</a>
+      <a href="/about.html" class="font-medium">About</a>
+      <a href="/contact.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="flex-grow max-w-3xl mx-auto px-4 py-10">
+
+<h1 class="text-3xl font-semibold mb-6">About SQL Practice</h1>
+
+<p class="text-gray-600 dark:text-gray-400 mb-8">
+  SQL Practice was created to make learning SQL calmer, clearer, and less frustrating —
+  especially for beginners.
+</p>
+
+<section class="mb-8">
+  <h2 class="text-xl font-semibold mb-2">Why this exists</h2>
+  <p>
+    Many SQL practice platforms assume prior knowledge or hide errors behind vague messages.
+    This site takes a different approach.
+  </p>
+  <p class="mt-2">
+    Here, errors are explained clearly, datasets feel real, and learning happens step by step.
+  </p>
+</section>
+
+<section class="mb-8">
+  <h2 class="text-xl font-semibold mb-2">Who this is for</h2>
+  <ul class="list-disc list-inside space-y-2">
+    <li>Beginners learning SQL for the first time</li>
+    <li>Students preparing for interviews or coursework</li>
+    <li>Self-learners who want clarity instead of shortcuts</li>
+  </ul>
+</section>
+
+<section class="mb-8">
+  <h2 class="text-xl font-semibold mb-2">How it works</h2>
+  <p>
+    SQL Practice runs entirely in your browser. There is no login, no backend,
+    and no tracking of your queries.
+  </p>
+  <p class="mt-2 text-gray-600 dark:text-gray-400">
+    This keeps the experience fast, private, and distraction-free.
+  </p>
+</section>
+
+<section class="bg-gray-100 dark:bg-gray-800 border rounded p-6">
+  <h2 class="text-xl font-semibold mb-2">A simple promise</h2>
+  <p class="text-gray-700 dark:text-gray-300">
+    This platform will remain beginner-focused.
+    No hidden paywalls. No unnecessary complexity.
+  </p>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t bg-white dark:bg-gray-800 dark:border-gray-700 text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
+    <p class="text-gray-600 dark:text-gray-400">
+      © <span id="year"></span> SQL Practice
+    </p>
+    <div class="space-x-4 mt-2 md:mt-0">
+      <a href="/privacy.html" class="hover:underline">Privacy</a>
+      <a href="/terms.html" class="hover:underline">Terms</a>
+      <a href="/contact.html" class="hover:underline">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

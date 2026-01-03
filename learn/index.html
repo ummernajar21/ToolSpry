@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Learn SQL Basics | SQL Practice</title>
+
+  <meta name="description" content="Learn which SQL queries you can practice here. Beginner-friendly explanations with real-world examples." />
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+
+<!-- ================= NAVBAR ================= -->
+<header class="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <a href="/" class="text-xl font-semibold">SQL Practice</a>
+
+    <nav class="hidden md:flex space-x-6 text-sm">
+      <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
+      <a href="/practice.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Practice</a>
+      <a href="/learn/index.html" class="font-medium">Learn</a>
+      <a href="/about.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About</a>
+      <a href="/contact.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main class="flex-grow max-w-4xl mx-auto px-4 py-10">
+
+<h1 class="text-3xl font-semibold mb-4">
+  Learn SQL (Beginner Friendly)
+</h1>
+
+<p class="text-gray-600 dark:text-gray-400 mb-8">
+  This page explains what you can practice on this platform and how to use it effectively.
+  Everything here is designed for beginners — no advanced or confusing topics.
+</p>
+
+<!-- ================= WHAT THIS PLATFORM IS ================= -->
+<section class="mb-10">
+  <h2 class="text-xl font-semibold mb-3">What this platform is</h2>
+  <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+    <li>A safe place to practice real SQL queries</li>
+    <li>Uses realistic data from small business scenarios</li>
+    <li>Runs fully in your browser (no login, no backend)</li>
+    <li>Focuses on understanding errors, not hiding them</li>
+  </ul>
+</section>
+
+<!-- ================= WHAT YOU CAN PRACTICE ================= -->
+<section class="mb-10">
+  <h2 class="text-xl font-semibold mb-3">SQL queries you can practice</h2>
+
+  <div class="space-y-4">
+
+    <div>
+      <h3 class="font-medium">Basic SELECT queries</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        Read data from a table.
+      </p>
+      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
+SELECT * FROM customers;
+      </pre>
+    </div>
+
+    <div>
+      <h3 class="font-medium">Filtering with WHERE</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        Get only the rows you care about.
+      </p>
+      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
+SELECT * FROM customers
+WHERE country = 'United States';
+      </pre>
+    </div>
+
+    <div>
+      <h3 class="font-medium">Sorting results with ORDER BY</h3>
+      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
+SELECT full_name, signup_date
+FROM customers
+ORDER BY signup_date;
+      </pre>
+    </div>
+
+    <div>
+      <h3 class="font-medium">Limiting results with LIMIT</h3>
+      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
+SELECT * FROM customers
+LIMIT 10;
+      </pre>
+    </div>
+
+    <div>
+      <h3 class="font-medium">Aggregations (COUNT, SUM, AVG)</h3>
+      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
+SELECT country, COUNT(*)
+FROM customers
+GROUP BY country;
+      </pre>
+    </div>
+
+    <div>
+      <h3 class="font-medium">Joining tables (basic JOIN)</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        Combine data from related tables.
+      </p>
+      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
+SELECT c.full_name, SUM(o.order_amount)
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.full_name;
+      </pre>
+    </div>
+
+  </div>
+</section>
+
+<!-- AD SLOT -->
+<div class="my-8 max-w-5xl mx-auto px-4">
+  <div
+    id="ad-slot-home-1"
+    class="border border-dashed rounded-lg p-4 text-center
+           text-sm text-gray-500 dark:text-gray-400
+           bg-white dark:bg-gray-800">
+    Advertisement
+  </div>
+</div>
+
+<!-- ================= WHAT IS NOT SUPPORTED ================= -->
+<section class="mb-10">
+  <h2 class="text-xl font-semibold mb-3">What is intentionally not included</h2>
+
+  <p class="text-gray-600 dark:text-gray-400 mb-3">
+    To keep learning focused and beginner-friendly, this platform does not include:
+  </p>
+
+  <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+    <li>Stored procedures</li>
+    <li>Triggers</li>
+    <li>Indexes</li>
+    <li>Advanced subqueries</li>
+    <li>Database administration commands</li>
+  </ul>
+</section>
+
+<!-- ================= ERROR HELP ================= -->
+<section class="mb-10">
+  <h2 class="text-xl font-semibold mb-3">Understanding errors</h2>
+  <p class="text-gray-600 dark:text-gray-400 mb-3">
+    Errors are part of learning SQL. This platform explains common errors clearly:
+  </p>
+
+  <ul class="list-disc list-inside space-y-2">
+    <li>
+      <a href="/learn/sql-errors-beginners.html" class="underline">
+        SQL syntax errors explained
+      </a>
+    </li>
+    <li>
+      <a href="/learn/sql-empty-results.html" class="underline">
+        Why your query returns no rows
+      </a>
+    </li>
+  </ul>
+</section>
+
+<!-- ================= NEXT STEP ================= -->
+<section class="bg-gray-100 dark:bg-gray-800 border rounded p-6">
+  <h2 class="text-xl font-semibold mb-2">How to get started</h2>
+  <ol class="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300">
+    <li>Go to the Practice page</li>
+    <li>Select a dataset</li>
+    <li>Read the schema carefully</li>
+    <li>Run the starter query</li>
+    <li>Modify it and observe the results</li>
+  </ol>
+
+  <a href="/practice.html"
+     class="inline-block mt-4 px-4 py-2 rounded bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900">
+    Start Practicing →
+  </a>
+</section>
+
+</main>
+
+<!-- AD SLOT -->
+<div class="my-8 max-w-5xl mx-auto px-4">
+  <div
+    id="ad-slot-home-1"
+    class="border border-dashed rounded-lg p-4 text-center
+           text-sm text-gray-500 dark:text-gray-400
+           bg-white dark:bg-gray-800">
+    Advertisement
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="border-t bg-white dark:bg-gray-800 dark:border-gray-700 text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
+    <p class="text-gray-600 dark:text-gray-400">
+      © <span id="year"></span> SQL Practice
+    </p>
+    <div class="space-x-4 mt-2 md:mt-0">
+      <a href="/privacy.html" class="hover:underline">Privacy</a>
+      <a href="/terms.html" class="hover:underline">Terms</a>
+      <a href="/contact.html" class="hover:underline">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

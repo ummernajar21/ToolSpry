@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SQL Query Returns No Rows | SQL Practice</title>
+
+  <meta name="description" content="Understand why a SQL query returns no rows even when it is correct. Beginner-friendly explanation with examples." />
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+
+<!-- ================= NAVBAR ================= -->
+<header class="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <a href="/" class="text-xl font-semibold">SQL Practice</a>
+
+    <nav class="hidden md:flex space-x-6 text-sm">
+      <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
+      <a href="/practice.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Practice</a>
+      <a href="/learn/index.html" class="font-medium">Learn</a>
+      <a href="/about.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About</a>
+      <a href="/contact.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main class="flex-grow max-w-3xl mx-auto px-4 py-10">
+
+<h1 class="text-3xl font-semibold mb-4">
+  Why Your SQL Query Returns No Rows
+</h1>
+
+<p class="text-gray-600 dark:text-gray-400 mb-8">
+  Sometimes a SQL query runs without errors but shows no results.
+  This is confusing for beginners — but it is usually not a problem.
+</p>
+
+<!-- ================= KEY IDEA ================= -->
+<section class="mb-10">
+  <h2 class="text-xl font-semibold mb-2">Important idea</h2>
+  <p>
+    If a query runs successfully and returns no rows, it means:
+  </p>
+  <ul class="list-disc list-inside mt-3 space-y-2">
+    <li>The SQL syntax is correct</li>
+    <li>The tables and columns exist</li>
+    <li>No data matches your condition</li>
+  </ul>
+</section>
+
+<!-- AD SLOT -->
+<div class="my-8 max-w-5xl mx-auto px-4">
+  <div
+    id="ad-slot-home-1"
+    class="border border-dashed rounded-lg p-4 text-center
+           text-sm text-gray-500 dark:text-gray-400
+           bg-white dark:bg-gray-800">
+    Advertisement
+  </div>
+</div>
+
+<!-- ================= COMMON CAUSES ================= -->
+<section class="mb-10">
+  <h2 class="text-xl font-semibold mb-3">Common reasons this happens</h2>
+
+  <div class="space-y-6">
+
+    <div>
+      <h3 class="font-medium">1. The value does not exist in the data</h3>
+      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
+SELECT * FROM customers
+WHERE country = 'Mars';
+      </pre>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+        The query is correct, but there are no customers from that country.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="font-medium">2. A filter is too strict</h3>
+      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
+SELECT * FROM orders
+WHERE order_amount > 1000;
+      </pre>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+        If no order has an amount greater than 1000, the result will be empty.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="font-medium">3. JOIN condition removes rows</h3>
+      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
+SELECT c.full_name, o.order_amount
+FROM customers c
+JOIN orders o
+ON c.customer_id = o.customer_id
+WHERE o.order_amount > 500;
+      </pre>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+        The JOIN works, but no matching rows satisfy the filter.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= HOW TO DEBUG ================= -->
+<section class="mb-10">
+  <h2 class="text-xl font-semibold mb-3">How to debug empty results</h2>
+
+  <ol class="list-decimal list-inside space-y-2">
+    <li>Remove the WHERE clause and run the query</li>
+    <li>Check what values actually exist in the table</li>
+    <li>Add conditions back one by one</li>
+    <li>Use LIMIT to inspect sample rows</li>
+  </ol>
+</section>
+
+<!-- ================= REASSURANCE ================= -->
+<section class="bg-gray-100 dark:bg-gray-800 border rounded p-6">
+  <h2 class="text-xl font-semibold mb-2">This is normal</h2>
+  <p class="text-gray-700 dark:text-gray-300">
+    Empty results are part of everyday SQL work.
+    Even experienced developers see them often.
+  </p>
+
+  <a href="/practice.html"
+     class="inline-block mt-4 px-4 py-2 rounded bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900">
+    Go back to Practice →
+  </a>
+</section>
+
+</main>
+
+<!-- AD SLOT -->
+<div class="my-8 max-w-5xl mx-auto px-4">
+  <div
+    id="ad-slot-home-1"
+    class="border border-dashed rounded-lg p-4 text-center
+           text-sm text-gray-500 dark:text-gray-400
+           bg-white dark:bg-gray-800">
+    Advertisement
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="border-t bg-white dark:bg-gray-800 dark:border-gray-700 text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
+    <p class="text-gray-600 dark:text-gray-400">
+      © <span id="year"></span> SQL Practice
+    </p>
+    <div class="space-x-4 mt-2 md:mt-0">
+      <a href="/privacy.html" class="hover:underline">Privacy</a>
+      <a href="/terms.html" class="hover:underline">Terms</a>
+      <a href="/contact.html" class="hover:underline">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

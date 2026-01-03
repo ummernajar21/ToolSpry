@@ -1,0 +1,70 @@
+{
+  "table": "customers",
+  "schema": [
+    ["customer_id", "INTEGER"],
+    ["full_name", "TEXT"],
+    ["email", "TEXT"],
+    ["country", "TEXT"],
+    ["signup_date", "TEXT"]
+  ],
+  "rows": [
+    [1, "John Smith", "john.smith@example.com", "United States", "2023-01-12"],
+    [2, "Maria Garcia", "maria.garcia@example.com", "Spain", "2023-01-18"],
+    [3, "David Lee", "david.lee@example.com", "United States", "2023-01-25"],
+    [4, "Amina Khan", "amina.khan@example.com", "Canada", "2023-02-02"],
+    [5, "Lucas Miller", "lucas.miller@example.com", "Germany", "2023-02-10"],
+    [6, "Sophia Brown", "sophia.brown@example.com", "United Kingdom", "2023-02-18"],
+    [7, "Daniel Wilson", "daniel.wilson@example.com", "United States", "2023-02-25"],
+    [8, "Isabella Rossi", "isabella.rossi@example.com", "Italy", "2023-03-04"],
+    [9, "Mohammed Ali", "mohammed.ali@example.com", "United Arab Emirates", "2023-03-12"],
+    [10, "Emma Johnson", "emma.johnson@example.com", "United States", "2023-03-20"],
+
+    [11, "Noah Anderson", "noah.anderson@example.com", "United States", "2023-03-28"],
+    [12, "Olivia Martinez", "olivia.martinez@example.com", "Mexico", "2023-04-05"],
+    [13, "William Taylor", "william.taylor@example.com", "Australia", "2023-04-12"],
+    [14, "Fatima Noor", "fatima.noor@example.com", "Pakistan", "2023-04-20"],
+    [15, "Ethan Thomas", "ethan.thomas@example.com", "United States", "2023-04-28"],
+
+    [16, "Charlotte White", "charlotte.white@example.com", "United Kingdom", "2023-05-06"],
+    [17, "James Harris", "james.harris@example.com", "United States", "2023-05-14"],
+    [18, "Amelia Clark", "amelia.clark@example.com", "Canada", "2023-05-22"],
+    [19, "Liam Walker", "liam.walker@example.com", "Ireland", "2023-05-30"],
+    [20, "Zara Ahmed", "zara.ahmed@example.com", "United Arab Emirates", "2023-06-07"],
+
+    [21, "Benjamin Young", "benjamin.young@example.com", "United States", "2023-06-15"],
+    [22, "Mia Scott", "mia.scott@example.com", "United States", "2023-06-23"],
+    [23, "Henry King", "henry.king@example.com", "United Kingdom", "2023-07-01"],
+    [24, "Sofia Alvarez", "sofia.alvarez@example.com", "Spain", "2023-07-09"],
+    [25, "Jacob Green", "jacob.green@example.com", "United States", "2023-07-17"],
+
+    [26, "Emily Adams", "emily.adams@example.com", "United States", "2023-07-25"],
+    [27, "Daniel Perez", "daniel.perez@example.com", "Mexico", "2023-08-02"],
+    [28, "Hannah Baker", "hannah.baker@example.com", "Canada", "2023-08-10"],
+    [29, "Alexander Wright", "alexander.wright@example.com", "Australia", "2023-08-18"],
+    [30, "Ayesha Malik", "ayesha.malik@example.com", "Pakistan", "2023-08-26"],
+
+    [31, "Michael Collins", "michael.collins@example.com", "Ireland", "2023-09-03"],
+    [32, "Ella Thompson", "ella.thompson@example.com", "United States", "2023-09-11"],
+    [33, "Samuel Robinson", "samuel.robinson@example.com", "United States", "2023-09-19"],
+    [34, "Nora Jensen", "nora.jensen@example.com", "Denmark", "2023-09-27"],
+    [35, "Oscar Nilsson", "oscar.nilsson@example.com", "Sweden", "2023-10-05"],
+
+    [36, "Leo Martin", "leo.martin@example.com", "France", "2023-10-13"],
+    [37, "Chloe Dubois", "chloe.dubois@example.com", "France", "2023-10-21"],
+    [38, "Ryan Murphy", "ryan.murphy@example.com", "United States", "2023-10-29"],
+    [39, "Natalie Moore", "natalie.moore@example.com", "United States", "2023-11-06"],
+    [40, "Omar Hassan", "omar.hassan@example.com", "Egypt", "2023-11-14"],
+
+    [41, "Lily Carter", "lily.carter@example.com", "United States", "2023-11-22"],
+    [42, "Tom Bennett", "tom.bennett@example.com", "United Kingdom", "2023-11-30"],
+    [43, "Grace Hall", "grace.hall@example.com", "Canada", "2023-12-08"],
+    [44, "Victor Nguyen", "victor.nguyen@example.com", "Vietnam", "2023-12-16"],
+    [45, "Ananya Rao", "ananya.rao@example.com", "India", "2023-12-24"],
+
+    [46, "Joshua Lewis", "joshua.lewis@example.com", "United States", "2024-01-02"],
+    [47, "Madison Young", "madison.young@example.com", "United States", "2024-01-10"],
+    [48, "Chris Evans", "chris.evans@example.com", "United States", "2024-01-18"],
+    [49, "Priya Sharma", "priya.sharma@example.com", "India", "2024-01-26"],
+    [50, "Kevin Turner", "kevin.turner@example.com", "United States", "2024-02-03"]
+  ]
+}

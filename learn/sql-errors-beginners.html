@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SQL Errors Explained for Beginners | SQL Practice</title>
+
+  <meta name="description" content="Clear explanations of common SQL errors beginners face, with simple examples and fixes." />
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+
+<!-- ================= NAVBAR ================= -->
+<header class="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <a href="/" class="text-xl font-semibold">SQL Practice</a>
+
+    <nav class="hidden md:flex space-x-6 text-sm">
+      <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
+      <a href="/practice.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Practice</a>
+      <a href="/learn/index.html" class="font-medium">Learn</a>
+      <a href="/about.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About</a>
+      <a href="/contact.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main class="flex-grow max-w-3xl mx-auto px-4 py-10">
+
+<h1 class="text-3xl font-semibold mb-4">
+  Common SQL Errors (Explained Simply)
+</h1>
+
+<p class="text-gray-600 dark:text-gray-400 mb-8">
+  SQL errors are normal — especially when you are learning.
+  This page explains the most common errors beginners see and how to fix them calmly.
+</p>
+
+<!-- ================= SYNTAX ERROR ================= -->
+<section class="mb-10">
+  <h2 class="text-xl font-semibold mb-2">1. SQL Syntax Error</h2>
+
+  <p class="mb-3">
+    A syntax error means the database cannot understand the structure of your query.
+    This usually happens due to spelling mistakes or missing keywords.
+  </p>
+
+  <p class="font-medium mb-1">Example (incorrect):</p>
+  <pre class="p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm mb-3">
+SELEECT * FROM customers;
+  </pre>
+
+  <p class="font-medium mb-1">Correct version:</p>
+  <pre class="p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
+SELECT * FROM customers;
+  </pre>
+
+  <p class="text-sm text-gray-600 dark:text-gray-400 mt-3">
+    Tip: Read your query slowly from left to right. Most syntax errors are small typos.
+  </p>
+</section>
+
+<!-- ================= NO SUCH TABLE ================= -->
+<section class="mb-10">
+  <h2 class="text-xl font-semibold mb-2">2. Missing Table (No Such Table)</h2>
+
+  <p class="mb-3">
+    This error means the table name you used does not exist in the current dataset.
+  </p>
+
+  <p class="font-medium mb-1">Example:</p>
+  <pre class="p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm mb-3">
+SELECT * FROM customer;
+  </pre>
+
+  <p>
+    The correct table name is <code>customers</code>, not <code>customer</code>.
+  </p>
+
+  <p class="text-sm text-gray-600 dark:text-gray-400 mt-3">
+    Always check the <strong>Schema</strong> panel before writing your query.
+  </p>
+</section>
+
+<!-- AD SLOT -->
+<div class="my-8 max-w-5xl mx-auto px-4">
+  <div
+    id="ad-slot-home-1"
+    class="border border-dashed rounded-lg p-4 text-center
+           text-sm text-gray-500 dark:text-gray-400
+           bg-white dark:bg-gray-800">
+    Advertisement
+  </div>
+</div>
+
+<!-- ================= NO SUCH COLUMN ================= -->
+<section class="mb-10">
+  <h2 class="text-xl font-semibold mb-2">3. Missing Column (No Such Column)</h2>
+
+  <p class="mb-3">
+    This error occurs when a column name is misspelled or does not exist in the table.
+  </p>
+
+  <p class="font-medium mb-1">Example:</p>
+  <pre class="p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm mb-3">
+SELECT fullname FROM customers;
+  </pre>
+
+  <p>
+    The correct column name is <code>full_name</code>.
+  </p>
+
+  <p class="text-sm text-gray-600 dark:text-gray-400 mt-3">
+    SQL column names must match exactly — including underscores.
+  </p>
+</section>
+
+<!-- ================= EMPTY RESULTS ================= -->
+<section class="mb-10">
+  <h2 class="text-xl font-semibold mb-2">4. Query Runs but Returns No Rows</h2>
+
+  <p class="mb-3">
+    Sometimes your query is correct, but no data matches your condition.
+    This is not an error.
+  </p>
+
+  <pre class="p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm mb-3">
+SELECT * FROM customers
+WHERE country = 'Mars';
+  </pre>
+
+  <p class="text-sm text-gray-600 dark:text-gray-400">
+    The query works, but there are no customers from that country.
+  </p>
+
+  <p class="mt-2">
+    <a href="/learn/sql-empty-results.html" class="underline">
+      Learn more about empty results →
+    </a>
+  </p>
+</section>
+
+<!-- ================= CALM REASSURANCE ================= -->
+<section class="bg-gray-100 dark:bg-gray-800 border rounded p-6">
+  <h2 class="text-xl font-semibold mb-2">A final note</h2>
+  <p class="text-gray-700 dark:text-gray-300">
+    Every SQL developer — even experienced ones — still sees these errors.
+    The goal is not to avoid errors, but to understand them.
+  </p>
+
+  <a href="/practice.html"
+     class="inline-block mt-4 px-4 py-2 rounded bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900">
+    Go back to Practice →
+  </a>
+</section>
+
+</main>
+
+<!-- AD SLOT -->
+<div class="my-8 max-w-5xl mx-auto px-4">
+  <div
+    id="ad-slot-home-1"
+    class="border border-dashed rounded-lg p-4 text-center
+           text-sm text-gray-500 dark:text-gray-400
+           bg-white dark:bg-gray-800">
+    Advertisement
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="border-t bg-white dark:bg-gray-800 dark:border-gray-700 text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
+    <p class="text-gray-600 dark:text-gray-400">
+      © <span id="year"></span> SQL Practice
+    </p>
+    <div class="space-x-4 mt-2 md:mt-0">
+      <a href="/privacy.html" class="hover:underline">Privacy</a>
+      <a href="/terms.html" class="hover:underline">Terms</a>
+      <a href="/contact.html" class="hover:underline">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

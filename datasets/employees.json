@@ -1,0 +1,48 @@
+{
+  "table": "employees",
+  "schema": [
+    ["employee_id", "INTEGER"],
+    ["full_name", "TEXT"],
+    ["department", "TEXT"],
+    ["job_title", "TEXT"],
+    ["salary", "INTEGER"],
+    ["hire_date", "TEXT"]
+  ],
+  "rows": [
+    [1, "Emma Brown", "Engineering", "Software Engineer", 75000, "2020-03-12"],
+    [2, "Liam Wilson", "Human Resources", "HR Manager", 62000, "2019-06-25"],
+    [3, "Sophia Martinez", "Engineering", "Senior Software Engineer", 88000, "2021-01-18"],
+    [4, "Noah Anderson", "Sales", "Sales Executive", 58000, "2018-11-05"],
+    [5, "Olivia Taylor", "Marketing", "Marketing Specialist", 54000, "2020-09-14"],
+
+    [6, "William Thomas", "Engineering", "Backend Developer", 79000, "2019-02-21"],
+    [7, "Ava Moore", "Finance", "Accountant", 65000, "2018-07-30"],
+    [8, "James Harris", "Sales", "Sales Manager", 72000, "2017-10-11"],
+    [9, "Isabella Clark", "Marketing", "Content Strategist", 56000, "2021-04-03"],
+    [10, "Benjamin Lewis", "Engineering", "DevOps Engineer", 83000, "2020-12-08"],
+
+    [11, "Mia Walker", "Customer Support", "Support Lead", 52000, "2019-05-17"],
+    [12, "Lucas Hall", "Engineering", "Frontend Developer", 76000, "2021-06-22"],
+    [13, "Charlotte Young", "Human Resources", "Recruiter", 58000, "2020-08-19"],
+    [14, "Henry King", "Finance", "Financial Analyst", 70000, "2019-01-10"],
+    [15, "Amelia Wright", "Sales", "Account Executive", 61000, "2021-09-01"],
+
+    [16, "Daniel Lopez", "Engineering", "Data Engineer", 82000, "2018-04-16"],
+    [17, "Ella Scott", "Marketing", "SEO Specialist", 59000, "2020-02-27"],
+    [18, "Michael Green", "Customer Support", "Support Agent", 48000, "2021-11-09"],
+    [19, "Harper Adams", "Engineering", "QA Engineer", 68000, "2019-12-03"],
+    [20, "Alexander Baker", "Finance", "Finance Manager", 85000, "2017-08-14"],
+
+    [21, "Evelyn Nelson", "Engineering", "Software Engineer", 74000, "2022-01-05"],
+    [22, "Matthew Carter", "Sales", "Sales Executive", 56000, "2020-10-28"],
+    [23, "Abigail Mitchell", "Human Resources", "HR Coordinator", 51000, "2021-03-15"],
+    [24, "Joseph Perez", "Marketing", "Brand Manager", 69000, "2018-06-07"],
+    [25, "Emily Roberts", "Engineering", "Mobile Developer", 77000, "2022-04-18"],
+
+    [26, "David Turner", "Customer Support", "Support Agent", 47000, "2019-09-09"],
+    [27, "Sofia Phillips", "Finance", "Accounts Payable Specialist", 60000, "2020-05-26"],
+    [28, "Andrew Campbell", "Engineering", "System Administrator", 71000, "2018-02-12"],
+    [29, "Victoria Parker", "Marketing", "Digital Marketing Manager", 73000, "2017-11-21"],
+    [30, "Ryan Evans", "Sales", "Regional Sales Lead", 78000, "2016-07-04"]
+  ]
+}
