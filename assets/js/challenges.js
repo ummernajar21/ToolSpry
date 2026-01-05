@@ -689,28 +689,42 @@ function updateProgressDisplay() {
 
 // Render challenge cards on listing page
 function renderChallenges() {
+  console.log('📝 renderChallenges() called');
+
   const beginnerContainer = document.getElementById('beginner-challenges');
   const intermediateContainer = document.getElementById('intermediate-challenges');
 
-  if (!beginnerContainer || !intermediateContainer) {
-    console.error('❌ Challenge containers not found in DOM');
+  if (!beginnerContainer) {
+    console.error('❌ beginner-challenges container not found!');
     return;
   }
 
+  if (!intermediateContainer) {
+    console.error('❌ intermediate-challenges container not found!');
+    return;
+  }
+
+  console.log('✅ Found both containers');
+
   beginnerContainer.innerHTML = '';
   intermediateContainer.innerHTML = '';
+
+  let beginnerCount = 0;
+  let intermediateCount = 0;
 
   challenges.forEach(challenge => {
     const card = createChallengeCard(challenge);
 
     if (challenge.level === 'Beginner') {
       beginnerContainer.appendChild(card);
+      beginnerCount++;
     } else {
       intermediateContainer.appendChild(card);
+      intermediateCount++;
     }
   });
 
-  console.log(`✅ Rendered ${challenges.length} challenges`);
+  console.log(`✅ Rendered ${beginnerCount} beginner + ${intermediateCount} intermediate challenges`);
 }
 
 // Create individual challenge card
@@ -795,7 +809,9 @@ function loadChallenge(challengeId) {
   loadHints(challenge);
 
   // Load the dataset for this challenge
-  loadDataset(challenge.dataset);
+  if (typeof loadDataset === 'function') {
+    loadDataset(challenge.dataset);
+  }
 
   // Clear editor
   document.getElementById('challenge-editor').value = '';
@@ -840,19 +856,6 @@ function toggleHint(index) {
 // CHALLENGE SUBMISSION & VALIDATION
 // ========================================
 
-// Wait for SQL.js initialization (from dataset-loader.js)
-async function waitForSQLInit() {
-  let attempts = 0;
-  while (!isInitialized && attempts < 100) {
-    await new Promise(resolve => setTimeout(resolve, 100));
-    attempts++;
-  }
-
-  if (!isInitialized) {
-    throw new Error('SQL engine failed to initialize. Please refresh the page.');
-  }
-}
-
 // Submit and validate challenge
 async function submitChallenge() {
   const query = document.getElementById('challenge-editor').value.trim();
@@ -868,13 +871,17 @@ async function submitChallenge() {
   showResultsState('loading');
 
   try {
-    // Make sure SQL.js is ready
-    await waitForSQLInit();
+    // Check if SQL functions are available
+    if (typeof executeSQL !== 'function') {
+      throw new Error('SQL engine not ready. Please refresh the page.');
+    }
 
-    // Load the dataset (from dataset-loader.js)
-    loadDataset(challenge.dataset);
+    // Load the dataset
+    if (typeof loadDataset === 'function') {
+      loadDataset(challenge.dataset);
+    }
 
-    // Execute user's query (from dataset-loader.js)
+    // Execute user's query
     const results = executeSQL(query);
 
     // Validate result
@@ -1078,7 +1085,7 @@ function resetProgress() {
   // Reset in-memory progress
   userProgress = {};
 
-  // Navigate back to listing view FIRST (ensures containers exist)
+  // Navigate back to listing view FIRST
   showListing();
 
   // Small delay to ensure DOM is ready
@@ -1094,42 +1101,41 @@ function resetProgress() {
 }
 
 // ========================================
-// INITIALIZATION (FIXED - Render immediately, SQL.js loads in background)
+// INITIALIZATION - SIMPLE & BULLETPROOF
 // ========================================
 
-document.addEventListener('DOMContentLoaded', async function() {
-  console.log('🚀 Challenges page loading...');
+// Wait for DOM to be ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeChallenges);
+} else {
+  // DOM already loaded
+  initializeChallenges();
+}
 
-  try {
-    // Load user progress
-    loadProgress();
+function initializeChallenges() {
+  console.log('🚀 Initializing challenges page...');
+  console.log('📍 document.readyState:', document.readyState);
 
-    // ✅ RENDER IMMEDIATELY (don't wait for SQL.js)
-    renderChallenges();
-    updateProgressDisplay();
+  // Load progress
+  loadProgress();
+  console.log('✅ Progress loaded:', Object.keys(userProgress).length, 'completed');
 
-    console.log('✅ Challenges rendered!');
+  // Update progress display
+  updateProgressDisplay();
+  console.log('✅ Progress display updated');
 
-    // Check URL for challenge ID
-    const hash = window.location.hash;
-    if (hash.startsWith('#challenge-')) {
-      const id = parseInt(hash.replace('#challenge-', ''));
-      if (id >= 1 && id <= challenges.length) {
-        loadChallenge(id);
-      }
-    }
+  // Render challenges
+  renderChallenges();
 
-    // Wait for SQL.js in background (doesn't block UI)
-    console.log('⏳ Waiting for SQL.js in background...');
-    await waitForSQLInit();
-    console.log('✅ SQL.js ready for queries!');
-
-  } catch (e) {
-    console.error('❌ Initialization error:', e);
-    // Still render challenges even if SQL.js fails
-    if (document.getElementById('beginner-challenges').children.length === 0) {
-      renderChallenges();
-      updateProgressDisplay();
+  // Check URL for challenge ID
+  const hash = window.location.hash;
+  if (hash.startsWith('#challenge-')) {
+    const id = parseInt(hash.replace('#challenge-', ''));
+    if (id >= 1 && id <= challenges.length) {
+      console.log('🔗 Loading challenge from URL:', id);
+      loadChallenge(id);
     }
   }
-});
+
+  console.log('✅ Challenges page ready!');
+}
