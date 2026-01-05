@@ -675,16 +675,24 @@ function updateProgressDisplay() {
   const total = challenges.length;
   const percent = Math.round((completed / total) * 100);
 
-  document.getElementById('completed-count').textContent = completed;
-  document.getElementById('progress-percent').textContent = percent + '%';
-  document.getElementById('progress-text').textContent = `${completed} of ${total} completed`;
-  document.getElementById('progress-bar').style.width = percent + '%';
+  const els = {
+    completedCount: document.getElementById('completed-count'),
+    progressPercent: document.getElementById('progress-percent'),
+    progressText: document.getElementById('progress-text'),
+    progressBar: document.getElementById('progress-bar'),
+    currentLevel: document.getElementById('current-level')
+  };
+
+  if (els.completedCount) els.completedCount.textContent = completed;
+  if (els.progressPercent) els.progressPercent.textContent = percent + '%';
+  if (els.progressText) els.progressText.textContent = `${completed} of ${total} completed`;
+  if (els.progressBar) els.progressBar.style.width = percent + '%';
 
   // Update level
   let level = 'Beginner';
   if (completed >= 20) level = 'Intermediate';
   if (completed >= 35) level = 'Completed!';
-  document.getElementById('current-level').textContent = level;
+  if (els.currentLevel) els.currentLevel.textContent = level;
 }
 
 // Render challenge cards on listing page
@@ -695,16 +703,16 @@ function renderChallenges() {
   const intermediateContainer = document.getElementById('intermediate-challenges');
 
   if (!beginnerContainer) {
-    console.error('❌ beginner-challenges container not found!');
-    return;
+    console.error('❌ beginner-challenges container NOT FOUND');
+    return false;
   }
 
   if (!intermediateContainer) {
-    console.error('❌ intermediate-challenges container not found!');
-    return;
+    console.error('❌ intermediate-challenges container NOT FOUND');
+    return false;
   }
 
-  console.log('✅ Found both containers');
+  console.log('✅ Found both containers, rendering...');
 
   beginnerContainer.innerHTML = '';
   intermediateContainer.innerHTML = '';
@@ -724,7 +732,8 @@ function renderChallenges() {
     }
   });
 
-  console.log(`✅ Rendered ${beginnerCount} beginner + ${intermediateCount} intermediate challenges`);
+  console.log(`✅ Rendered ${beginnerCount} beginner + ${intermediateCount} intermediate = ${challenges.length} total`);
+  return true;
 }
 
 // Create individual challenge card
@@ -1101,31 +1110,22 @@ function resetProgress() {
 }
 
 // ========================================
-// INITIALIZATION - SIMPLE & BULLETPROOF
+// INITIALIZATION - RETRY UNTIL CONTAINERS EXIST
 // ========================================
 
-// Wait for DOM to be ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeChallenges);
-} else {
-  // DOM already loaded
-  initializeChallenges();
-}
-
 function initializeChallenges() {
-  console.log('🚀 Initializing challenges page...');
-  console.log('📍 document.readyState:', document.readyState);
+  console.log('🚀 initializeChallenges() starting...');
 
-  // Load progress
+  // Load progress first
   loadProgress();
   console.log('✅ Progress loaded:', Object.keys(userProgress).length, 'completed');
 
-  // Update progress display
-  updateProgressDisplay();
-  console.log('✅ Progress display updated');
+  // Try to render - if containers don't exist, retry
+  const success = tryRenderWithRetry();
 
-  // Render challenges
-  renderChallenges();
+  if (!success) {
+    console.warn('⚠️ Containers not ready, will retry...');
+  }
 
   // Check URL for challenge ID
   const hash = window.location.hash;
@@ -1133,9 +1133,40 @@ function initializeChallenges() {
     const id = parseInt(hash.replace('#challenge-', ''));
     if (id >= 1 && id <= challenges.length) {
       console.log('🔗 Loading challenge from URL:', id);
-      loadChallenge(id);
+      // Wait a bit before loading challenge to ensure DOM is ready
+      setTimeout(() => loadChallenge(id), 100);
     }
   }
+}
 
-  console.log('✅ Challenges page ready!');
+function tryRenderWithRetry(attempt = 0) {
+  const maxAttempts = 50; // 5 seconds max
+
+  if (attempt >= maxAttempts) {
+    console.error('❌ FATAL: Containers never appeared after', maxAttempts, 'attempts');
+    return false;
+  }
+
+  const beginnerContainer = document.getElementById('beginner-challenges');
+  const intermediateContainer = document.getElementById('intermediate-challenges');
+
+  if (!beginnerContainer || !intermediateContainer) {
+    // Containers don't exist yet, retry in 100ms
+    setTimeout(() => tryRenderWithRetry(attempt + 1), 100);
+    return false;
+  }
+
+  // Containers exist! Render now
+  console.log(`✅ Containers found on attempt ${attempt + 1}`);
+  updateProgressDisplay();
+  renderChallenges();
+  console.log('✅ Challenges page fully initialized!');
+  return true;
+}
+
+// Start initialization when script loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeChallenges);
+} else {
+  initializeChallenges();
 }
