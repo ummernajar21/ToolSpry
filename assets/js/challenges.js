@@ -17,7 +17,7 @@ const challenges = [
     problem: "Display all columns from the employees table. This is your first query!",
     expectedOutput: {
       columns: ["employee_id", "first_name", "last_name", "email", "department", "job_title", "salary", "hire_date", "manager_id", "office_location"],
-      rowCount: 50
+      rowCount: 15
     },
     solution: "SELECT * FROM employees;",
     hints: [
@@ -104,8 +104,8 @@ const challenges = [
     dataset: "customers",
     problem: "Display all columns from the customers table.",
     expectedOutput: {
-      columns: ["customer_id", "first_name", "last_name", "email", "phone", "country", "city", "signup_date", "is_active", "total_spent"],
-      rowCount: 100
+      columns: ["customer_id", "first_name", "last_name", "email", "phone", "address", "city", "state", "country", "postal_code", "registration_date"],
+      rowCount: 10
     },
     solution: "SELECT * FROM customers;",
     hints: [
@@ -117,36 +117,35 @@ const challenges = [
 
   {
     id: 7,
-    title: "Active Customers Only",
+    title: "USA Customers",
     level: "Beginner",
     dataset: "customers",
-    problem: "Find all active customers (is_active = 1). Show first name, last name, and country.",
+    problem: "Find all customers from USA. Show first name, last name, and city.",
     expectedOutput: {
-      columns: ["first_name", "last_name", "country"]
+      columns: ["first_name", "last_name", "city"]
     },
-    solution: "SELECT first_name, last_name, country FROM customers WHERE is_active = 1;",
+    solution: "SELECT first_name, last_name, city FROM customers WHERE country = 'USA';",
     hints: [
       "Use WHERE to filter",
-      "is_active = 1 means active",
-      "Select the three specified columns"
+      "country = 'USA'",
+      "Text values need quotes"
     ]
   },
 
   {
     id: 8,
-    title: "Top 10 Spenders",
+    title: "Customers by State",
     level: "Beginner",
     dataset: "customers",
-    problem: "Find the 10 customers who spent the most money. Show first name, last name, and total_spent, sorted by spending.",
+    problem: "Find how many customers are in each state. Show state and count, sorted by count.",
     expectedOutput: {
-      columns: ["first_name", "last_name", "total_spent"],
-      rowCount: 10
+      columns: ["state", "COUNT(*)"]
     },
-    solution: "SELECT first_name, last_name, total_spent FROM customers ORDER BY total_spent DESC LIMIT 10;",
+    solution: "SELECT state, COUNT(*) FROM customers GROUP BY state ORDER BY COUNT(*) DESC;",
     hints: [
-      "Sort by total_spent descending",
-      "Use LIMIT 10",
-      "DESC means highest first"
+      "GROUP BY state",
+      "COUNT(*) to count",
+      "ORDER BY COUNT(*) DESC to sort"
     ]
   },
 
@@ -169,18 +168,19 @@ const challenges = [
 
   {
     id: 10,
-    title: "Average Spending by Country",
+    title: "Recent Registrations",
     level: "Intermediate",
     dataset: "customers",
-    problem: "Calculate the average total_spent for customers in each country. Show country and average.",
+    problem: "Find the 5 most recently registered customers. Show first name, last name, and registration_date.",
     expectedOutput: {
-      columns: ["country", "AVG(total_spent)"]
+      columns: ["first_name", "last_name", "registration_date"],
+      rowCount: 5
     },
-    solution: "SELECT country, AVG(total_spent) FROM customers GROUP BY country;",
+    solution: "SELECT first_name, last_name, registration_date FROM customers ORDER BY registration_date DESC LIMIT 5;",
     hints: [
-      "Use AVG(total_spent)",
-      "GROUP BY country",
-      "Shows spending patterns by location"
+      "ORDER BY registration_date DESC",
+      "DESC means newest first",
+      "LIMIT 5"
     ]
   },
 
@@ -192,8 +192,8 @@ const challenges = [
     dataset: "orders",
     problem: "Display all columns from the orders table.",
     expectedOutput: {
-      columns: ["order_id", "customer_id", "order_date", "total_amount", "status", "shipping_country", "shipping_city", "payment_method"],
-      rowCount: 200
+      columns: ["order_id", "customer_id", "order_date", "total_amount", "status", "payment_method", "shipping_address", "delivery_date"],
+      rowCount: 10
     },
     solution: "SELECT * FROM orders;",
     hints: [
@@ -208,13 +208,13 @@ const challenges = [
     title: "Delivered Orders Only",
     level: "Beginner",
     dataset: "orders",
-    problem: "Find all orders with status 'delivered'. Show order_id, total_amount, and shipping_country.",
+    problem: "Find all orders with status 'Delivered'. Show order_id, total_amount, and delivery_date.",
     expectedOutput: {
-      columns: ["order_id", "total_amount", "shipping_country"]
+      columns: ["order_id", "total_amount", "delivery_date"]
     },
-    solution: "SELECT order_id, total_amount, shipping_country FROM orders WHERE status = 'delivered';",
+    solution: "SELECT order_id, total_amount, delivery_date FROM orders WHERE status = 'Delivered';",
     hints: [
-      "Filter WHERE status = 'delivered'",
+      "Filter WHERE status = 'Delivered'",
       "Text values need quotes",
       "Select the three columns"
     ]
@@ -257,18 +257,18 @@ const challenges = [
 
   {
     id: 15,
-    title: "Revenue by Country",
+    title: "Total Revenue",
     level: "Intermediate",
     dataset: "orders",
-    problem: "Calculate total revenue (sum of total_amount) for each shipping_country. Show country and total revenue.",
+    problem: "Calculate total revenue (sum of total_amount) from all orders. Show the sum.",
     expectedOutput: {
-      columns: ["shipping_country", "SUM(total_amount)"]
+      columns: ["SUM(total_amount)"]
     },
-    solution: "SELECT shipping_country, SUM(total_amount) FROM orders GROUP BY shipping_country;",
+    solution: "SELECT SUM(total_amount) FROM orders;",
     hints: [
       "Use SUM(total_amount)",
-      "GROUP BY shipping_country",
-      "Shows which countries generate most revenue"
+      "No GROUP BY needed",
+      "Single value result"
     ]
   },
 
@@ -280,8 +280,8 @@ const challenges = [
     dataset: "products",
     problem: "Display all columns from the products table.",
     expectedOutput: {
-      columns: ["product_id", "product_name", "category", "price", "stock_qty", "supplier", "rating", "launch_date"],
-      rowCount: 150
+      columns: ["product_id", "product_name", "category", "price", "stock_quantity", "supplier", "sku", "weight_kg", "release_date"],
+      rowCount: 10
     },
     solution: "SELECT * FROM products;",
     hints: [
@@ -310,19 +310,19 @@ const challenges = [
 
   {
     id: 18,
-    title: "Top Rated Products",
+    title: "Most Expensive Products",
     level: "Beginner",
     dataset: "products",
-    problem: "Find the 10 highest-rated products. Show product_name, category, and rating, sorted by rating.",
+    problem: "Find the 5 most expensive products. Show product_name, category, and price, sorted by price.",
     expectedOutput: {
-      columns: ["product_name", "category", "rating"],
-      rowCount: 10
+      columns: ["product_name", "category", "price"],
+      rowCount: 5
     },
-    solution: "SELECT product_name, category, rating FROM products ORDER BY rating DESC LIMIT 10;",
+    solution: "SELECT product_name, category, price FROM products ORDER BY price DESC LIMIT 5;",
     hints: [
-      "ORDER BY rating DESC",
-      "LIMIT 10",
-      "Best products first"
+      "ORDER BY price DESC",
+      "LIMIT 5",
+      "Most expensive first"
     ]
   },
 
@@ -368,8 +368,8 @@ const challenges = [
     dataset: "sales",
     problem: "Display all columns from the sales table.",
     expectedOutput: {
-      columns: ["sale_id", "product_id", "region", "sale_date", "quantity", "revenue", "salesperson"],
-      rowCount: 300
+      columns: ["sale_id", "product_id", "quantity", "sale_date", "sale_amount", "region", "salesperson"],
+      rowCount: 10
     },
     solution: "SELECT * FROM sales;",
     hints: [
@@ -381,16 +381,16 @@ const challenges = [
 
   {
     id: 22,
-    title: "High Revenue Sales",
+    title: "High Value Sales",
     level: "Beginner",
     dataset: "sales",
-    problem: "Find sales with revenue greater than $500. Show region, quantity, and revenue.",
+    problem: "Find sales with sale_amount greater than $500. Show region, quantity, and sale_amount.",
     expectedOutput: {
-      columns: ["region", "quantity", "revenue"]
+      columns: ["region", "quantity", "sale_amount"]
     },
-    solution: "SELECT region, quantity, revenue FROM sales WHERE revenue > 500;",
+    solution: "SELECT region, quantity, sale_amount FROM sales WHERE sale_amount > 500;",
     hints: [
-      "WHERE revenue > 500",
+      "WHERE sale_amount > 500",
       "Filter high-value sales",
       "Select three columns"
     ]
@@ -401,14 +401,14 @@ const challenges = [
     title: "Top 10 Sales",
     level: "Beginner",
     dataset: "sales",
-    problem: "Find the 10 sales with the highest revenue. Show region, revenue, and salesperson, sorted by revenue.",
+    problem: "Find the 10 sales with the highest sale_amount. Show region, sale_amount, and salesperson, sorted by amount.",
     expectedOutput: {
-      columns: ["region", "revenue", "salesperson"],
+      columns: ["region", "sale_amount", "salesperson"],
       rowCount: 10
     },
-    solution: "SELECT region, revenue, salesperson FROM sales ORDER BY revenue DESC LIMIT 10;",
+    solution: "SELECT region, sale_amount, salesperson FROM sales ORDER BY sale_amount DESC LIMIT 10;",
     hints: [
-      "ORDER BY revenue DESC",
+      "ORDER BY sale_amount DESC",
       "LIMIT 10",
       "Biggest sales first"
     ]
@@ -436,13 +436,13 @@ const challenges = [
     title: "Total Revenue by Region",
     level: "Intermediate",
     dataset: "sales",
-    problem: "Calculate total revenue for each region. Show region and total revenue.",
+    problem: "Calculate total revenue (sum of sale_amount) for each region. Show region and total revenue.",
     expectedOutput: {
-      columns: ["region", "SUM(revenue)"]
+      columns: ["region", "SUM(sale_amount)"]
     },
-    solution: "SELECT region, SUM(revenue) FROM sales GROUP BY region;",
+    solution: "SELECT region, SUM(sale_amount) FROM sales GROUP BY region;",
     hints: [
-      "SUM(revenue)",
+      "SUM(sale_amount)",
       "GROUP BY region",
       "Which region makes most money?"
     ]
@@ -456,7 +456,7 @@ const challenges = [
     dataset: "departments",
     problem: "Display all columns from the departments table.",
     expectedOutput: {
-      columns: ["dept_id", "dept_name", "budget", "employee_count", "manager_name", "location"],
+      columns: ["department_id", "department_name", "manager_name", "budget", "location", "employee_count"],
       rowCount: 12
     },
     solution: "SELECT * FROM departments;",
@@ -472,13 +472,13 @@ const challenges = [
     title: "Large Departments",
     level: "Beginner",
     dataset: "departments",
-    problem: "Find departments with more than 30 employees. Show dept_name, employee_count, and budget.",
+    problem: "Find departments with more than 20 employees. Show department_name, employee_count, and budget.",
     expectedOutput: {
-      columns: ["dept_name", "employee_count", "budget"]
+      columns: ["department_name", "employee_count", "budget"]
     },
-    solution: "SELECT dept_name, employee_count, budget FROM departments WHERE employee_count > 30;",
+    solution: "SELECT department_name, employee_count, budget FROM departments WHERE employee_count > 20;",
     hints: [
-      "WHERE employee_count > 30",
+      "WHERE employee_count > 20",
       "Filter by employee count",
       "Show department details"
     ]
@@ -489,12 +489,12 @@ const challenges = [
     title: "Highest Budget Departments",
     level: "Beginner",
     dataset: "departments",
-    problem: "Find the 5 departments with the highest budgets. Show dept_name and budget, sorted by budget.",
+    problem: "Find the 5 departments with the highest budgets. Show department_name and budget, sorted by budget.",
     expectedOutput: {
-      columns: ["dept_name", "budget"],
+      columns: ["department_name", "budget"],
       rowCount: 5
     },
-    solution: "SELECT dept_name, budget FROM departments ORDER BY budget DESC LIMIT 5;",
+    solution: "SELECT department_name, budget FROM departments ORDER BY budget DESC LIMIT 5;",
     hints: [
       "ORDER BY budget DESC",
       "LIMIT 5",
@@ -544,8 +544,8 @@ const challenges = [
     dataset: "transactions",
     problem: "Display all columns from the transactions table.",
     expectedOutput: {
-      columns: ["transaction_id", "account_id", "transaction_date", "amount", "type", "category", "description"],
-      rowCount: 500
+      columns: ["transaction_id", "customer_id", "transaction_date", "amount", "transaction_type", "status", "payment_method"],
+      rowCount: 10
     },
     solution: "SELECT * FROM transactions;",
     hints: [
@@ -560,11 +560,11 @@ const challenges = [
     title: "Large Transactions",
     level: "Beginner",
     dataset: "transactions",
-    problem: "Find transactions with amount greater than $1000. Show transaction_id, amount, and category.",
+    problem: "Find transactions with amount greater than $1000. Show transaction_id, amount, and transaction_type.",
     expectedOutput: {
-      columns: ["transaction_id", "amount", "category"]
+      columns: ["transaction_id", "amount", "transaction_type"]
     },
-    solution: "SELECT transaction_id, amount, category FROM transactions WHERE amount > 1000;",
+    solution: "SELECT transaction_id, amount, transaction_type FROM transactions WHERE amount > 1000;",
     hints: [
       "WHERE amount > 1000",
       "Big transactions only",
@@ -574,51 +574,51 @@ const challenges = [
 
   {
     id: 33,
-    title: "Credit Transactions",
+    title: "Completed Transactions",
     level: "Beginner",
     dataset: "transactions",
-    problem: "Find all transactions where type is 'credit'. Show transaction_id, amount, and type.",
+    problem: "Find all transactions where status is 'Completed'. Show transaction_id, amount, and status.",
     expectedOutput: {
-      columns: ["transaction_id", "amount", "type"]
+      columns: ["transaction_id", "amount", "status"]
     },
-    solution: "SELECT transaction_id, amount, type FROM transactions WHERE type = 'credit';",
+    solution: "SELECT transaction_id, amount, status FROM transactions WHERE status = 'Completed';",
     hints: [
-      "WHERE type = 'credit'",
+      "WHERE status = 'Completed'",
       "Text needs quotes",
-      "Filter by transaction type"
+      "Filter by transaction status"
     ]
   },
 
   {
     id: 34,
-    title: "Transactions by Category",
+    title: "Transactions by Type",
     level: "Intermediate",
     dataset: "transactions",
-    problem: "Count how many transactions are in each category. Show category and count.",
+    problem: "Count how many transactions are of each type. Show transaction_type and count.",
     expectedOutput: {
-      columns: ["category", "COUNT(*)"]
+      columns: ["transaction_type", "COUNT(*)"]
     },
-    solution: "SELECT category, COUNT(*) FROM transactions GROUP BY category;",
+    solution: "SELECT transaction_type, COUNT(*) FROM transactions GROUP BY transaction_type;",
     hints: [
-      "GROUP BY category",
+      "GROUP BY transaction_type",
       "COUNT(*) transactions",
-      "Category distribution"
+      "Type distribution"
     ]
   },
 
   {
     id: 35,
-    title: "Total Amount by Category",
+    title: "Total Amount by Type",
     level: "Intermediate",
     dataset: "transactions",
-    problem: "Calculate the total amount for each category. Show category and total amount.",
+    problem: "Calculate the total amount for each transaction type. Show transaction_type and total amount.",
     expectedOutput: {
-      columns: ["category", "SUM(amount)"]
+      columns: ["transaction_type", "SUM(amount)"]
     },
-    solution: "SELECT category, SUM(amount) FROM transactions GROUP BY category;",
+    solution: "SELECT transaction_type, SUM(amount) FROM transactions GROUP BY transaction_type;",
     hints: [
       "SUM(amount)",
-      "GROUP BY category",
+      "GROUP BY transaction_type",
       "Final challenge - you got this!"
     ]
   }
@@ -682,7 +682,7 @@ function updateProgressDisplay() {
 
   // Update level
   let level = 'Beginner';
-  if (completed >= 21) level = 'Intermediate';
+  if (completed >= 20) level = 'Intermediate';
   if (completed >= 35) level = 'Completed!';
   document.getElementById('current-level').textContent = level;
 }

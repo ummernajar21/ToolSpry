@@ -4,39 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMDYXFQTJ1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-
-  gtag('config', 'G-KMDYXFQTJ1');
-</script>
-
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMDYXFQTJ1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KMDYXFQTJ1');
+    </script>
 
     <title>Practice SQL | ToolSpry</title>
     <meta name="description" content="Practice SQL queries with real datasets. Instant feedback, beginner-friendly errors, runs entirely in your browser.">
     <meta name="keywords" content="SQL practice, SQL playground, learn SQL">
 
-
     <meta property="og:title" content="Practice SQL | ToolSpry">
     <meta property="og:description" content="Practice SQL with real datasets. Free, no installation.">
     <meta property="og:image" content="https://toolspry.tech/assets/images/og-image.png">
 
-
     <link rel="canonical" href="https://toolspry.tech/practice.html">
     <link rel="icon" type="image/png" href="/assets/images/favicon.png">
 
-
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
 
     <style>
         html { scroll-behavior: smooth; }
-
 
         /* navbar/footer always dark */
         .nav-footer {
@@ -47,7 +38,6 @@
         .nav-footer a:hover { color: #58a6ff !important; }
         .nav-footer button { color: #ffffff !important; }
 
-
         /* theme vars */
         :root {
             --bg: #f6f8fa;
@@ -57,7 +47,6 @@
             --border: #d0d7de;
         }
 
-
         .dark {
             --bg: #0d1117;
             --bg2: #161b22;
@@ -66,18 +55,15 @@
             --border: #30363d;
         }
 
-
         body {
             background-color: var(--bg);
             color: var(--text);
             transition: all 0.3s;
         }
 
-
         .card { background-color: var(--bg2); }
         .txt2 { color: var(--text2); }
         .bdr { border-color: var(--border); }
-
 
         .mobile-menu {
             max-height: 0;
@@ -86,7 +72,6 @@
         }
         .mobile-menu.active { max-height: 500px; }
 
-
         #editor {
             font-family: 'Courier New', monospace;
             font-size: 14px;
@@ -94,25 +79,21 @@
             resize: vertical;
         }
 
-
         .schema-box {
             max-height: calc(100vh - 300px);
             overflow-y: auto;
         }
-
 
         .results {
             max-height: 400px;
             overflow: auto;
         }
 
-
         .results table {
             border-collapse: collapse;
             width: 100%;
             font-size: 14px;
         }
-
 
         .results th {
             background-color: var(--bg2);
@@ -124,15 +105,12 @@
             border-bottom: 2px solid var(--border);
         }
 
-
         .results td {
             padding: 8px 12px;
             border-bottom: 1px solid var(--border);
         }
 
-
         .results tr:hover { background-color: var(--bg); }
-
 
         .btn-run {
             transition: transform 0.2s, box-shadow 0.2s;
@@ -143,7 +121,6 @@
         }
         .btn-run:active { transform: translateY(0); }
 
-
         .spinner {
             border: 2px solid var(--border);
             border-top: 2px solid #0969da;
@@ -153,12 +130,10 @@
             animation: spin 0.8s linear infinite;
         }
 
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
 
         /* History dropdown - UPDATED */
         #history-dropdown {
@@ -174,7 +149,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-
         @media (max-width: 768px) {
             #editor { min-height: 200px; font-size: 13px; }
             .schema-box { max-height: 300px; }
@@ -184,18 +158,15 @@
 </head>
 <body>
 
-
     <nav class="nav-footer sticky top-0 z-50 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-
 
                 <div class="flex items-center">
                     <a href="/" class="text-2xl font-bold hover:opacity-80 transition">
                         ⚡ ToolSpry
                     </a>
                 </div>
-
 
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="/practice.html" class="opacity-80">Practice</a>
@@ -204,11 +175,9 @@
                     <a href="/about.html" class="hover:opacity-80 transition">About</a>
                     <a href="/contact.html" class="hover:opacity-80 transition">Contact</a>
 
-
                     <button id="theme-btn" class="p-2 rounded-lg hover:bg-gray-700 transition">
                         <span id="theme-icon">🌙</span>
                     </button>
-
 
                     <a href="https://ko-fi.com/toolspry"
                        target="_blank"
@@ -218,14 +187,12 @@
                     </a>
                 </div>
 
-
                 <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-700 transition">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
             </div>
-
 
             <div id="mobile-menu" class="mobile-menu md:hidden">
                 <div class="py-4 space-y-3">
@@ -235,14 +202,12 @@
                     <a href="/about.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">About</a>
                     <a href="/contact.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Contact</a>
 
-
                     <div class="flex items-center justify-between px-4 py-2">
                         <span>Theme</span>
                         <button id="theme-btn-mobile" class="p-2 rounded-lg hover:bg-gray-700 transition">
                             <span id="theme-icon-mobile">🌙</span>
                         </button>
                     </div>
-
 
                     <a href="https://ko-fi.com/toolspry"
                        target="_blank"
@@ -255,18 +220,14 @@
         </div>
     </nav>
 
-
     <main class="py-6">
-
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
             <h1 class="text-3xl md:text-4xl font-bold mb-2">Practice SQL</h1>
             <p class="txt2 text-lg">Write real SQL. Read real feedback. Learn calmly.</p>
         </div>
 
-
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
 
             <div class="mb-6">
                 <label for="dataset" class="block text-sm font-medium mb-2">Choose dataset</label>
@@ -281,19 +242,15 @@
                 </select>
             </div>
 
-
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
 
                 <!-- sidebar -->
                 <div class="lg:col-span-1 space-y-6">
-
 
                     <div class="card bdr border rounded-lg p-6">
                         <h2 class="text-xl font-bold mb-4">Your task</h2>
                         <div id="task-content" class="txt2 space-y-3">
                             <p class="font-medium" style="color: var(--text);">Practice with employees dataset</p>
-
 
                             <p class="text-sm">Try these:</p>
                             <ul class="text-sm space-y-2">
@@ -303,7 +260,6 @@
                                 <li>• Average salary by department</li>
                             </ul>
 
-
                             <div class="mt-4 pt-4 bdr" style="border-top-width: 1px;">
                                 <a href="/challenges/" class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
                                     Want guided challenges? →
@@ -311,7 +267,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     <!-- Examples Section -->
                     <div class="card bdr border rounded-lg p-6">
@@ -321,7 +276,6 @@
                         </div>
                     </div>
 
-
                     <div class="card bdr border rounded-lg p-6">
                         <h2 class="text-xl font-bold mb-4">Table schema</h2>
                         <div id="schema-content" class="schema-box">
@@ -329,7 +283,6 @@
                                 <div class="font-semibold text-blue-600 dark:text-blue-400 mb-3">
                                     📋 employees (180 rows)
                                 </div>
-
 
                                 <div class="space-y-1 font-mono text-xs">
                                     <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
@@ -374,7 +327,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="mt-4 pt-3 bdr text-xs txt2" style="border-top-width: 1px;">
                                     💡 Most errors come from typos in column names
                                 </div>
@@ -382,13 +334,10 @@
                         </div>
                     </div>
 
-
                 </div>
-
 
                 <!-- editor + results -->
                 <div class="lg:col-span-2 space-y-6">
-
 
                     <div class="card bdr border rounded-lg overflow-hidden">
                         <div class="card bdr px-4 py-3 flex justify-between items-center" style="border-bottom-width: 1px;">
@@ -406,14 +355,12 @@
                                     </div>
                                 </div>
 
-
                                 <button id="clear" class="text-sm px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition">
                                     Clear
                                 </button>
                                 <span class="text-xs txt2">Ctrl+Enter to run</span>
                             </div>
                         </div>
-
 
                         <div class="p-4">
                             <textarea
@@ -426,11 +373,9 @@ WHERE department = 'Sales'
 ORDER BY salary DESC
 LIMIT 5;
 
-
 Tip: SQL keywords aren't case-sensitive"
                                 spellcheck="false"></textarea>
                         </div>
-
 
                         <div class="px-4 pb-4 flex flex-wrap gap-3 items-center">
                             <button id="run"
@@ -451,16 +396,13 @@ Tip: SQL keywords aren't case-sensitive"
                         </div>
                     </div>
 
-
                     <div class="card bdr border rounded-lg overflow-hidden">
                         <div class="card bdr px-4 py-3 flex justify-between items-center" style="border-bottom-width: 1px;">
                             <h2 class="font-semibold">Results</h2>
                             <div id="meta" class="text-xs txt2"></div>
                         </div>
 
-
                         <div id="output" class="p-4">
-
 
                             <div id="empty" class="text-center py-12 txt2">
                                 <div class="text-4xl mb-4">💡</div>
@@ -468,12 +410,10 @@ Tip: SQL keywords aren't case-sensitive"
                                 <p class="text-sm mt-2">Try clicking an example from the sidebar</p>
                             </div>
 
-
                             <div id="loading" class="hidden text-center py-12">
                                 <div class="spinner mx-auto mb-4"></div>
                                 <p class="txt2">Running...</p>
                             </div>
-
 
                             <div id="error" class="hidden bg-red-50 dark:bg-red-900/20 bdr rounded-lg p-6" style="border-color: #fca5a5;">
                                 <div class="flex gap-3">
@@ -488,7 +428,6 @@ Tip: SQL keywords aren't case-sensitive"
                                 </div>
                             </div>
 
-
                             <div id="success" class="hidden space-y-4">
                                 <div class="bg-green-50 dark:bg-green-900/20 bdr rounded-lg p-4" style="border-color: #86efac;">
                                     <div class="flex items-center justify-between">
@@ -496,7 +435,6 @@ Tip: SQL keywords aren't case-sensitive"
                                             <span>✓</span>
                                             <span id="success-msg" class="font-medium"></span>
                                         </div>
-
 
                                         <!-- Export Buttons -->
                                         <div id="export-buttons" class="flex gap-2">
@@ -514,14 +452,12 @@ Tip: SQL keywords aren't case-sensitive"
                                     </div>
                                 </div>
 
-
                                 <div class="results">
                                     <table id="table">
                                         <thead id="thead"></thead>
                                         <tbody id="tbody"></tbody>
                                     </table>
                                 </div>
-
 
                                 <div class="bg-blue-50 dark:bg-blue-900/20 bdr rounded-lg p-4 text-sm" style="border-color: #93c5fd;">
                                     <div class="font-medium text-blue-900 dark:text-blue-300 mb-2">💡 What happened:</div>
@@ -531,24 +467,18 @@ Tip: SQL keywords aren't case-sensitive"
                         </div>
                     </div>
 
-
                 </div>
-
 
             </div>
 
-
         </div>
 
-
     </main>
-
 
     <!-- footer -->
     <footer class="nav-footer py-12 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-
 
                 <div>
                     <div class="text-2xl font-bold mb-4">⚡ ToolSpry</div>
@@ -556,7 +486,6 @@ Tip: SQL keywords aren't case-sensitive"
                         Practice SQL with real datasets. Free forever.
                     </p>
                 </div>
-
 
                 <div>
                     <h3 class="font-bold mb-4">Learn</h3>
@@ -568,7 +497,6 @@ Tip: SQL keywords aren't case-sensitive"
                     </ul>
                 </div>
 
-
                 <div>
                     <h3 class="font-bold mb-4">Resources</h3>
                     <ul class="space-y-2 text-sm">
@@ -578,7 +506,6 @@ Tip: SQL keywords aren't case-sensitive"
                         <li><a href="https://ko-fi.com/toolspry" target="_blank" rel="noopener" class="hover:opacity-80 transition">☕ Support</a></li>
                     </ul>
                 </div>
-
 
                 <div>
                     <h3 class="font-bold mb-4">Contact</h3>
@@ -591,9 +518,7 @@ Tip: SQL keywords aren't case-sensitive"
                     </ul>
                 </div>
 
-
             </div>
-
 
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm opacity-80">
                 <p>&copy; 2026 ToolSpry. Built for beginners.</p>
@@ -601,29 +526,20 @@ Tip: SQL keywords aren't case-sensitive"
         </div>
     </footer>
 
-
-    <!-- SQL.js library with error handling and fallback -->
+    <!-- ✅ LOCAL SQL.js (NO CDN) -->
     <script>
-        // Track SQL.js loading status
         window.sqlJsLoaded = false;
-        window.sqlJsError = null;
-
-        // Timeout check
         setTimeout(() => {
             if (!window.sqlJsLoaded && typeof initSqlJs === 'undefined') {
-                window.sqlJsError = 'SQL.js failed to load from CDN. Please check your connection and refresh.';
-                console.error('❌ SQL.js loading timeout');
+                console.error('❌ SQL.js failed to load');
+                document.getElementById('error-msg').textContent = 'SQL engine failed to load. Please refresh.';
+                document.getElementById('error').classList.remove('hidden');
             }
-        }, 10000);
+        }, 5000);
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-wasm.js"
-            onload="window.sqlJsLoaded = true; console.log('✅ SQL.js loaded from Cloudflare');"
-            onerror="console.error('❌ Cloudflare CDN failed, trying jsDelivr...');
-                     var script = document.createElement('script');
-                     script.src = 'https://cdn.jsdelivr.net/npm/sql.js@1.12.0/dist/sql-wasm.js';
-                     script.onload = function() { window.sqlJsLoaded = true; console.log('✅ SQL.js loaded from jsDelivr'); };
-                     document.head.appendChild(script);"></script>
+    <script src="/assets/js/sql-wasm.js"
+            onload="window.sqlJsLoaded = true; console.log('✅ SQL.js loaded locally');"></script>
 
     <!-- Our scripts: loader first, then practice -->
     <script src="/assets/js/dataset-loader.js"></script>
