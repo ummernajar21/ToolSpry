@@ -1073,44 +1073,8 @@ function skipChallenge() {
   nextChallenge();
 }
 
-// Reset progress
-function resetProgress() {
-  const confirmed = confirm(
-    '⚠️ Are you sure you want to reset all progress?\n\n' +
-    'This will:\n' +
-    '• Clear all completed challenges\n' +
-    '• Reset your progress to 0%\n' +
-    '• Allow you to redo all challenges\n\n' +
-    'This action cannot be undone!'
-  );
-
-  if (!confirmed) return;
-
-  console.log('🔄 Resetting progress...');
-
-  // Clear localStorage
-  localStorage.removeItem('challengeProgress');
-
-  // Reset in-memory progress
-  userProgress = {};
-
-  // Navigate back to listing view FIRST
-  showListing();
-
-  // Small delay to ensure DOM is ready
-  setTimeout(() => {
-    // Update UI
-    updateProgressDisplay();
-    renderChallenges();
-
-    // Show success message
-    alert('✅ Progress reset! All challenges are now available again.');
-    console.log('✅ Progress reset successfully');
-  }, 100);
-}
-
 // ========================================
-// INITIALIZATION - BULLETPROOF VERSION
+// INITIALIZATION
 // ========================================
 
 (function initChallengesPage() {
@@ -1148,12 +1112,10 @@ function resetProgress() {
     }
   }
 
-  // Multiple initialization strategies for maximum compatibility
+  // Multiple initialization strategies
   if (document.readyState === 'loading') {
-    // DOM still loading
     document.addEventListener('DOMContentLoaded', init);
   } else if (document.readyState === 'interactive' || document.readyState === 'complete') {
-    // DOM already loaded, run immediately
     init();
   }
 })();
