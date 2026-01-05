@@ -1,0 +1,101 @@
+# ToolSpry - Git Ignore File
+# Last Updated: January 5, 2026
+
+# ============================================
+# Editor & IDE Files
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ============================================
+# Node.js (if you add build tools later)
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ============================================
+# Environment Variables & Secrets
+# ============================================
+.env
+.env.local
+.env.production
+.env.development
+config.local.js
+
+# ============================================
+# Build & Distribution
+# ============================================
+dist/
+build/
+.cache/
+*.log
+
+# ============================================
+# Temporary Files
+# ============================================
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# ============================================
+# Backup Files
+# ============================================
+*.bak
+*.backup
+*-backup.*
+*-old.*
+
+# ============================================
+# Ad Network Credentials (IMPORTANT!)
+# ============================================
+ad-credentials.txt
+adsense-config.js
+propeller-config.js
+
+# ============================================
+# Testing & Development
+# ============================================
+test/
+tests/
+*.test.js
+coverage/
+
+# ============================================
+# Documentation Drafts
+# ============================================
+drafts/
+notes/
+TODO.md
+ROADMAP-private.md
+
+# ============================================
+# Analytics & Reports
+# ============================================
+analytics/
+reports/
+*.csv
+*.xlsx
+
+# ============================================
+# Database (if added later)
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ============================================
+# Keep These Files (Override)
+# ============================================
+!.gitkeep
+!README.md
+!LICENSE

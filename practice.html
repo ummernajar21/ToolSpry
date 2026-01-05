@@ -1,283 +1,596 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Practice SQL for Beginners | SQL Practice</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-  <!-- SQLite WASM -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
-
-  <meta name="description" content="Practice beginner SQL with real-world datasets. No login. Runs fully in your browser." />
-</head>
-
-<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
-
-<!-- ================= NAVBAR ================= -->
-<header class="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-    <a href="/" class="text-xl font-semibold">SQL Practice</a>
-
-    <nav class="hidden md:flex space-x-6 text-sm">
-      <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
-      <a href="/practice.html" class="font-medium">Practice</a>
-      <a href="/learn/index.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Learn</a>
-      <a href="/about.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About</a>
-      <a href="/contact.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<!-- ================= MAIN ================= -->
-<main class="flex-grow max-w-7xl mx-auto px-4 py-8">
-
-<h1 class="text-2xl font-semibold mb-2">Practice SQL</h1>
-<p class="text-sm text-gray-600 dark:text-gray-400 mb-6">
-  Beginner-only SQL playground · No login · Real-world data
-</p>
-
-<!-- Dataset Selector -->
-<div class="mb-6">
-  <label class="block text-sm font-medium mb-1">Dataset</label>
-  <select id="dataset-select"
-    class="w-full md:w-80 px-3 py-2 rounded border
-           bg-white dark:bg-gray-800
-           border-gray-300 dark:border-gray-600">
-    <option value="customers">Customers (CRM)</option>
-    <option value="orders">Customers & Orders (E-commerce)</option>
-    <option value="employees">Employees (HR)</option>
-  </select>
-</div>
-
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-<!-- LEFT -->
-<aside class="space-y-6">
-
-<section class="border rounded p-4 bg-white dark:bg-gray-800 dark:border-gray-700">
-  <h2 class="font-semibold mb-2">Task</h2>
-  <p id="task-text"></p>
-</section>
-
-<section class="border rounded p-4 bg-white dark:bg-gray-800 dark:border-gray-700">
-  <h2 class="font-semibold mb-2">Schema</h2>
-  <pre id="schema-box"
-    class="text-sm p-3 rounded border
-           bg-gray-50 dark:bg-gray-900
-           border-gray-300 dark:border-gray-700"></pre>
-  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-    Tip: Always read the schema before writing SQL.
-  </p>
-</section>
-
-</aside>
-
-<!-- RIGHT -->
-<section class="lg:col-span-2 space-y-6">
-
-<section class="border rounded p-4 bg-white dark:bg-gray-800 dark:border-gray-700">
-  <h2 class="font-semibold mb-2">SQL Editor</h2>
-  <textarea id="sql-input" spellcheck="false"
-    class="w-full h-44 p-3 font-mono text-sm rounded border
-           bg-white dark:bg-gray-900
-           border-gray-300 dark:border-gray-700
-           focus:outline-none focus:ring"></textarea>
-</section>
-
-<button id="run-btn"
-  class="px-6 py-2 rounded bg-gray-900 text-white
-         hover:bg-gray-800
-         dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white">
-  Execute Query
-</button>
-
-<section id="output"
-  class="border rounded p-4 text-sm bg-white dark:bg-gray-800 dark:border-gray-700">
-  Run a query to see results and explanations.
-</section>
-
-</section>
-</div>
-</main>
-
-<!-- ================= FOOTER ================= -->
-<footer class="border-t bg-white dark:bg-gray-800 dark:border-gray-700 text-sm">
-  <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
-    <p class="text-gray-600 dark:text-gray-400">
-      © <span id="year"></span> SQL Practice
-    </p>
-    <div class="space-x-4 mt-2 md:mt-0">
-      <a href="https://ko-fi.com/YOUR_KOFI_USERNAME"
-   target="_blank"
-   rel="noopener noreferrer"
-   class="text-sm underline text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">
-  Support this project ☕
-</a>
-      <a href="/privacy.html" class="hover:underline">Privacy</a>
-      <a href="/terms.html" class="hover:underline">Terms</a>
-      <a href="/contact.html" class="hover:underline">Contact</a>
-    </div>
-  </div>
-</footer>
-
-<!-- ================= SCRIPT ================= -->
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMDYXFQTJ1"></script>
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-let SQL, db;
-
-/* -------- DATASET CONFIG -------- */
-
-const DATASETS = {
-  customers: {
-    json: ["/datasets/customers.json"],
-    task: "Show all customers from the country 'United States'.",
-    starter: "SELECT * FROM customers LIMIT 10;",
-    learning: "You practiced filtering rows using WHERE.",
-    learnLink: "/learn/sql-errors-beginners.html"
-  },
-  orders: {
-    json: [
-      "/datasets/customers.json",
-      "/datasets/orders.json"
-    ],
-    task: "Show total order amount for each customer.",
-    starter:
-`SELECT c.full_name, SUM(o.order_amount) AS total_spent
-FROM customers c
-JOIN orders o ON c.customer_id = o.customer_id
-GROUP BY c.full_name;`,
-    learning: "You practiced JOIN and GROUP BY.",
-    learnLink: "/learn/real-world-sql-queries.html"
-  },
-  employees: {
-    json: ["/datasets/employees.json"],
-    task: "Show average salary for each department.",
-    starter:
-`SELECT department, AVG(salary)
-FROM employees
-GROUP BY department;`,
-    learning: "You practiced GROUP BY and AVG.",
-    learnLink: "/learn/sql-empty-results.html"
-  }
-};
-
-/* -------- CORE ENGINE -------- */
-
-function resetDatabase() {
-  db = new SQL.Database();
-}
-
-async function loadDataset(name) {
-  const meta = DATASETS[name];
-  resetDatabase();
-
-  let schemaText = "";
-
-  for (const path of meta.json) {
-    const res = await fetch(path);
-    const data = await res.json();
-
-    const columns = data.schema.map(c => `${c[0]} ${c[1]}`).join(", ");
-    db.run(`CREATE TABLE ${data.table} (${columns});`);
-
-    const placeholders = data.schema.map(() => "?").join(",");
-    const stmt = db.prepare(
-      `INSERT INTO ${data.table} VALUES (${placeholders});`
-    );
-    data.rows.forEach(row => stmt.run(row));
-    stmt.free();
-
-    schemaText += `${data.table}\n------------\n`;
-    schemaText += data.schema.map(c => `${c[0]} (${c[1]})`).join("\n");
-    schemaText += "\n\n";
-  }
-
-  document.getElementById("task-text").textContent = meta.task;
-  document.getElementById("schema-box").textContent = schemaText.trim();
-  document.getElementById("sql-input").value = meta.starter;
-  document.getElementById("output").textContent =
-    "Run a query to see results and explanations.";
-}
-
-function explainError(msg) {
-  msg = msg.toLowerCase();
-  if (msg.includes("syntax error"))
-    return ["Syntax error", "Check SQL keywords and commas.", "/learn/sql-errors-beginners.html"];
-  if (msg.includes("no such table"))
-    return ["Missing table", "Check table name in schema.", "/learn/sql-errors-beginners.html"];
-  if (msg.includes("no such column"))
-    return ["Missing column", "Check column name in schema.", "/learn/sql-errors-beginners.html"];
-  return ["Query error", "Review the schema and simplify the query.", "/learn/sql-errors-beginners.html"];
-}
-
-/* -------- INIT SQLITE -------- */
-
-initSqlJs({
-  locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}`
-}).then(s => {
-  SQL = s;
-  loadDataset("customers");
-});
-
-/* -------- EVENTS -------- */
-
-document.getElementById("dataset-select").addEventListener("change", e => {
-  loadDataset(e.target.value);
-});
-
-document.getElementById("run-btn").addEventListener("click", () => {
-  const output = document.getElementById("output");
-  const name = document.getElementById("dataset-select").value;
-  const meta = DATASETS[name];
-
-  try {
-    const res = db.exec(document.getElementById("sql-input").value);
-
-    if (!res.length) {
-      output.innerHTML = `
-        <p class="font-medium">Query executed correctly.</p>
-        <p class="text-gray-600 dark:text-gray-400 mt-1">
-          No rows matched your condition.
-        </p>
-        <a href="/learn/sql-empty-results.html"
-           class="underline text-sm mt-2 inline-block">
-          Read explanation →
-        </a>`;
-      return;
-    }
-
-    const { columns, values } = res[0];
-
-    output.innerHTML = `
-      <table class="border w-full text-sm mb-3">
-        <tr>${columns.map(c => `<th class="border px-2 py-1">${c}</th>`).join("")}</tr>
-        ${values.map(r =>
-          `<tr>${r.map(v => `<td class="border px-2 py-1">${v}</td>`).join("")}</tr>`
-        ).join("")}
-      </table>
-
-      <div class="text-sm">
-        <strong>What you just learned:</strong>
-        <p>${meta.learning}</p>
-        <a href="${meta.learnLink}" class="underline mt-1 inline-block">
-          Learn more →
-        </a>
-      </div>`;
-  } catch (err) {
-    const [type, help, link] = explainError(err.message);
-    output.innerHTML = `
-      <p class="font-medium text-red-500">Error: ${type}</p>
-      <p class="mt-1">${help}</p>
-      <a href="${link}" class="underline text-sm mt-2 inline-block">
-        Read explanation →
-      </a>`;
-  }
-});
+  gtag('config', 'G-KMDYXFQTJ1');
 </script>
+
+    <title>Practice SQL | ToolSpry</title>
+    <meta name="description" content="Practice SQL queries with real datasets. Instant feedback, beginner-friendly errors, runs entirely in your browser.">
+    <meta name="keywords" content="SQL practice, SQL playground, learn SQL">
+
+    <meta property="og:title" content="Practice SQL | ToolSpry">
+    <meta property="og:description" content="Practice SQL with real datasets. Free, no installation.">
+    <meta property="og:image" content="https://toolspry.tech/assets/images/og-image.png">
+
+    <link rel="canonical" href="https://toolspry.tech/practice.html">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+
+        /* navbar/footer always dark */
+        .nav-footer {
+            background-color: #24292f !important;
+            color: #ffffff !important;
+        }
+        .nav-footer a { color: #ffffff !important; }
+        .nav-footer a:hover { color: #58a6ff !important; }
+        .nav-footer button { color: #ffffff !important; }
+
+        /* theme vars */
+        :root {
+            --bg: #f6f8fa;
+            --bg2: #ffffff;
+            --text: #24292f;
+            --text2: #57606a;
+            --border: #d0d7de;
+        }
+
+        .dark {
+            --bg: #0d1117;
+            --bg2: #161b22;
+            --text: #c9d1d9;
+            --text2: #8b949e;
+            --border: #30363d;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .card { background-color: var(--bg2); }
+        .txt2 { color: var(--text2); }
+        .bdr { border-color: var(--border); }
+
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+        .mobile-menu.active { max-height: 500px; }
+
+        #editor {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+        }
+
+        .schema-box {
+            max-height: calc(100vh - 300px);
+            overflow-y: auto;
+        }
+
+        .results {
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .results table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .results th {
+            background-color: var(--bg2);
+            position: sticky;
+            top: 0;
+            font-weight: 600;
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .results td {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .results tr:hover { background-color: var(--bg); }
+
+        .btn-run {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-run:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(9, 105, 218, 0.3);
+        }
+        .btn-run:active { transform: translateY(0); }
+
+        .spinner {
+            border: 2px solid var(--border);
+            border-top: 2px solid #0969da;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* History dropdown - UPDATED */
+        #history-dropdown {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 8px;
+            width: 400px;
+            max-width: 90vw;
+            max-height: 400px;
+            overflow: hidden;
+            z-index: 50;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 768px) {
+            #editor { min-height: 200px; font-size: 13px; }
+            .schema-box { max-height: 300px; }
+            #history-dropdown { width: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav-footer sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold hover:opacity-80 transition">
+                        ⚡ ToolSpry
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/practice.html" class="opacity-80">Practice</a>
+                    <a href="/challenges/" class="hover:opacity-80 transition">Challenges</a>
+                    <a href="/learn/" class="hover:opacity-80 transition">Learn</a>
+                    <a href="/about.html" class="hover:opacity-80 transition">About</a>
+                    <a href="/contact.html" class="hover:opacity-80 transition">Contact</a>
+
+                    <button id="theme-btn" class="p-2 rounded-lg hover:bg-gray-700 transition">
+                        <span id="theme-icon">🌙</span>
+                    </button>
+
+                    <a href="https://ko-fi.com/toolspry"
+                       target="_blank"
+                       rel="noopener"
+                       class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
+                        ☕ Support
+                    </a>
+                </div>
+
+                <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-700 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="mobile-menu md:hidden">
+                <div class="py-4 space-y-3">
+                    <a href="/practice.html" class="block px-4 py-2 bg-gray-700 rounded">Practice</a>
+                    <a href="/challenges/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Challenges</a>
+                    <a href="/learn/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Learn</a>
+                    <a href="/about.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">About</a>
+                    <a href="/contact.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Contact</a>
+
+                    <div class="flex items-center justify-between px-4 py-2">
+                        <span>Theme</span>
+                        <button id="theme-btn-mobile" class="p-2 rounded-lg hover:bg-gray-700 transition">
+                            <span id="theme-icon-mobile">🌙</span>
+                        </button>
+                    </div>
+
+                    <a href="https://ko-fi.com/toolspry"
+                       target="_blank"
+                       rel="noopener"
+                       class="block mx-4 text-center bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
+                        ☕ Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-6">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">Practice SQL</h1>
+            <p class="txt2 text-lg">Write real SQL. Read real feedback. Learn calmly.</p>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="mb-6">
+                <label for="dataset" class="block text-sm font-medium mb-2">Choose dataset</label>
+                <select id="dataset" class="w-full md:w-auto bdr card border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="customers">👥 Customers (350 rows) - E-commerce</option>
+                    <option value="employees" selected>💼 Employees (180 rows) - HR data</option>
+                    <option value="orders">📦 Orders (650 rows) - Purchases</option>
+                    <option value="products">🛍️ Products (250 rows) - Catalog</option>
+                    <option value="sales">📊 Sales (800 rows) - Analytics</option>
+                    <option value="departments">🏢 Departments (12 rows)</option>
+                    <option value="transactions">💳 Transactions (500 rows)</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- sidebar -->
+                <div class="lg:col-span-1 space-y-6">
+
+                    <div class="card bdr border rounded-lg p-6">
+                        <h2 class="text-xl font-bold mb-4">Your task</h2>
+                        <div id="task-content" class="txt2 space-y-3">
+                            <p class="font-medium" style="color: var(--text);">Practice with employees dataset</p>
+
+                            <p class="text-sm">Try these:</p>
+                            <ul class="text-sm space-y-2">
+                                <li>• SELECT * FROM employees</li>
+                                <li>• Find Sales department employees</li>
+                                <li>• Top 5 highest salaries</li>
+                                <li>• Average salary by department</li>
+                            </ul>
+
+                            <div class="mt-4 pt-4 bdr" style="border-top-width: 1px;">
+                                <a href="/challenges/" class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
+                                    Want guided challenges? →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Examples Section -->
+                    <div class="card bdr border rounded-lg p-6">
+                        <h2 class="text-xl font-bold mb-4">📚 Examples</h2>
+                        <div id="examples-content" class="space-y-2">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="card bdr border rounded-lg p-6">
+                        <h2 class="text-xl font-bold mb-4">Table schema</h2>
+                        <div id="schema-content" class="schema-box">
+                            <div class="text-sm space-y-2">
+                                <div class="font-semibold text-blue-600 dark:text-blue-400 mb-3">
+                                    📋 employees (180 rows)
+                                </div>
+
+                                <div class="space-y-1 font-mono text-xs">
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>employee_id</span>
+                                        <span class="txt2">INTEGER</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>first_name</span>
+                                        <span class="txt2">TEXT</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>last_name</span>
+                                        <span class="txt2">TEXT</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>email</span>
+                                        <span class="txt2">TEXT</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>department</span>
+                                        <span class="txt2">TEXT</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>job_title</span>
+                                        <span class="txt2">TEXT</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>salary</span>
+                                        <span class="txt2">INTEGER</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>hire_date</span>
+                                        <span class="txt2">DATE</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>manager_id</span>
+                                        <span class="txt2">INTEGER <span class="text-xs">(some NULL)</span></span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>office_location</span>
+                                        <span class="txt2">TEXT</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 pt-3 bdr text-xs txt2" style="border-top-width: 1px;">
+                                    💡 Most errors come from typos in column names
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- editor + results -->
+                <div class="lg:col-span-2 space-y-6">
+
+                    <div class="card bdr border rounded-lg overflow-hidden">
+                        <div class="card bdr px-4 py-3 flex justify-between items-center" style="border-bottom-width: 1px;">
+                            <h2 class="font-semibold">SQL editor</h2>
+                            <div class="flex items-center gap-2">
+                                <!-- History Button -->
+                                <div class="relative">
+                                    <button id="history-btn"
+                                            class="text-sm px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                                            title="View query history">
+                                        📜 History
+                                    </button>
+                                    <div id="history-dropdown" class="hidden card bdr border rounded-lg">
+                                        <!-- Populated by JavaScript -->
+                                    </div>
+                                </div>
+
+                                <button id="clear" class="text-sm px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                                    Clear
+                                </button>
+                                <span class="text-xs txt2">Ctrl+Enter to run</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <textarea
+                                id="editor"
+                                class="w-full card bdr border rounded p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                rows="10"
+                                placeholder="SELECT first_name, last_name, salary
+FROM employees
+WHERE department = 'Sales'
+ORDER BY salary DESC
+LIMIT 5;
+
+Tip: SQL keywords aren't case-sensitive"
+                                spellcheck="false"></textarea>
+                        </div>
+
+                        <div class="px-4 pb-4 flex flex-wrap gap-3 items-center">
+                            <button id="run"
+                                    class="btn-run bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium"
+                                    title="Run your SQL query (Ctrl+Enter)">
+                                ▶ Run query
+                            </button>
+                            <button id="format"
+                                    class="bdr border px-4 py-3 rounded-lg hover:opacity-80 transition"
+                                    title="Format and beautify your SQL (Ctrl+Shift+F)">
+                                ✨ Format
+                            </button>
+                            <button id="shortcuts-btn"
+                                    class="bdr border px-4 py-3 rounded-lg hover:opacity-80 transition"
+                                    title="View keyboard shortcuts (Ctrl+/)">
+                                ⌨️ Shortcuts
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card bdr border rounded-lg overflow-hidden">
+                        <div class="card bdr px-4 py-3 flex justify-between items-center" style="border-bottom-width: 1px;">
+                            <h2 class="font-semibold">Results</h2>
+                            <div id="meta" class="text-xs txt2"></div>
+                        </div>
+
+                        <div id="output" class="p-4">
+
+                            <div id="empty" class="text-center py-12 txt2">
+                                <div class="text-4xl mb-4">💡</div>
+                                <p>Run a query to see results</p>
+                                <p class="text-sm mt-2">Try clicking an example from the sidebar</p>
+                            </div>
+
+                            <div id="loading" class="hidden text-center py-12">
+                                <div class="spinner mx-auto mb-4"></div>
+                                <p class="txt2">Running...</p>
+                            </div>
+
+                            <div id="error" class="hidden bg-red-50 dark:bg-red-900/20 bdr rounded-lg p-6" style="border-color: #fca5a5;">
+                                <div class="flex gap-3">
+                                    <div class="text-2xl">⚠️</div>
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-red-900 dark:text-red-300 mb-2">Something's wrong</h3>
+                                        <p id="error-msg" class="text-red-800 dark:text-red-200 mb-3"></p>
+                                        <div id="error-hint" class="text-sm text-red-700 dark:text-red-300"></div>
+                                        <!-- Smart suggestions -->
+                                        <div id="error-suggestion" class="hidden"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="success" class="hidden space-y-4">
+                                <div class="bg-green-50 dark:bg-green-900/20 bdr rounded-lg p-4" style="border-color: #86efac;">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2 text-green-900 dark:text-green-300">
+                                            <span>✓</span>
+                                            <span id="success-msg" class="font-medium"></span>
+                                        </div>
+
+                                        <!-- Export Buttons -->
+                                        <div id="export-buttons" class="flex gap-2">
+                                            <button onclick="copyResultsToClipboard(event)"
+                                                    class="text-sm px-3 py-1 rounded hover:bg-green-100 dark:hover:bg-green-800 transition"
+                                                    title="Copy results to clipboard">
+                                                📋 Copy
+                                            </button>
+                                            <button onclick="exportToCSV()"
+                                                    class="text-sm px-3 py-1 rounded hover:bg-green-100 dark:hover:bg-green-800 transition"
+                                                    title="Download as CSV file">
+                                                ⬇️ CSV
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="results">
+                                    <table id="table">
+                                        <thead id="thead"></thead>
+                                        <tbody id="tbody"></tbody>
+                                    </table>
+                                </div>
+
+                                <div class="bg-blue-50 dark:bg-blue-900/20 bdr rounded-lg p-4 text-sm" style="border-color: #93c5fd;">
+                                    <div class="font-medium text-blue-900 dark:text-blue-300 mb-2">💡 What happened:</div>
+                                    <p id="explain" class="text-blue-800 dark:text-blue-200"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- footer -->
+    <footer class="nav-footer py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+                <div>
+                    <div class="text-2xl font-bold mb-4">⚡ ToolSpry</div>
+                    <p class="text-sm opacity-80">
+                        Practice SQL with real datasets. Free forever.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Learn</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/practice.html" class="hover:opacity-80 transition">Practice SQL</a></li>
+                        <li><a href="/challenges/" class="hover:opacity-80 transition">45 Challenges</a></li>
+                        <li><a href="/learn/" class="hover:opacity-80 transition">SQL Guides</a></li>
+                        <li><a href="/learn/sql-basics-beginners.html" class="hover:opacity-80 transition">Beginners Guide</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/learn/sql-errors-beginners.html" class="hover:opacity-80 transition">Common Errors</a></li>
+                        <li><a href="/learn/sql-null-explained.html" class="hover:opacity-80 transition">Understanding NULL</a></li>
+                        <li><a href="/about.html" class="hover:opacity-80 transition">About</a></li>
+                        <li><a href="https://ko-fi.com/toolspry" target="_blank" rel="noopener" class="hover:opacity-80 transition">☕ Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="mailto:info@toolspry.tech" class="hover:opacity-80 transition">info@toolspry.tech</a></li>
+                        <li><a href="/contact.html" class="hover:opacity-80 transition">Contact Form</a></li>
+                        <li><a href="/privacy.html" class="hover:opacity-80 transition">Privacy</a></li>
+                        <li><a href="/terms.html" class="hover:opacity-80 transition">Terms</a></li>
+                        <li><a href="/disclaimer.html" class="hover:opacity-80 transition">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm opacity-80">
+                <p>&copy; 2026 ToolSpry. Built for beginners.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SQL.js library -->
+    <script src="https://sql.js.org/dist/sql-wasm.js"></script>
+
+    <!-- Our scripts -->
+    <script src="/assets/js/dataset-loader.js"></script>
+    <script src="/assets/js/practice.js"></script>
+
+    <script>
+        // theme on load
+        (function() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const themeBtn = document.getElementById('theme-btn');
+            const themeBtnMobile = document.getElementById('theme-btn-mobile');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeIconMobile = document.getElementById('theme-icon-mobile');
+
+            // mobile menu
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('active');
+                });
+            }
+
+            // theme
+            function updateIcons(dark) {
+                const icon = dark ? '☀️' : '🌙';
+                if (themeIcon) themeIcon.textContent = icon;
+                if (themeIconMobile) themeIconMobile.textContent = icon;
+            }
+
+            updateIcons(localStorage.getItem('theme') === 'dark');
+
+            function toggleTheme() {
+                const dark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', dark ? 'dark' : 'light');
+                updateIcons(dark);
+            }
+
+            if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+            if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
+
+            // close menu on outside click
+            document.addEventListener('click', (e) => {
+                if (menuBtn && mobileMenu && !menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
+
+            // close menu on resize
+            window.addEventListener('resize', () => {
+                if (mobileMenu && window.innerWidth >= 768) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

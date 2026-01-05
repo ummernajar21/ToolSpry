@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMDYXFQTJ1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-KMDYXFQTJ1');
+    </script>
+
+    <title>SQL WHERE Clause - Filter Data Like a Pro | ToolSpry</title>
+    <meta name="description"
+        content="Learn how to filter data in SQL using WHERE. Find exactly what you need with simple conditions and comparisons.">
+
+    <link rel="canonical" href="https://toolspry.tech/learn/sql-where-filtering.html">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .nav-footer {
+            background-color: #24292f !important;
+            color: #ffffff !important;
+        }
+
+        .nav-footer a {
+            color: #ffffff !important;
+        }
+
+        .nav-footer a:hover {
+            color: #58a6ff !important;
+        }
+
+        .nav-footer button {
+            color: #ffffff !important;
+        }
+
+        :root {
+            --bg: #f6f8fa;
+            --bg2: #ffffff;
+            --text: #24292f;
+            --text2: #57606a;
+            --border: #d0d7de;
+        }
+
+        .dark {
+            --bg: #0d1117;
+            --bg2: #161b22;
+            --text: #c9d1d9;
+            --text2: #8b949e;
+            --border: #30363d;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .card {
+            background-color: var(--bg2);
+        }
+
+        .txt2 {
+            color: var(--text2);
+        }
+
+        .bdr {
+            border-color: var(--border);
+        }
+
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            background-color: var(--bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .content-section {
+            line-height: 1.8;
+        }
+
+        .content-section h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+        }
+
+        .content-section ul {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav-footer sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold hover:opacity-80 transition">
+                        ⚡ ToolSpry
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/practice.html" class="hover:opacity-80 transition">Practice</a>
+                    <a href="/challenges/" class="hover:opacity-80 transition">Challenges</a>
+                    <a href="/learn/" class="opacity-80">Learn</a>
+                    <a href="/about.html" class="hover:opacity-80 transition">About</a>
+                    <a href="/contact.html" class="hover:opacity-80 transition">Contact</a>
+
+                    <button id="theme-btn" class="p-2 rounded-lg hover:bg-gray-700 transition">
+                        <span id="theme-icon">🌙</span>
+                    </button>
+
+                    <a href="https://ko-fi.com/toolspry" target="_blank" rel="noopener noreferrer"
+                        class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
+                        ☕ Support
+                    </a>
+                </div>
+
+                <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-700 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="mobile-menu md:hidden">
+                <div class="py-4 space-y-3">
+                    <a href="/practice.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Practice</a>
+                    <a href="/challenges/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Challenges</a>
+                    <a href="/learn/" class="block px-4 py-2 bg-gray-700 rounded">Learn</a>
+                    <a href="/about.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">About</a>
+                    <a href="/contact.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Contact</a>
+
+                    <div class="flex items-center justify-between px-4 py-2">
+                        <span>Theme</span>
+                        <button id="theme-btn-mobile" class="p-2 rounded-lg hover:bg-gray-700 transition">
+                            <span id="theme-icon-mobile">🌙</span>
+                        </button>
+                    </div>
+
+                    <a href="https://ko-fi.com/toolspry" target="_blank" rel="noopener noreferrer"
+                        class="block mx-4 text-center bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
+                        ☕ Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="py-8">
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Back button -->
+            <a href="/learn/" class="inline-flex items-center gap-2 txt2 hover:opacity-70 transition mb-6">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Back to Learn
+            </a>
+
+            <!-- Header -->
+            <div class="mb-8">
+                <div class="flex items-center gap-2 mb-3">
+                    <span
+                        class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-3 py-1 rounded-full text-sm">
+                        Beginner
+                    </span>
+                    <span class="txt2 text-sm">• 6 min read</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-3">🔍 Filtering Data with WHERE</h1>
+                <p class="text-lg txt2">
+                    Stop getting all the data. Learn to find exactly what you need!
+                </p>
+            </div>
+
+            <!-- Content -->
+            <div class="content-section card bdr border rounded-lg p-8 mb-8">
+
+                <h2>Why Do We Need WHERE?</h2>
+                <p>
+                    Imagine you have a table with 1,000 employees. You only want to see people from the Sales
+                    department. Do you want to scroll through all 1,000? No way!
+                </p>
+                <p>
+                    That's where <code>WHERE</code> comes in. It's like a filter. You tell SQL: "Give me only the rows
+                    that match this condition."
+                </p>
+
+                <h2>The Basic Pattern</h2>
+                <pre>SELECT columns
+FROM table
+WHERE condition;</pre>
+
+                <p>
+                    The WHERE line says: "Only show rows where this is true."
+                </p>
+
+                <h2>Example 1: Find Employees in Sales</h2>
+                <pre>SELECT first_name, last_name, department
+FROM employees
+WHERE department = 'Sales';</pre>
+
+                <p>What happens here:</p>
+                <ul>
+                    <li>SQL looks at every employee</li>
+                    <li>Checks if their department is "Sales"</li>
+                    <li>Only shows the ones that match</li>
+                </ul>
+
+                <div class="bg-blue-50 dark:bg-blue-900/20 bdr border rounded-lg p-4 my-4">
+                    <p class="text-sm"><strong>💡 Important:</strong> When comparing text, use single quotes like
+                        <code>'Sales'</code>. Numbers don't need quotes.</p>
+                </div>
+
+                <h2>Comparison Operators</h2>
+                <p>
+                    These are the symbols you use to compare things:
+                </p>
+
+                <div class="card bdr border rounded p-4 my-4">
+                    <ul>
+                        <li><code>=</code> means "equals" (is exactly the same)</li>
+                        <li><code>></code> means "greater than" (bigger)</li>
+                        <li><code>&lt;</code> means "less than" (smaller)</li>
+                        <li><code>>=</code> means "greater than or equal to"</li>
+                        <li><code>&lt;=</code> means "less than or equal to"</li>
+                        <li><code>!=</code> or <code>&lt;></code> means "not equal" (different)</li>
+                    </ul>
+                </div>
+
+                <h2>Example 2: Find High-Paid Employees</h2>
+                <pre>SELECT first_name, last_name, salary
+FROM employees
+WHERE salary > 70000;</pre>
+
+                <p>
+                    This finds everyone making more than $70,000. Notice how we DON'T use quotes around the number!
+                </p>
+
+                <h2>Example 3: Find Cheap Products</h2>
+                <pre>SELECT product_name, price
+FROM products
+WHERE price &lt; 50;</pre>
+
+                <p>
+                    This shows products under $50. Perfect for budget shopping!
+                </p>
+
+                <h2>Multiple Conditions: AND</h2>
+                <p>
+                    What if you want employees who are BOTH in Sales AND earn more than $60,000? Use <code>AND</code>:
+                </p>
+
+                <pre>SELECT first_name, last_name, department, salary
+FROM employees
+WHERE department = 'Sales' AND salary > 60000;</pre>
+
+                <p>
+                    With <code>AND</code>, BOTH conditions must be true. It's like saying "I want this AND that."
+                </p>
+
+                <h2>Multiple Conditions: OR</h2>
+                <p>
+                    Want employees from Sales OR Marketing? Use <code>OR</code>:
+                </p>
+
+                <pre>SELECT first_name, last_name, department
+FROM employees
+WHERE department = 'Sales' OR department = 'Marketing';</pre>
+
+                <p>
+                    With <code>OR</code>, at least ONE condition must be true. It's like saying "I want this OR that or
+                    both."
+                </p>
+
+                <h2>Real-World Examples</h2>
+
+                <h3>Example: Active Customers Only</h3>
+                <pre>SELECT first_name, last_name, email
+FROM customers
+WHERE is_active = 1;</pre>
+                <p>Shows only customers who are still active (1 means yes, 0 means no).</p>
+
+                <h3>Example: Recent Orders</h3>
+                <pre>SELECT order_id, total_amount
+FROM orders
+WHERE total_amount > 500;</pre>
+                <p>Shows only big orders over $500.</p>
+
+                <h3>Example: Find Specific Country</h3>
+                <pre>SELECT first_name, last_name, country
+FROM customers
+WHERE country = 'USA';</pre>
+                <p>Shows only customers from the USA.</p>
+
+                <h2>Common Mistakes</h2>
+
+                <h3>Mistake #1: Forgetting Quotes</h3>
+                <div class="bg-red-50 dark:bg-red-900/20 bdr border rounded-lg p-4 my-4">
+                    <p class="text-sm mb-2"><strong>❌ Wrong:</strong></p>
+                    <pre class="mb-3">WHERE department = Sales</pre>
+                    <p class="text-sm mb-2"><strong>✅ Right:</strong></p>
+                    <pre>WHERE department = 'Sales'</pre>
+                    <p class="text-sm mt-3">Text needs quotes! Numbers don't.</p>
+                </div>
+
+                <h3>Mistake #2: Using = Instead of ==</h3>
+                <div class="bg-blue-50 dark:bg-blue-900/20 bdr border rounded-lg p-4 my-4">
+                    <p class="text-sm"><strong>Good news:</strong> In SQL, you use ONE equals sign <code>=</code> for
+                        comparison. If you know other programming languages that use <code>==</code>, forget that here!
+                    </p>
+                </div>
+
+                <h3>Mistake #3: Case Sensitivity</h3>
+                <div class="bg-red-50 dark:bg-red-900/20 bdr border rounded-lg p-4 my-4">
+                    <p class="text-sm mb-3">In most databases, <code>'Sales'</code> and <code>'sales'</code> are
+                        DIFFERENT!</p>
+                    <p class="text-sm">Always check the exact spelling and capitalization in your data.</p>
+                </div>
+
+                <h2>Combining AND and OR</h2>
+                <p>
+                    You can mix them, but use parentheses to be clear:
+                </p>
+
+                <pre>SELECT first_name, last_name, department, salary
+FROM employees
+WHERE (department = 'Sales' OR department = 'Marketing')
+  AND salary > 60000;</pre>
+
+                <p>
+                    This finds people in Sales or Marketing who ALSO earn over $60,000.
+                </p>
+
+                <p>
+                    The parentheses say "check these two departments first, THEN check the salary."
+                </p>
+
+                <h2>Practice Exercises</h2>
+                <p>
+                    Try these on the <a href="/practice.html"
+                        class="text-blue-600 dark:text-blue-400 hover:underline">Practice page</a>:
+                </p>
+
+                <h3>Exercise 1: Find expensive products</h3>
+                <pre>SELECT product_name, price
+FROM products
+WHERE price > 100;</pre>
+
+                <h3>Exercise 2: Find customers from Canada</h3>
+                <pre>SELECT first_name, last_name, country
+FROM customers
+WHERE country = 'Canada';</pre>
+
+                <h3>Exercise 3: Find low-stock items</h3>
+                <pre>SELECT product_name, stock_qty
+FROM products
+WHERE stock_qty &lt; 20;</pre>
+
+                <h3>Exercise 4: Combine conditions</h3>
+                <pre>SELECT product_name, price, category
+FROM products
+WHERE category = 'Electronics' AND price &lt; 200;</pre>
+
+                <div class="bg-green-50 dark:bg-green-900/20 bdr border rounded-lg p-4 my-4">
+                    <p class="text-sm"><strong>🎯 Pro Tip:</strong> Start simple. Get one WHERE condition working first.
+                        Then add more conditions one at a time!</p>
+                </div>
+
+                <h2>What You Learned</h2>
+                <ul>
+                    <li><code>WHERE</code> filters rows based on conditions</li>
+                    <li>Use <code>=</code> to check if things are the same</li>
+                    <li>Use <code>></code> <code>&lt;</code> for numbers</li>
+                    <li>Text needs quotes: <code>'Sales'</code></li>
+                    <li>Numbers don't need quotes: <code>70000</code></li>
+                    <li><code>AND</code> means both conditions must be true</li>
+                    <li><code>OR</code> means at least one must be true</li>
+                </ul>
+
+                <p>
+                    Now you can find exactly the data you want instead of getting everything!
+                </p>
+
+            </div>
+
+            <!-- Navigation -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div class="card bdr border rounded-lg p-6">
+                    <h3 class="font-bold mb-2">📝 Practice Now</h3>
+                    <p class="text-sm txt2 mb-4">Try WHERE conditions with real data</p>
+                    <a href="/practice.html"
+                        class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                        Open Practice Page →
+                    </a>
+                </div>
+                <div class="card bdr border rounded-lg p-6">
+                    <h3 class="font-bold mb-2">🎯 Test Yourself</h3>
+                    <p class="text-sm txt2 mb-4">Try Challenges #2 and #3</p>
+                    <a href="/challenges/"
+                        class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                        Start Challenges →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Next Tutorial -->
+            <div class="card bdr border rounded-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm txt2 mb-1">Next Tutorial</p>
+                        <h3 class="font-bold">📊 Sorting with ORDER BY & LIMIT</h3>
+                        <p class="text-sm txt2 mt-1">Put your results in order</p>
+                    </div>
+                    <a href="/learn/sql-order-limit.html"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition">
+                        Next →
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="nav-footer py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+                <div>
+                    <div class="text-2xl font-bold mb-4">⚡ ToolSpry</div>
+                    <p class="text-sm opacity-80">
+                        Practice SQL with real datasets. Free forever.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Learn</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/practice.html" class="hover:opacity-80 transition">Practice SQL</a></li>
+                        <li><a href="/challenges/" class="hover:opacity-80 transition">Challenges</a></li>
+                        <li><a href="/learn/" class="hover:opacity-80 transition">SQL Guides</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/learn/sql-errors-beginners.html" class="hover:opacity-80 transition">Common
+                                Errors</a></li>
+                        <li><a href="/about.html" class="hover:opacity-80 transition">About</a></li>
+                        <li><a href="https://ko-fi.com/toolspry" target="_blank" rel="noopener noreferrer"
+                                class="hover:opacity-80 transition">☕ Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="mailto:info@toolspry.tech"
+                                class="hover:opacity-80 transition">info@toolspry.tech</a></li>
+                        <li><a href="/contact.html" class="hover:opacity-80 transition">Contact Form</a></li>
+                        <li><a href="/privacy.html" class="hover:opacity-80 transition">Privacy</a></li>
+                        <li><a href="/disclaimer.html" class="hover:opacity-80 transition">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm opacity-80">
+                <p>&copy; 2026 ToolSpry. Built for beginners.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme toggle script -->
+    <script>
+        (function () {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const themeBtn = document.getElementById('theme-btn');
+            const themeBtnMobile = document.getElementById('theme-btn-mobile');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeIconMobile = document.getElementById('theme-icon-mobile');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('active');
+                });
+            }
+
+            function updateIcons(dark) {
+                const icon = dark ? '☀️' : '🌙';
+                if (themeIcon) themeIcon.textContent = icon;
+                if (themeIconMobile) themeIconMobile.textContent = icon;
+            }
+
+            updateIcons(localStorage.getItem('theme') === 'dark');
+
+            function toggleTheme() {
+                const dark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', dark ? 'dark' : 'light');
+                updateIcons(dark);
+            }
+
+            if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+            if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
+        });
+    </script>
+
+</body>
+
+</html>

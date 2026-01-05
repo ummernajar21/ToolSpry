@@ -14,10 +14,11 @@
   gtag('config', 'G-KMDYXFQTJ1');
 </script>
 
-    <title>Why Am I Getting Empty Results in SQL? | ToolSpry</title>
-    <meta name="description" content="Your SQL query returns nothing? Learn how to troubleshoot and fix empty results. Simple debugging for beginners.">
+    <title>SQL Basics: SELECT & FROM Tutorial | ToolSpry</title>
+    <meta name="description" content="Learn SQL basics with SELECT and FROM statements. Beginner-friendly tutorial with examples you can practice immediately.">
+    <meta name="keywords" content="SQL SELECT, SQL FROM, SQL basics, learn SQL SELECT, SQL tutorial">
 
-    <link rel="canonical" href="https://toolspry.tech/learn/sql-empty-results.html">
+    <link rel="canonical" href="https://toolspry.tech/learn/sql-basics.html">
     <link rel="icon" type="image/png" href="/assets/images/favicon.png">
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -107,7 +108,7 @@
             margin-bottom: 1rem;
         }
 
-        .content-section ul {
+        .content-section ul, .content-section ol {
             margin-bottom: 1rem;
             padding-left: 1.5rem;
         }
@@ -198,326 +199,138 @@
             <!-- Header -->
             <div class="mb-8">
                 <div class="flex items-center gap-2 mb-3">
-                    <span class="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 px-3 py-1 rounded-full text-sm">
-                        Troubleshooting
+                    <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-3 py-1 rounded-full text-sm">
+                        Beginner
                     </span>
-                    <span class="txt2 text-sm">• 8 min read</span>
+                    <span class="txt2 text-sm">• 5 min read</span>
                 </div>
-                <h1 class="text-3xl md:text-4xl font-bold mb-3">🔎 Why Am I Getting Empty Results?</h1>
+                <h1 class="text-3xl md:text-4xl font-bold mb-3">📖 SQL Basics: SELECT & FROM</h1>
                 <p class="text-lg txt2">
-                    Your query returns nothing? Let's figure out why and fix it!
+                    Learn the foundation of SQL queries. Every SQL journey starts here!
                 </p>
             </div>
 
             <!-- Content -->
             <div class="content-section card bdr border rounded-lg p-8 mb-8">
 
-                <h2>The Frustrating Empty Result</h2>
+                <h2>What is SQL?</h2>
                 <p>
-                    You write a query. You run it. And... nothing. Zero rows. Empty results.
-                </p>
-                <p>
-                    Don't worry! This happens to everyone. Let's troubleshoot it step by step.
+                    SQL (Structured Query Language) is the language used to talk to databases. Think of it as asking questions to a spreadsheet, but much more powerful. SQL lets you retrieve, filter, and analyze data stored in tables.
                 </p>
 
-                <h2>Step 1: Check If the Table Has Data</h2>
+                <h2>The SELECT Statement</h2>
                 <p>
-                    First, make sure your table actually has data. Try this:
+                    <code>SELECT</code> is the most important SQL command. It tells the database what data you want to retrieve.
                 </p>
 
-                <pre>SELECT * FROM table_name LIMIT 10;</pre>
+                <h3>Basic Syntax</h3>
+                <pre>SELECT column1, column2
+FROM table_name;</pre>
 
-                <p>
-                    If this returns nothing, your table is empty! That's your problem right there.
-                </p>
+                <p>Let's break this down:</p>
+                <ul>
+                    <li><strong>SELECT</strong> - Specifies what columns you want</li>
+                    <li><strong>column1, column2</strong> - The specific columns to retrieve</li>
+                    <li><strong>FROM</strong> - Indicates which table to get data from</li>
+                    <li><strong>table_name</strong> - The name of the table</li>
+                </ul>
+
+                <h3>Example 1: Select Specific Columns</h3>
+                <p>Get first name and salary from employees table:</p>
+                <pre>SELECT first_name, salary
+FROM employees;</pre>
 
                 <div class="bg-blue-50 dark:bg-blue-900/20 bdr border rounded-lg p-4 my-4">
-                    <p class="text-sm"><strong>💡 Pro Tip:</strong> Always start by checking if the table has ANY data before adding WHERE conditions.</p>
+                    <p class="text-sm"><strong>💡 Tip:</strong> Column names are separated by commas. Don't put a comma after the last column!</p>
                 </div>
 
-                <h2>Step 2: Remove Your WHERE Clause</h2>
-                <p>
-                    If the table has data but your query returns nothing, the problem is likely in your WHERE clause.
-                </p>
-                <p>
-                    Try running your query WITHOUT the WHERE:
-                </p>
-
-                <pre>-- Your original query:
-SELECT first_name, last_name
-FROM employees
-WHERE department = 'Sales';
-
--- Try this instead:
-SELECT first_name, last_name, department
+                <h3>Example 2: Select All Columns</h3>
+                <p>Use the asterisk (<code>*</code>) to select all columns:</p>
+                <pre>SELECT *
 FROM employees;</pre>
 
-                <p>
-                    If this works, you know the WHERE clause is filtering out everything. Now we need to find out why!
-                </p>
+                <p>The <code>*</code> means "everything" - it retrieves all columns from the table.</p>
 
-                <h2>Common Reason #1: Spelling Mistakes</h2>
+                <h2>Understanding Tables</h2>
                 <p>
-                    The most common reason for empty results? Typos!
+                    A database table is like a spreadsheet with rows and columns:
                 </p>
+                <ul>
+                    <li><strong>Columns</strong> - The fields (like first_name, salary, department)</li>
+                    <li><strong>Rows</strong> - Individual records (each employee is one row)</li>
+                </ul>
 
+                <h2>Common Mistakes</h2>
                 <div class="bg-red-50 dark:bg-red-900/20 bdr border rounded-lg p-4 my-4">
-                    <p class="text-sm mb-2"><strong>❌ Your query:</strong></p>
-                    <pre class="mb-3">WHERE department = 'Saels'</pre>
-                    <p class="text-sm mb-2"><strong>✅ Should be:</strong></p>
-                    <pre>WHERE department = 'Sales'</pre>
-                    <p class="text-sm mt-3">One tiny typo = no results!</p>
-                </div>
-
-                <h3>How to Check:</h3>
-                <p>
-                    Look at what values actually exist:
-                </p>
-
-                <pre>SELECT DISTINCT department
+                    <p class="text-sm mb-2"><strong>❌ Wrong:</strong></p>
+                    <pre class="mb-3">SELECT first_name, last_name,
 FROM employees;</pre>
-
-                <p>
-                    This shows you all the unique department names. You might see they're spelled differently than you thought!
-                </p>
-
-                <h2>Common Reason #2: Wrong Capitalization</h2>
-                <p>
-                    In most databases, text comparisons are case-sensitive!
-                </p>
-
-                <div class="bg-red-50 dark:bg-red-900/20 bdr border rounded-lg p-4 my-4">
-                    <p class="text-sm">These are ALL different:</p>
-                    <ul class="text-sm mt-2 space-y-1">
-                        <li><code>'Sales'</code></li>
-                        <li><code>'sales'</code></li>
-                        <li><code>'SALES'</code></li>
-                    </ul>
+                    <p class="text-sm mb-2"><strong>✅ Correct:</strong></p>
+                    <pre>SELECT first_name, last_name
+FROM employees;</pre>
+                    <p class="text-sm mt-3"><strong>Why?</strong> No comma after the last column name!</p>
                 </div>
-
-                <p>
-                    Check the exact capitalization in your data:
-                </p>
-
-                <pre>SELECT department
-FROM employees
-LIMIT 10;</pre>
-
-                <p>
-                    Is it "Sales" or "sales"? Match it exactly!
-                </p>
-
-                <h2>Common Reason #3: Extra Spaces</h2>
-                <p>
-                    Sometimes there are invisible spaces in your data:
-                </p>
-
-                <div class="bg-red-50 dark:bg-red-900/20 bdr border rounded-lg p-4 my-4">
-                    <p class="text-sm mb-3"><code>'Sales'</code> is NOT the same as <code>'Sales '</code> (space at end)</p>
-                    <p class="text-sm">You can't see the difference, but SQL can!</p>
-                </div>
-
-                <h2>Common Reason #4: Comparing Wrong Data Types</h2>
-                <p>
-                    Are you comparing a number to text?
-                </p>
 
                 <div class="bg-red-50 dark:bg-red-900/20 bdr border rounded-lg p-4 my-4">
                     <p class="text-sm mb-2"><strong>❌ Wrong:</strong></p>
-                    <pre class="mb-3">WHERE employee_id = '123'</pre>
-                    <p class="text-sm mb-2"><strong>✅ Right:</strong></p>
-                    <pre>WHERE employee_id = 123</pre>
-                    <p class="text-sm mt-3">If employee_id is a number, don't use quotes!</p>
+                    <pre class="mb-3">SELECT first_name
+employees;</pre>
+                    <p class="text-sm mb-2"><strong>✅ Correct:</strong></p>
+                    <pre>SELECT first_name
+FROM employees;</pre>
+                    <p class="text-sm mt-3"><strong>Why?</strong> Always include the FROM keyword!</p>
                 </div>
 
-                <h2>Common Reason #5: NULL Values</h2>
-                <p>
-                    Remember, you can't use <code>=</code> with NULL!
-                </p>
+                <h2>Practice Examples</h2>
+                <p>Try these queries in the <a href="/practice.html" class="text-blue-600 dark:text-blue-400 hover:underline">Practice page</a>:</p>
 
-                <div class="bg-red-50 dark:bg-red-900/20 bdr border rounded-lg p-4 my-4">
-                    <p class="text-sm mb-2"><strong>❌ Wrong:</strong></p>
-                    <pre class="mb-3">WHERE phone = NULL</pre>
-                    <p class="text-sm mb-2"><strong>✅ Right:</strong></p>
-                    <pre>WHERE phone IS NULL</pre>
-                </div>
-
-                <h2>Common Reason #6: Too Many AND Conditions</h2>
-                <p>
-                    When you use AND, ALL conditions must be true. Maybe that's too strict?
-                </p>
-
-                <pre>SELECT first_name, last_name
-FROM employees
-WHERE department = 'Sales'
-  AND salary > 100000
-  AND hire_date > '2023-01-01';</pre>
-
-                <p>
-                    Try testing one condition at a time:
-                </p>
-
-                <pre>-- Test each one separately:
-WHERE department = 'Sales';
-WHERE salary > 100000;
-WHERE hire_date > '2023-01-01';</pre>
-
-                <p>
-                    This helps you find which condition is eliminating all the rows.
-                </p>
-
-                <h2>Common Reason #7: Wrong Table or Column Name</h2>
-                <p>
-                    Make sure you're using the right names!
-                </p>
-
-                <div class="bg-red-50 dark:bg-red-900/20 bdr border rounded-lg p-4 my-4">
-                    <p class="text-sm mb-2"><strong>❌ Wrong:</strong></p>
-                    <pre class="mb-3">SELECT name FROM employee;</pre>
-                    <p class="text-sm mb-2"><strong>✅ Might need to be:</strong></p>
-                    <pre>SELECT first_name FROM employees;</pre>
-                    <p class="text-sm mt-3">Check if it's singular or plural, and which columns exist!</p>
-                </div>
-
-                <h2>Debugging Strategy</h2>
-                <p>
-                    Here's a step-by-step process to find your problem:
-                </p>
-
-                <h3>1. Start Simple</h3>
-                <pre>SELECT * FROM table_name LIMIT 10;</pre>
-                <p>Does this work? Great! The table exists and has data.</p>
-
-                <h3>2. Add Columns One by One</h3>
-                <pre>SELECT first_name, last_name FROM employees LIMIT 10;</pre>
-                <p>If this fails, you might have wrong column names.</p>
-
-                <h3>3. Check What Values Exist</h3>
-                <pre>SELECT DISTINCT department FROM employees;</pre>
-                <p>See exactly what's in your data.</p>
-
-                <h3>4. Add WHERE Conditions Slowly</h3>
-                <pre>-- First try:
-WHERE department = 'Sales';
-
--- Then add more:
-WHERE department = 'Sales' AND salary > 50000;</pre>
-
-                <p>Add one condition at a time to find the culprit!</p>
-
-                <h2>Real-World Example</h2>
-                <p>
-                    Let's say you're trying to find expensive products:
-                </p>
-
-                <pre>SELECT product_name, price
-FROM products
-WHERE price > 1000;</pre>
-
-                <p>
-                    No results? Here's what to check:
-                </p>
-
-                <h3>Step 1: Does the table have data?</h3>
-                <pre>SELECT * FROM products LIMIT 10;</pre>
-
-                <h3>Step 2: What's the price range?</h3>
-                <pre>SELECT MIN(price), MAX(price)
+                <ol>
+                    <li>
+                        <strong>Get all employee information:</strong>
+                        <pre>SELECT * FROM employees;</pre>
+                    </li>
+                    <li>
+                        <strong>Get only names and emails:</strong>
+                        <pre>SELECT first_name, last_name, email
+FROM employees;</pre>
+                    </li>
+                    <li>
+                        <strong>Get customer names:</strong>
+                        <pre>SELECT first_name, last_name
+FROM customers;</pre>
+                    </li>
+                    <li>
+                        <strong>Get product information:</strong>
+                        <pre>SELECT product_name, price
 FROM products;</pre>
+                    </li>
+                </ol>
 
-                <p>
-                    Ah! The max price is only $500. That's why <code>price > 1000</code> returns nothing!
-                </p>
-
-                <h2>Quick Checklist</h2>
-                <p>
-                    When you get empty results, check:
-                </p>
-
-                <div class="card bdr border rounded p-4 my-4">
-                    <ul>
-                        <li>✅ Does the table have data?</li>
-                        <li>✅ Are column names spelled correctly?</li>
-                        <li>✅ Are table names spelled correctly?</li>
-                        <li>✅ Is capitalization exact?</li>
-                        <li>✅ Are there extra spaces?</li>
-                        <li>✅ Are you using quotes correctly? (text needs them, numbers don't)</li>
-                        <li>✅ Did you use <code>IS NULL</code> instead of <code>= NULL</code>?</li>
-                        <li>✅ Do rows actually exist that match your conditions?</li>
-                    </ul>
-                </div>
-
-                <h2>Testing Strategy</h2>
-                <p>
-                    Build your query in steps:
-                </p>
-
-                <pre>-- Step 1: Get ALL data
-SELECT * FROM employees;
-
--- Step 2: Get specific columns
-SELECT first_name, last_name, department FROM employees;
-
--- Step 3: Add one WHERE condition
-SELECT first_name, last_name, department
-FROM employees
-WHERE department = 'Sales';
-
--- Step 4: Add more conditions one at a time
-SELECT first_name, last_name, department, salary
-FROM employees
-WHERE department = 'Sales'
-  AND salary > 60000;</pre>
-
-                <p>
-                    If any step returns nothing, you found where the problem is!
-                </p>
-
-                <h2>Still No Results?</h2>
-                <p>
-                    If you've checked everything and still get nothing, maybe:
-                </p>
+                <h2>Key Takeaways</h2>
                 <ul>
-                    <li>The data you're looking for really doesn't exist</li>
-                    <li>Your conditions are too strict (try relaxing them)</li>
-                    <li>You need to use OR instead of AND</li>
+                    <li><code>SELECT</code> chooses which columns to display</li>
+                    <li><code>FROM</code> specifies which table to query</li>
+                    <li>Use <code>*</code> to select all columns</li>
+                    <li>Separate column names with commas</li>
+                    <li>SQL statements end with a semicolon (<code>;</code>)</li>
                 </ul>
-
-                <div class="bg-green-50 dark:bg-green-900/20 bdr border rounded-lg p-4 my-4">
-                    <p class="text-sm"><strong>🎯 Pro Tip:</strong> Always test with simple queries first. Build complexity slowly. Don't start with a giant query with 5 WHERE conditions!</p>
-                </div>
-
-                <h2>What You Learned</h2>
-                <ul>
-                    <li>Always check if the table has data first</li>
-                    <li>Remove WHERE clauses to debug</li>
-                    <li>Check for typos and capitalization</li>
-                    <li>Watch out for extra spaces</li>
-                    <li>Use <code>DISTINCT</code> to see what values exist</li>
-                    <li>Add conditions one at a time</li>
-                    <li>Build queries step by step</li>
-                </ul>
-
-                <p>
-                    Debugging is a skill! The more you practice, the faster you'll spot problems!
-                </p>
 
             </div>
 
             <!-- Navigation -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 <div class="card bdr border rounded-lg p-6">
-                    <h3 class="font-bold mb-2">📝 Practice Debugging</h3>
-                    <p class="text-sm txt2 mb-4">Try queries and fix problems</p>
+                    <h3 class="font-bold mb-2">📝 Practice What You Learned</h3>
+                    <p class="text-sm txt2 mb-4">Try SELECT queries with real datasets</p>
                     <a href="/practice.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
                         Open Practice Page →
                     </a>
                 </div>
                 <div class="card bdr border rounded-lg p-6">
-                    <h3 class="font-bold mb-2">⚠️ Common Errors</h3>
-                    <p class="text-sm txt2 mb-4">Learn about SQL error messages</p>
-                    <a href="/learn/sql-errors-beginners.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
-                        Read Error Guide →
+                    <h3 class="font-bold mb-2">🎯 Test Your Skills</h3>
+                    <p class="text-sm txt2 mb-4">Try Challenge #1 and #2</p>
+                    <a href="/challenges/" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                        Start Challenges →
                     </a>
                 </div>
             </div>
@@ -527,10 +340,10 @@ WHERE department = 'Sales'
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm txt2 mb-1">Next Tutorial</p>
-                        <h3 class="font-bold">⚠️ Common SQL Errors for Beginners</h3>
-                        <p class="text-sm txt2 mt-1">Understand error messages</p>
+                        <h3 class="font-bold">🔍 Filtering & Sorting</h3>
+                        <p class="text-sm txt2 mt-1">Learn WHERE, ORDER BY, and LIMIT</p>
                     </div>
-                    <a href="/learn/sql-errors-beginners.html" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition">
+                    <a href="/learn/sql-where-filtering.html" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition">
                         Next →
                     </a>
                 </div>

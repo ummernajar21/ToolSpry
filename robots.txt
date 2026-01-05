@@ -1,4 +1,29 @@
+# ToolSpry Robots.txt
+# Updated: January 5, 2026
+
 User-agent: *
 Allow: /
 
+# Sitemap
 Sitemap: https://toolspry.tech/sitemap.xml
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Disallow if you have any admin or private folders (adjust as needed)
+# User-agent: *
+# Disallow: /admin/
+# Disallow: /private/
+
+# Crawl delay (optional, uncomment if needed)
+# Crawl-delay: 1

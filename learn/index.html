@@ -1,220 +1,497 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Learn SQL Basics | SQL Practice</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description" content="Learn which SQL queries you can practice here. Beginner-friendly explanations with real-world examples." />
-
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-</head>
-
-<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
-
-<!-- ================= NAVBAR ================= -->
-<header class="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-    <a href="/" class="text-xl font-semibold">SQL Practice</a>
-
-    <nav class="hidden md:flex space-x-6 text-sm">
-      <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
-      <a href="/practice.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Practice</a>
-      <a href="/learn/index.html" class="font-medium">Learn</a>
-      <a href="/about.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About</a>
-      <a href="/contact.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<!-- ================= MAIN ================= -->
-<main class="flex-grow max-w-4xl mx-auto px-4 py-10">
-
-<h1 class="text-3xl font-semibold mb-4">
-  Learn SQL (Beginner Friendly)
-</h1>
-
-<p class="text-gray-600 dark:text-gray-400 mb-8">
-  This page explains what you can practice on this platform and how to use it effectively.
-  Everything here is designed for beginners — no advanced or confusing topics.
-</p>
-
-<!-- ================= WHAT THIS PLATFORM IS ================= -->
-<section class="mb-10">
-  <h2 class="text-xl font-semibold mb-3">What this platform is</h2>
-  <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-    <li>A safe place to practice real SQL queries</li>
-    <li>Uses realistic data from small business scenarios</li>
-    <li>Runs fully in your browser (no login, no backend)</li>
-    <li>Focuses on understanding errors, not hiding them</li>
-  </ul>
-</section>
-
-<!-- ================= WHAT YOU CAN PRACTICE ================= -->
-<section class="mb-10">
-  <h2 class="text-xl font-semibold mb-3">SQL queries you can practice</h2>
-
-  <div class="space-y-4">
-
-    <div>
-      <h3 class="font-medium">Basic SELECT queries</h3>
-      <p class="text-sm text-gray-600 dark:text-gray-400">
-        Read data from a table.
-      </p>
-      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
-SELECT * FROM customers;
-      </pre>
-    </div>
-
-    <div>
-      <h3 class="font-medium">Filtering with WHERE</h3>
-      <p class="text-sm text-gray-600 dark:text-gray-400">
-        Get only the rows you care about.
-      </p>
-      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
-SELECT * FROM customers
-WHERE country = 'United States';
-      </pre>
-    </div>
-
-    <div>
-      <h3 class="font-medium">Sorting results with ORDER BY</h3>
-      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
-SELECT full_name, signup_date
-FROM customers
-ORDER BY signup_date;
-      </pre>
-    </div>
-
-    <div>
-      <h3 class="font-medium">Limiting results with LIMIT</h3>
-      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
-SELECT * FROM customers
-LIMIT 10;
-      </pre>
-    </div>
-
-    <div>
-      <h3 class="font-medium">Aggregations (COUNT, SUM, AVG)</h3>
-      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
-SELECT country, COUNT(*)
-FROM customers
-GROUP BY country;
-      </pre>
-    </div>
-
-    <div>
-      <h3 class="font-medium">Joining tables (basic JOIN)</h3>
-      <p class="text-sm text-gray-600 dark:text-gray-400">
-        Combine data from related tables.
-      </p>
-      <pre class="mt-2 p-3 rounded border bg-gray-50 dark:bg-gray-900 text-sm">
-SELECT c.full_name, SUM(o.order_amount)
-FROM customers c
-JOIN orders o ON c.customer_id = o.customer_id
-GROUP BY c.full_name;
-      </pre>
-    </div>
-
-  </div>
-</section>
-
-<!-- AD SLOT -->
-<div class="my-8 max-w-5xl mx-auto px-4">
-  <div
-    id="ad-slot-home-1"
-    class="border border-dashed rounded-lg p-4 text-center
-           text-sm text-gray-500 dark:text-gray-400
-           bg-white dark:bg-gray-800">
-    Advertisement
-  </div>
-</div>
-
-<!-- ================= WHAT IS NOT SUPPORTED ================= -->
-<section class="mb-10">
-  <h2 class="text-xl font-semibold mb-3">What is intentionally not included</h2>
-
-  <p class="text-gray-600 dark:text-gray-400 mb-3">
-    To keep learning focused and beginner-friendly, this platform does not include:
-  </p>
-
-  <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-    <li>Stored procedures</li>
-    <li>Triggers</li>
-    <li>Indexes</li>
-    <li>Advanced subqueries</li>
-    <li>Database administration commands</li>
-  </ul>
-</section>
-
-<!-- ================= ERROR HELP ================= -->
-<section class="mb-10">
-  <h2 class="text-xl font-semibold mb-3">Understanding errors</h2>
-  <p class="text-gray-600 dark:text-gray-400 mb-3">
-    Errors are part of learning SQL. This platform explains common errors clearly:
-  </p>
-
-  <ul class="list-disc list-inside space-y-2">
-    <li>
-      <a href="/learn/sql-errors-beginners.html" class="underline">
-        SQL syntax errors explained
-      </a>
-    </li>
-    <li>
-      <a href="/learn/sql-empty-results.html" class="underline">
-        Why your query returns no rows
-      </a>
-    </li>
-  </ul>
-</section>
-
-<!-- ================= NEXT STEP ================= -->
-<section class="bg-gray-100 dark:bg-gray-800 border rounded p-6">
-  <h2 class="text-xl font-semibold mb-2">How to get started</h2>
-  <ol class="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300">
-    <li>Go to the Practice page</li>
-    <li>Select a dataset</li>
-    <li>Read the schema carefully</li>
-    <li>Run the starter query</li>
-    <li>Modify it and observe the results</li>
-  </ol>
-
-  <a href="/practice.html"
-     class="inline-block mt-4 px-4 py-2 rounded bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900">
-    Start Practicing →
-  </a>
-</section>
-
-</main>
-
-<!-- AD SLOT -->
-<div class="my-8 max-w-5xl mx-auto px-4">
-  <div
-    id="ad-slot-home-1"
-    class="border border-dashed rounded-lg p-4 text-center
-           text-sm text-gray-500 dark:text-gray-400
-           bg-white dark:bg-gray-800">
-    Advertisement
-  </div>
-</div>
-
-<!-- ================= FOOTER ================= -->
-<footer class="border-t bg-white dark:bg-gray-800 dark:border-gray-700 text-sm">
-  <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
-    <p class="text-gray-600 dark:text-gray-400">
-      © <span id="year"></span> SQL Practice
-    </p>
-    <div class="space-x-4 mt-2 md:mt-0">
-      <a href="/privacy.html" class="hover:underline">Privacy</a>
-      <a href="/terms.html" class="hover:underline">Terms</a>
-      <a href="/contact.html" class="hover:underline">Contact</a>
-    </div>
-  </div>
-</footer>
-
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMDYXFQTJ1"></script>
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KMDYXFQTJ1');
 </script>
+
+    <title>Learn SQL - Free Beginner Tutorials | ToolSpry</title>
+    <meta name="description" content="Learn SQL from scratch with beginner-friendly tutorials. Master SELECT, WHERE, ORDER BY, and more with simple explanations and real examples.">
+
+    <link rel="canonical" href="https://toolspry.tech/learn/">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+
+        .nav-footer {
+            background-color: #24292f !important;
+            color: #ffffff !important;
+        }
+        .nav-footer a { color: #ffffff !important; }
+        .nav-footer a:hover { color: #58a6ff !important; }
+        .nav-footer button { color: #ffffff !important; }
+
+        :root {
+            --bg: #f6f8fa;
+            --bg2: #ffffff;
+            --text: #24292f;
+            --text2: #57606a;
+            --border: #d0d7de;
+        }
+
+        .dark {
+            --bg: #0d1117;
+            --bg2: #161b22;
+            --text: #c9d1d9;
+            --text2: #8b949e;
+            --border: #30363d;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .card { background-color: var(--bg2); }
+        .txt2 { color: var(--text2); }
+        .bdr { border-color: var(--border); }
+
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+        .mobile-menu.active { max-height: 500px; }
+
+        .tutorial-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav-footer sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold hover:opacity-80 transition">
+                        ⚡ ToolSpry
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/practice.html" class="hover:opacity-80 transition">Practice</a>
+                    <a href="/challenges/" class="hover:opacity-80 transition">Challenges</a>
+                    <a href="/learn/" class="opacity-80">Learn</a>
+                    <a href="/about.html" class="hover:opacity-80 transition">About</a>
+                    <a href="/contact.html" class="hover:opacity-80 transition">Contact</a>
+
+                    <button id="theme-btn" class="p-2 rounded-lg hover:bg-gray-700 transition">
+                        <span id="theme-icon">🌙</span>
+                    </button>
+
+                    <a href="https://ko-fi.com/toolspry"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
+                        ☕ Support
+                    </a>
+                </div>
+
+                <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-700 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="mobile-menu md:hidden">
+                <div class="py-4 space-y-3">
+                    <a href="/practice.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Practice</a>
+                    <a href="/challenges/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Challenges</a>
+                    <a href="/learn/" class="block px-4 py-2 bg-gray-700 rounded">Learn</a>
+                    <a href="/about.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">About</a>
+                    <a href="/contact.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Contact</a>
+
+                    <div class="flex items-center justify-between px-4 py-2">
+                        <span>Theme</span>
+                        <button id="theme-btn-mobile" class="p-2 rounded-lg hover:bg-gray-700 transition">
+                            <span id="theme-icon-mobile">🌙</span>
+                        </button>
+                    </div>
+
+                    <a href="https://ko-fi.com/toolspry"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="block mx-4 text-center bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
+                        ☕ Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="py-12">
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">📚 Learn SQL</h1>
+                <p class="text-xl txt2 max-w-3xl mx-auto">
+                    Master SQL from scratch with beginner-friendly tutorials. Simple explanations, real examples, no prior experience needed!
+                </p>
+            </div>
+
+            <!-- Learning Path Section -->
+            <div class="mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <h2 class="text-2xl font-bold">🎯 Start Your Learning Journey</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Tutorial 1: SQL Basics -->
+                    <a href="/learn/sql-basics-beginners.html" class="tutorial-card card bdr border rounded-lg p-6 block">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="text-3xl">📖</span>
+                            <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-2 py-1 rounded text-xs font-medium">
+                                Beginner
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">SQL Basics</h3>
+                        <p class="txt2 text-sm mb-3">
+                            Start here! Learn SELECT, FROM, and your first queries. Perfect for absolute beginners.
+                        </p>
+                        <div class="flex items-center text-xs txt2">
+                            <span>5 min read</span>
+                            <span class="mx-2">•</span>
+                            <span>Lesson 1</span>
+                        </div>
+                    </a>
+
+                    <!-- Tutorial 2: WHERE Filtering -->
+                    <a href="/learn/sql-where-filtering.html" class="tutorial-card card bdr border rounded-lg p-6 block">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="text-3xl">🔍</span>
+                            <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-2 py-1 rounded text-xs font-medium">
+                                Beginner
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Filtering with WHERE</h3>
+                        <p class="txt2 text-sm mb-3">
+                            Find exactly what you need! Learn to filter data with WHERE, AND, OR, and comparison operators.
+                        </p>
+                        <div class="flex items-center text-xs txt2">
+                            <span>6 min read</span>
+                            <span class="mx-2">•</span>
+                            <span>Lesson 2</span>
+                        </div>
+                    </a>
+
+                    <!-- Tutorial 3: ORDER BY & LIMIT -->
+                    <a href="/learn/sql-order-limit.html" class="tutorial-card card bdr border rounded-lg p-6 block">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="text-3xl">📊</span>
+                            <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-2 py-1 rounded text-xs font-medium">
+                                Beginner
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Sorting with ORDER BY</h3>
+                        <p class="txt2 text-sm mb-3">
+                            Organize your results! Learn to sort data and control how many rows you see with LIMIT.
+                        </p>
+                        <div class="flex items-center text-xs txt2">
+                            <span>5 min read</span>
+                            <span class="mx-2">•</span>
+                            <span>Lesson 3</span>
+                        </div>
+                    </a>
+
+                    <!-- Tutorial 4: NULL Values -->
+                    <a href="/learn/sql-null-explained.html" class="tutorial-card card bdr border rounded-lg p-6 block">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="text-3xl">🔘</span>
+                            <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-2 py-1 rounded text-xs font-medium">
+                                Beginner
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Understanding NULL</h3>
+                        <p class="txt2 text-sm mb-3">
+                            Handle missing data properly. Learn what NULL means and how to work with IS NULL and IS NOT NULL.
+                        </p>
+                        <div class="flex items-center text-xs txt2">
+                            <span>7 min read</span>
+                            <span class="mx-2">•</span>
+                            <span>Lesson 4</span>
+                        </div>
+                    </a>
+
+                    <!-- Tutorial 5: Empty Results -->
+                    <a href="/learn/sql-empty-results.html" class="tutorial-card card bdr border rounded-lg p-6 block">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="text-3xl">🔎</span>
+                            <span class="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 px-2 py-1 rounded text-xs font-medium">
+                                Troubleshooting
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Empty Results Guide</h3>
+                        <p class="txt2 text-sm mb-3">
+                            Query returns nothing? Learn step-by-step debugging to find and fix the problem quickly.
+                        </p>
+                        <div class="flex items-center text-xs txt2">
+                            <span>8 min read</span>
+                            <span class="mx-2">•</span>
+                            <span>Troubleshooting</span>
+                        </div>
+                    </a>
+
+                    <!-- Tutorial 6: Common Errors -->
+                    <a href="/learn/sql-errors-beginners.html" class="tutorial-card card bdr border rounded-lg p-6 block">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="text-3xl">⚠️</span>
+                            <span class="bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 px-2 py-1 rounded text-xs font-medium">
+                                Error Guide
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Common SQL Errors</h3>
+                        <p class="txt2 text-sm mb-3">
+                            Decode error messages! Understand what they mean and learn how to fix syntax errors, unknown columns, and more.
+                        </p>
+                        <div class="flex items-center text-xs txt2">
+                            <span>10 min read</span>
+                            <span class="mx-2">•</span>
+                            <span>Error Guide</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Quick Reference Section -->
+            <div class="mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <h2 class="text-2xl font-bold">📋 Quick Reference</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Cheat Sheet -->
+                    <a href="/learn/sql-cheat-sheet.html" class="tutorial-card card bdr border rounded-lg p-8 block">
+                        <div class="flex items-start gap-4">
+                            <span class="text-4xl">📋</span>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <h3 class="text-xl font-bold">SQL Cheat Sheet</h3>
+                                    <span class="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-2 py-1 rounded text-xs font-medium">
+                                        Reference
+                                    </span>
+                                </div>
+                                <p class="txt2 text-sm mb-3">
+                                    Quick reference for all essential SQL commands. Bookmark this page for instant access to syntax and examples!
+                                </p>
+                                <div class="flex items-center gap-2">
+                                    <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs">SELECT</span>
+                                    <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs">WHERE</span>
+                                    <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs">ORDER BY</span>
+                                    <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs">LIMIT</span>
+                                    <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs">NULL</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Practice Link -->
+                    <div class="card bdr border rounded-lg p-8">
+                        <div class="flex items-start gap-4">
+                            <span class="text-4xl">💻</span>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-2">Practice SQL Now</h3>
+                                <p class="txt2 text-sm mb-4">
+                                    Ready to practice? Try your SQL queries with real datasets in our interactive practice environment!
+                                </p>
+                                <a href="/practice.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition font-medium">
+                                    Open Practice Page →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Learning Path Info -->
+            <div class="card bdr border rounded-lg p-8 mb-12">
+                <h2 class="text-2xl font-bold mb-4">🗺️ Recommended Learning Path</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-bold mb-3 flex items-center gap-2">
+                            <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+                            Start with the Basics
+                        </h3>
+                        <p class="txt2 text-sm mb-3">
+                            Begin with "SQL Basics" to learn SELECT and FROM. This is your foundation!
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold mb-3 flex items-center gap-2">
+                            <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+                            Learn Filtering
+                        </h3>
+                        <p class="txt2 text-sm mb-3">
+                            Master WHERE clauses to find exactly what you need in your data.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold mb-3 flex items-center gap-2">
+                            <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
+                            Sort and Limit Results
+                        </h3>
+                        <p class="txt2 text-sm mb-3">
+                            Organize your results with ORDER BY and control output with LIMIT.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold mb-3 flex items-center gap-2">
+                            <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
+                            Practice, Practice, Practice!
+                        </h3>
+                        <p class="txt2 text-sm mb-3">
+                            Use the Practice page after each tutorial. Real practice = real learning!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card bdr border rounded-lg p-6 text-center">
+                    <h3 class="text-xl font-bold mb-3">🎯 Take the Challenges</h3>
+                    <p class="txt2 text-sm mb-4">
+                        Test your knowledge with real-world SQL challenges. Track your progress and earn achievements!
+                    </p>
+                    <a href="/challenges/" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition font-medium">
+                        Start Challenges →
+                    </a>
+                </div>
+
+                <div class="card bdr border rounded-lg p-6 text-center">
+                    <h3 class="text-xl font-bold mb-3">❓ Need Help?</h3>
+                    <p class="txt2 text-sm mb-4">
+                        Stuck on something? Check our troubleshooting guides or reach out for help!
+                    </p>
+                    <a href="/contact.html" class="inline-block bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg transition font-medium">
+                        Get Help →
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="nav-footer py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+                <div>
+                    <div class="text-2xl font-bold mb-4">⚡ ToolSpry</div>
+                    <p class="text-sm opacity-80">
+                        Practice SQL with real datasets. Free forever.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Learn</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/practice.html" class="hover:opacity-80 transition">Practice SQL</a></li>
+                        <li><a href="/challenges/" class="hover:opacity-80 transition">Challenges</a></li>
+                        <li><a href="/learn/" class="hover:opacity-80 transition">SQL Guides</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/learn/sql-errors-beginners.html" class="hover:opacity-80 transition">Common Errors</a></li>
+                        <li><a href="/about.html" class="hover:opacity-80 transition">About</a></li>
+                        <li><a href="https://ko-fi.com/toolspry" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition">☕ Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="mailto:info@toolspry.tech" class="hover:opacity-80 transition">info@toolspry.tech</a></li>
+                        <li><a href="/contact.html" class="hover:opacity-80 transition">Contact Form</a></li>
+                        <li><a href="/privacy.html" class="hover:opacity-80 transition">Privacy</a></li>
+                        <li><a href="/disclaimer.html" class="hover:opacity-80 transition">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm opacity-80">
+                <p>&copy; 2026 ToolSpry. Built for beginners.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme toggle script -->
+    <script>
+        (function() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const themeBtn = document.getElementById('theme-btn');
+            const themeBtnMobile = document.getElementById('theme-btn-mobile');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeIconMobile = document.getElementById('theme-icon-mobile');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('active');
+                });
+            }
+
+            function updateIcons(dark) {
+                const icon = dark ? '☀️' : '🌙';
+                if (themeIcon) themeIcon.textContent = icon;
+                if (themeIconMobile) themeIconMobile.textContent = icon;
+            }
+
+            updateIcons(localStorage.getItem('theme') === 'dark');
+
+            function toggleTheme() {
+                const dark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', dark ? 'dark' : 'light');
+                updateIcons(dark);
+            }
+
+            if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+            if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
+        });
+    </script>
 
 </body>
 </html>

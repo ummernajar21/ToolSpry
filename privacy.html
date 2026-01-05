@@ -1,162 +1,581 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Privacy Policy | SQL Practice</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description"
-        content="Privacy policy for SQL Practice. Learn how we handle data, ads, and user privacy." />
-
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-</head>
-
-<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
-
-<!-- ================= NAVBAR ================= -->
-<header class="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-    <a href="/" class="text-xl font-semibold">SQL Practice</a>
-
-    <nav class="hidden md:flex space-x-6 text-sm">
-      <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
-      <a href="/practice.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Practice</a>
-      <a href="/learn/index.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Learn</a>
-      <a href="/about.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About</a>
-      <a href="/contact.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<!-- ================= MAIN ================= -->
-<main class="flex-grow max-w-3xl mx-auto px-4 py-10">
-
-<h1 class="text-3xl font-semibold mb-6">Privacy Policy</h1>
-
-<p class="text-gray-600 dark:text-gray-400 mb-8">
-  Your privacy matters. This page explains what data is (and is not) collected
-  when you use SQL Practice.
-</p>
-
-<!-- ================= OVERVIEW ================= -->
-<section class="mb-8">
-  <h2 class="text-xl font-semibold mb-2">Overview</h2>
-  <p>
-    SQL Practice is a static, browser-based learning tool.
-    You can use the site without creating an account or providing personal information.
-  </p>
-</section>
-
-<!-- ================= DATA COLLECTION ================= -->
-<section class="mb-8">
-  <h2 class="text-xl font-semibold mb-2">Information we do not collect</h2>
-
-  <ul class="list-disc list-inside space-y-2">
-    <li>No names or usernames</li>
-    <li>No email addresses</li>
-    <li>No passwords</li>
-    <li>No SQL queries are stored on our servers</li>
-  </ul>
-
-  <p class="text-sm text-gray-600 dark:text-gray-400 mt-3">
-    All SQL queries run entirely in your browser.
-  </p>
-</section>
-
-<!-- ================= COOKIES ================= -->
-<section class="mb-8">
-  <h2 class="text-xl font-semibold mb-2">Cookies and local storage</h2>
-
-  <p>
-    SQL Practice itself does not use cookies or local storage to track users.
-  </p>
-
-  <p class="mt-2">
-    However, third-party services such as advertising networks may use cookies
-    or similar technologies according to their own privacy policies.
-  </p>
-</section>
-
-<!-- ================= ADS ================= -->
-<section class="mb-8">
-  <h2 class="text-xl font-semibold mb-2">Advertising</h2>
-
-  <p>
-    This site may display advertisements to support ongoing development.
-  </p>
-
-  <p class="mt-2">
-    Advertising partners may use cookies or device identifiers to show relevant ads.
-    We do not control how third-party advertisers collect or use data.
-  </p>
-
-  <p class="text-sm text-gray-600 dark:text-gray-400 mt-3">
-    You can usually manage ad preferences through your browser or device settings.
-  </p>
-</section>
-
-<!-- ================= DONATIONS ================= -->
-<section class="mb-8">
-  <h2 class="text-xl font-semibold mb-2">Donations</h2>
-
-  <p>
-    If you choose to support this project through platforms like Ko-fi,
-    payments are handled entirely by the third-party provider.
-  </p>
-
-  <p class="mt-2">
-    We do not receive or store your payment information.
-  </p>
-</section>
-
-<!-- ================= EXTERNAL LINKS ================= -->
-<section class="mb-8">
-  <h2 class="text-xl font-semibold mb-2">External links</h2>
-
-  <p>
-    This site may contain links to external websites.
-    We are not responsible for the privacy practices or content of those sites.
-  </p>
-</section>
-
-<!-- ================= CHANGES ================= -->
-<section class="mb-8">
-  <h2 class="text-xl font-semibold mb-2">Changes to this policy</h2>
-
-  <p>
-    This Privacy Policy may be updated from time to time.
-    Any changes will be posted on this page.
-  </p>
-</section>
-
-<!-- ================= CONTACT ================= -->
-<section class="bg-gray-100 dark:bg-gray-800 border rounded p-6">
-  <h2 class="text-xl font-semibold mb-2">Contact</h2>
-
-  <p class="text-gray-700 dark:text-gray-300">
-    If you have questions about this Privacy Policy, you can contact us via the
-    email address listed on the Contact page.
-  </p>
-</section>
-
-</main>
-
-<!-- ================= FOOTER ================= -->
-<footer class="border-t bg-white dark:bg-gray-800 dark:border-gray-700 text-sm">
-  <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
-    <p class="text-gray-600 dark:text-gray-400">
-      © <span id="year"></span> SQL Practice
-    </p>
-    <div class="space-x-4 mt-2 md:mt-0">
-      <a href="/terms.html" class="hover:underline">Terms</a>
-      <a href="/contact.html" class="hover:underline">Contact</a>
-    </div>
-  </div>
-</footer>
-
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMDYXFQTJ1"></script>
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KMDYXFQTJ1');
 </script>
+
+    <title>Privacy Policy | ToolSpry</title>
+    <meta name="description" content="ToolSpry's privacy policy. Learn how we handle your data and protect your privacy.">
+
+    <link rel="canonical" href="https://toolspry.tech/privacy.html">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+
+        .nav-footer {
+            background-color: #24292f !important;
+            color: #ffffff !important;
+        }
+        .nav-footer a { color: #ffffff !important; }
+        .nav-footer a:hover { color: #58a6ff !important; }
+        .nav-footer button { color: #ffffff !important; }
+
+        :root {
+            --bg: #f6f8fa;
+            --bg2: #ffffff;
+            --text: #24292f;
+            --text2: #57606a;
+            --border: #d0d7de;
+        }
+
+        .dark {
+            --bg: #0d1117;
+            --bg2: #161b22;
+            --text: #c9d1d9;
+            --text2: #8b949e;
+            --border: #30363d;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .card { background-color: var(--bg2); }
+        .txt2 { color: var(--text2); }
+        .bdr { border-color: var(--border); }
+
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+        .mobile-menu.active { max-height: 500px; }
+
+        .content-section h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .content-section ul {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .content-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .content-section th,
+        .content-section td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .content-section th {
+            background-color: var(--bg);
+            font-weight: bold;
+        }
+
+        .content-section code {
+            background-color: var(--bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav-footer sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold hover:opacity-80 transition">
+                        ⚡ ToolSpry
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/practice.html" class="hover:opacity-80 transition">Practice</a>
+                    <a href="/challenges/" class="hover:opacity-80 transition">Challenges</a>
+                    <a href="/learn/" class="hover:opacity-80 transition">Learn</a>
+                    <a href="/about.html" class="hover:opacity-80 transition">About</a>
+                    <a href="/contact.html" class="hover:opacity-80 transition">Contact</a>
+
+                    <button id="theme-btn" class="p-2 rounded-lg hover:bg-gray-700 transition">
+                        <span id="theme-icon">🌙</span>
+                    </button>
+
+                    <a href="https://ko-fi.com/toolspry"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
+                        ☕ Support
+                    </a>
+                </div>
+
+                <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-700 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="mobile-menu md:hidden">
+                <div class="py-4 space-y-3">
+                    <a href="/practice.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Practice</a>
+                    <a href="/challenges/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Challenges</a>
+                    <a href="/learn/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Learn</a>
+                    <a href="/about.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">About</a>
+                    <a href="/contact.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Contact</a>
+
+                    <div class="flex items-center justify-between px-4 py-2">
+                        <span>Theme</span>
+                        <button id="theme-btn-mobile" class="p-2 rounded-lg hover:bg-gray-700 transition">
+                            <span id="theme-icon-mobile">🌙</span>
+                        </button>
+                    </div>
+
+                    <a href="https://ko-fi.com/toolspry"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="block mx-4 text-center bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
+                        ☕ Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="py-12">
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-4xl font-bold mb-3">Privacy Policy</h1>
+                <p class="txt2">Last Updated: January 5, 2026</p>
+            </div>
+
+            <!-- Content -->
+            <div class="content-section card bdr border rounded-lg p-8">
+
+                <div class="bg-blue-50 dark:bg-blue-900/20 bdr border rounded-lg p-4 mb-6">
+                    <p class="text-sm"><strong>📌 Quick Summary:</strong> We respect your privacy. We don't sell your data. We use cookies, analytics, and third-party services (like ads) to keep ToolSpry running. You're in control of your data.</p>
+                </div>
+
+                <h2>1. Introduction</h2>
+                <p class="txt2">
+                    Welcome to ToolSpry ("we," "our," or "us"). This Privacy Policy explains how we collect, use, and protect your information when you use our website at toolspry.tech (the "Site").
+                </p>
+                <p class="txt2">
+                    By using ToolSpry, you agree to the practices described in this Privacy Policy.
+                </p>
+
+                <h2>2. Information We Collect</h2>
+
+                <h3>2.1 Information You Provide</h3>
+                <p class="txt2">We may collect information you voluntarily provide, such as:</p>
+                <ul class="txt2">
+                    <li>Email address (when you contact us)</li>
+                    <li>Name (when you contact us)</li>
+                    <li>Any information you include in messages sent to us</li>
+                </ul>
+
+                <h3>2.2 Automatically Collected Information</h3>
+                <p class="txt2">When you visit ToolSpry, we automatically collect certain information, including:</p>
+                <ul class="txt2">
+                    <li><strong>Usage Data:</strong> Pages visited, time spent, clicks, queries run</li>
+                    <li><strong>Device Information:</strong> Browser type, device type, operating system</li>
+                    <li><strong>IP Address:</strong> Your approximate location based on IP address</li>
+                    <li><strong>Cookies:</strong> Small files stored on your device (see Section 4)</li>
+                </ul>
+
+                <h3>2.3 Local Storage</h3>
+                <p class="txt2">
+                    We use browser local storage to save your preferences (like dark mode settings and challenge progress). This data stays on your device and is not transmitted to our servers.
+                </p>
+
+                <h2>3. How We Use Your Information</h2>
+                <p class="txt2">We use collected information to:</p>
+                <ul class="txt2">
+                    <li>Provide and improve ToolSpry's functionality</li>
+                    <li>Respond to your inquiries and support requests</li>
+                    <li>Analyze usage patterns to improve user experience</li>
+                    <li>Monitor and prevent technical issues</li>
+                    <li>Display personalized ads (see Section 5)</li>
+                    <li>Comply with legal obligations</li>
+                </ul>
+
+                <h2>4. Cookies and Tracking Technologies</h2>
+                <p class="txt2">
+                    We use cookies and similar technologies to enhance your experience. Cookies are small text files stored on your device.
+                </p>
+
+                <h3>Types of Cookies We Use:</h3>
+                <ul class="txt2">
+                    <li><strong>Essential Cookies:</strong> Required for the Site to function (e.g., saving your theme preference)</li>
+                    <li><strong>Analytics Cookies:</strong> Help us understand how visitors use the Site</li>
+                    <li><strong>Advertising Cookies:</strong> Used by our ad network to show relevant ads</li>
+                </ul>
+
+                <h3>Cookies Used by ToolSpry:</h3>
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Cookie</th>
+                                <th>Type</th>
+                                <th>Purpose</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>theme</code></td>
+                                <td>Essential</td>
+                                <td>Saves your dark/light mode preference</td>
+                                <td>Permanent</td>
+                            </tr>
+                            <tr>
+                                <td><code>_ga</code></td>
+                                <td>Analytics</td>
+                                <td>Google Analytics - distinguishes users</td>
+                                <td>2 years</td>
+                            </tr>
+                            <tr>
+                                <td><code>_ga_*</code></td>
+                                <td>Analytics</td>
+                                <td>Google Analytics - persists session state</td>
+                                <td>2 years</td>
+                            </tr>
+                            <tr>
+                                <td><code>_gid</code></td>
+                                <td>Analytics</td>
+                                <td>Google Analytics - distinguishes users</td>
+                                <td>24 hours</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="txt2 mt-4">
+                    <strong>Note:</strong> When we add advertising networks (AdSense, Propeller Ads), additional cookies will be used. This policy will be updated accordingly.
+                </p>
+
+                <p class="txt2">
+                    <strong>Managing Cookies:</strong> You can control cookies through your browser settings. Note that disabling cookies may affect Site functionality.
+                </p>
+
+                <h2>5. Third-Party Services</h2>
+                <p class="txt2">
+                    ToolSpry uses third-party services to operate and monetize the Site. These services may collect and process your data according to their own privacy policies.
+                </p>
+
+                <h3>5.1 Advertising Network</h3>
+                <p class="txt2">
+                    We use a third-party advertising network to display ads on ToolSpry. These ads help us keep ToolSpry free for everyone.
+                </p>
+                <p class="txt2">
+                    The ad network may use cookies and tracking technologies to collect information about your browsing activity to show personalized ads. This may include:
+                </p>
+                <ul class="txt2">
+                    <li>Your browsing behavior on ToolSpry and other websites</li>
+                    <li>Device information and IP address</li>
+                    <li>Ad interaction data (clicks, views)</li>
+                </ul>
+                <p class="txt2">
+                    <strong>Important:</strong> We do not control the ad network's data practices. Please review their privacy policy for more information about how they handle your data.
+                </p>
+
+                <h3>5.2 Ko-fi (Donations)</h3>
+                <p class="txt2">
+                    If you choose to support ToolSpry through Ko-fi, you will be redirected to Ko-fi's platform. Ko-fi processes your payment information and personal data according to their own privacy policy.
+                </p>
+                <p class="txt2">
+                    <strong>Ko-fi's Privacy Policy:</strong> <a href="https://ko-fi.com/privacy" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">https://ko-fi.com/privacy</a>
+                </p>
+                <p class="txt2">
+                    We do not receive or store your payment information. Ko-fi may share limited information with us (such as your username or donation amount) but not your financial details.
+                </p>
+
+                <h3>5.3 Google Analytics</h3>
+                <p class="txt2">
+                    We use Google Analytics 4 to understand how users interact with ToolSpry. Google Analytics collects anonymous data such as:
+                </p>
+                <ul class="txt2">
+                    <li>Pages you visit and time spent on each page</li>
+                    <li>Your location (country, city - approximate based on IP)</li>
+                    <li>Device information (browser type, operating system, screen size)</li>
+                    <li>Traffic source (how you found ToolSpry - Google, social media, direct)</li>
+                    <li>User behavior (clicks, scrolling, navigation patterns)</li>
+                </ul>
+
+                <p class="txt2">
+                    <strong>Google Analytics Privacy Policy:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">https://policies.google.com/privacy</a>
+                </p>
+
+                <p class="txt2">
+                    <strong>How Google Uses Data:</strong> <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">https://policies.google.com/technologies/partner-sites</a>
+                </p>
+
+                <p class="txt2">
+                    Google Analytics uses cookies and similar technologies to collect this information. The data helps us:
+                </p>
+                <ul class="txt2">
+                    <li>Understand which tutorials are most helpful</li>
+                    <li>Identify technical issues or errors</li>
+                    <li>Improve content based on user needs</li>
+                    <li>Optimize website performance</li>
+                </ul>
+
+                <p class="txt2">
+                    <strong>Your IP address</strong> is anonymized by Google Analytics. We cannot identify you personally from this data.
+                </p>
+
+                <p class="txt2">
+                    <strong>Opt-Out Options:</strong>
+                </p>
+                <ul class="txt2">
+                    <li>Install the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">Google Analytics Opt-out Browser Add-on</a></li>
+                    <li>Enable "Do Not Track" in your browser settings (we respect DNT signals)</li>
+                    <li>Use privacy-focused browsers (Brave, Firefox with tracking protection)</li>
+                    <li>Block cookies in your browser settings</li>
+                </ul>
+
+                <h3>5.4 Email Service Provider</h3>
+                <p class="txt2">
+                    When you contact us via email, your message is processed through our email service provider. They handle email delivery and storage according to their privacy policy.
+                </p>
+
+                <h2>6. Data Sharing and Disclosure</h2>
+                <p class="txt2">
+                    We do not sell, rent, or trade your personal information to third parties for their marketing purposes.
+                </p>
+
+                <h3>We may share your information:</h3>
+                <ul class="txt2">
+                    <li><strong>With Service Providers:</strong> Third parties that help us operate ToolSpry (e.g., hosting, analytics, ads)</li>
+                    <li><strong>For Legal Reasons:</strong> If required by law or to protect our rights</li>
+                    <li><strong>Business Transfers:</strong> In the event of a merger, acquisition, or sale of assets</li>
+                    <li><strong>With Your Consent:</strong> When you explicitly agree to share your information</li>
+                </ul>
+
+                <h2>7. Data Security</h2>
+                <p class="txt2">
+                    We take reasonable measures to protect your information from unauthorized access, loss, or misuse. However, no internet transmission is 100% secure. We cannot guarantee absolute security.
+                </p>
+
+                <h2>8. Data Retention</h2>
+                <p class="txt2">
+                    We retain your information only as long as necessary to provide our services and comply with legal obligations. Local storage data (like theme preferences) remains on your device until you clear it.
+                </p>
+
+                <h2>9. Your Rights and Choices</h2>
+                <p class="txt2">Depending on your location, you may have certain rights regarding your personal information:</p>
+                <ul class="txt2">
+                    <li><strong>Access:</strong> Request a copy of the data we have about you</li>
+                    <li><strong>Correction:</strong> Request correction of inaccurate information</li>
+                    <li><strong>Deletion:</strong> Request deletion of your information</li>
+                    <li><strong>Opt-Out:</strong> Opt-out of certain data collection (e.g., analytics, personalized ads)</li>
+                    <li><strong>Cookie Control:</strong> Manage cookies through your browser settings</li>
+                </ul>
+
+                <h3>Analytics Opt-Out</h3>
+                <p class="txt2">
+                    To opt-out of Google Analytics tracking:
+                </p>
+                <ul class="txt2">
+                    <li><strong>Browser Add-on:</strong> Install <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">Google Analytics Opt-out Add-on</a></li>
+                    <li><strong>Do Not Track:</strong> Enable in browser settings (we respect DNT signals)</li>
+                    <li><strong>Cookie Management:</strong> Clear or block analytics cookies in your browser</li>
+                </ul>
+
+                <p class="txt2">
+                    To exercise these rights, contact us at <a href="mailto:info@toolspry.tech" class="text-blue-600 dark:text-blue-400 hover:underline">info@toolspry.tech</a>.
+                </p>
+
+                <h2>10. Children's Privacy</h2>
+                <p class="txt2">
+                    ToolSpry is intended for general audiences and does not knowingly collect personal information from children under 13. If you believe we have collected information from a child under 13, please contact us immediately.
+                </p>
+
+                <h2>11. International Users</h2>
+                <p class="txt2">
+                    ToolSpry is hosted and operated in India. If you access the Site from outside this region, your information may be transferred to and processed in India. By using ToolSpry, you consent to this transfer.
+                </p>
+
+                <h2>12. Changes to This Privacy Policy</h2>
+                <p class="txt2">
+                    We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated "Last Updated" date. Continued use of ToolSpry after changes constitutes acceptance of the updated policy.
+                </p>
+
+                <h2>13. Contact Us</h2>
+                <p class="txt2">
+                    If you have questions or concerns about this Privacy Policy, please contact us:
+                </p>
+                <ul class="txt2">
+                    <li><strong>Email:</strong> <a href="mailto:info@toolspry.tech" class="text-blue-600 dark:text-blue-400 hover:underline">info@toolspry.tech</a></li>
+                    <li><strong>Contact Page:</strong> <a href="/contact.html" class="text-blue-600 dark:text-blue-400 hover:underline">toolspry.tech/contact.html</a></li>
+                </ul>
+
+                <div class="bg-green-50 dark:bg-green-900/20 bdr border rounded-lg p-4 mt-8">
+                    <p class="text-sm"><strong>✓ Your Privacy Matters:</strong> We're committed to transparency about how we handle your data. If something isn't clear, please reach out!</p>
+                </div>
+
+            </div>
+
+            <!-- Quick Links -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                <a href="/terms.html" class="card bdr border rounded-lg p-6 text-center hover:shadow-lg transition block">
+                    <div class="text-2xl mb-2">📜</div>
+                    <div class="font-bold">Terms of Service</div>
+                </a>
+
+                <a href="/disclaimer.html" class="card bdr border rounded-lg p-6 text-center hover:shadow-lg transition block">
+                    <div class="text-2xl mb-2">⚠️</div>
+                    <div class="font-bold">Disclaimer</div>
+                </a>
+
+                <a href="/contact.html" class="card bdr border rounded-lg p-6 text-center hover:shadow-lg transition block">
+                    <div class="text-2xl mb-2">✉️</div>
+                    <div class="font-bold">Contact Us</div>
+                </a>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="nav-footer py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+                <div>
+                    <div class="text-2xl font-bold mb-4">⚡ ToolSpry</div>
+                    <p class="text-sm opacity-80">
+                        Practice SQL with real datasets. Free forever.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Learn</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/practice.html" class="hover:opacity-80 transition">Practice SQL</a></li>
+                        <li><a href="/challenges/" class="hover:opacity-80 transition">Challenges</a></li>
+                        <li><a href="/learn/" class="hover:opacity-80 transition">SQL Guides</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/learn/sql-errors-beginners.html" class="hover:opacity-80 transition">Common Errors</a></li>
+                        <li><a href="/about.html" class="hover:opacity-80 transition">About</a></li>
+                        <li><a href="https://ko-fi.com/toolspry" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition">☕ Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/privacy.html" class="hover:opacity-80 transition">Privacy</a></li>
+                        <li><a href="/terms.html" class="hover:opacity-80 transition">Terms</a></li>
+                        <li><a href="/disclaimer.html" class="hover:opacity-80 transition">Disclaimer</a></li>
+                        <li><a href="/contact.html" class="hover:opacity-80 transition">Contact</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm opacity-80">
+                <p>&copy; 2026 ToolSpry. Built for beginners.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme toggle script -->
+    <script>
+        (function() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const themeBtn = document.getElementById('theme-btn');
+            const themeBtnMobile = document.getElementById('theme-btn-mobile');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeIconMobile = document.getElementById('theme-icon-mobile');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('active');
+                });
+            }
+
+            function updateIcons(dark) {
+                const icon = dark ? '☀️' : '🌙';
+                if (themeIcon) themeIcon.textContent = icon;
+                if (themeIconMobile) themeIconMobile.textContent = icon;
+            }
+
+            updateIcons(localStorage.getItem('theme') === 'dark');
+
+            function toggleTheme() {
+                const dark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', dark ? 'dark' : 'light');
+                updateIcons(dark);
+            }
+
+            if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+            if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
+        });
+    </script>
 
 </body>
 </html>

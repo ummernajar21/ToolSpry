@@ -14,10 +14,10 @@
   gtag('config', 'G-KMDYXFQTJ1');
 </script>
 
-    <title>Contact ToolSpry - Get Help & Share Feedback | ToolSpry</title>
-    <meta name="description" content="Get in touch with ToolSpry. Ask questions, report issues, or share feedback about our free SQL learning platform.">
+    <title>404 - Page Not Found | ToolSpry</title>
+    <meta name="description" content="Oops! This page doesn't exist. Return to ToolSpry and continue learning SQL.">
+    <meta name="robots" content="noindex, nofollow">
 
-    <link rel="canonical" href="https://toolspry.tech/contact.html">
     <link rel="icon" type="image/png" href="/assets/images/favicon.png">
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -65,6 +65,19 @@
             transition: max-height 0.3s;
         }
         .mobile-menu.active { max-height: 500px; }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: bold;
+            line-height: 1;
+            opacity: 0.1;
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 4rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -85,7 +98,7 @@
                     <a href="/challenges/" class="hover:opacity-80 transition">Challenges</a>
                     <a href="/learn/" class="hover:opacity-80 transition">Learn</a>
                     <a href="/about.html" class="hover:opacity-80 transition">About</a>
-                    <a href="/contact.html" class="opacity-80">Contact</a>
+                    <a href="/contact.html" class="hover:opacity-80 transition">Contact</a>
 
                     <button id="theme-btn" class="p-2 rounded-lg hover:bg-gray-700 transition">
                         <span id="theme-icon">🌙</span>
@@ -112,7 +125,7 @@
                     <a href="/challenges/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Challenges</a>
                     <a href="/learn/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Learn</a>
                     <a href="/about.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">About</a>
-                    <a href="/contact.html" class="block px-4 py-2 bg-gray-700 rounded">Contact</a>
+                    <a href="/contact.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Contact</a>
 
                     <div class="flex items-center justify-between px-4 py-2">
                         <span>Theme</span>
@@ -133,177 +146,69 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="py-12">
+    <main class="min-h-screen flex items-center justify-center py-12 px-4">
 
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto text-center">
 
-            <!-- Header -->
-            <div class="text-center mb-12">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">Get in Touch</h1>
-                <p class="text-xl txt2">
-                    Questions, feedback, or just want to say hi? We'd love to hear from you!
+            <!-- Big 404 in Background -->
+            <div class="error-code mb-8">404</div>
+
+            <!-- Error Message -->
+            <div class="relative -mt-32 mb-12">
+                <div class="text-6xl mb-6">🔍</div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Page Not Found</h1>
+                <p class="text-xl txt2 mb-8">
+                    Oops! This page doesn't exist. Maybe it was moved, or the URL was mistyped?
                 </p>
             </div>
 
-            <!-- Main Contact Card -->
-            <div class="card bdr border rounded-lg p-12 mb-8 text-center">
-                <div class="text-6xl mb-6">✉️</div>
-                <h2 class="text-3xl font-bold mb-4">Email Us</h2>
-                <a href="mailto:info@toolspry.tech" class="text-2xl text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                    info@toolspry.tech
-                </a>
-                <p class="txt2 mt-6 text-sm">
-                    We typically respond within 24-48 hours
-                </p>
-            </div>
-
-            <!-- What to Include -->
+            <!-- Helpful Links -->
             <div class="card bdr border rounded-lg p-8 mb-8">
-                <h2 class="text-2xl font-bold mb-6">💡 When Emailing, Please Include:</h2>
+                <h2 class="text-2xl font-bold mb-6">Where would you like to go?</h2>
 
-                <div class="space-y-4">
-                    <div class="flex items-start gap-3">
-                        <span class="text-green-600 dark:text-green-400 mt-1">✓</span>
-                        <div>
-                            <div class="font-bold">Your Name</div>
-                            <p class="txt2 text-sm">So we know how to address you</p>
-                        </div>
-                    </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                    <div class="flex items-start gap-3">
-                        <span class="text-green-600 dark:text-green-400 mt-1">✓</span>
-                        <div>
-                            <div class="font-bold">Subject Line</div>
-                            <p class="txt2 text-sm">E.g., "Bug Report", "Tutorial Request", "Question about WHERE clause"</p>
-                        </div>
-                    </div>
+                    <a href="/" class="card bdr border rounded-lg p-6 hover:shadow-lg transition block">
+                        <div class="text-3xl mb-2">🏠</div>
+                        <div class="font-bold mb-1">Home</div>
+                        <div class="txt2 text-sm">Back to homepage</div>
+                    </a>
 
-                    <div class="flex items-start gap-3">
-                        <span class="text-green-600 dark:text-green-400 mt-1">✓</span>
-                        <div>
-                            <div class="font-bold">Details</div>
-                            <p class="txt2 text-sm">For bugs: What happened? What were you trying to do? Browser/device info</p>
-                        </div>
-                    </div>
+                    <a href="/practice.html" class="card bdr border rounded-lg p-6 hover:shadow-lg transition block">
+                        <div class="text-3xl mb-2">💻</div>
+                        <div class="font-bold mb-1">Practice SQL</div>
+                        <div class="txt2 text-sm">Start practicing</div>
+                    </a>
 
-                    <div class="flex items-start gap-3">
-                        <span class="text-green-600 dark:text-green-400 mt-1">✓</span>
-                        <div>
-                            <div class="font-bold">Screenshots (if applicable)</div>
-                            <p class="txt2 text-sm">A picture is worth a thousand words!</p>
-                        </div>
-                    </div>
+                    <a href="/learn/" class="card bdr border rounded-lg p-6 hover:shadow-lg transition block">
+                        <div class="text-3xl mb-2">📚</div>
+                        <div class="font-bold mb-1">Learn Hub</div>
+                        <div class="txt2 text-sm">Browse tutorials</div>
+                    </a>
+
+                    <a href="/challenges/" class="card bdr border rounded-lg p-6 hover:shadow-lg transition block">
+                        <div class="text-3xl mb-2">🎯</div>
+                        <div class="font-bold mb-1">Challenges</div>
+                        <div class="txt2 text-sm">Test your skills</div>
+                    </a>
+
                 </div>
             </div>
 
-            <!-- Common Topics -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-
-                <div class="card bdr border rounded-lg p-6">
-                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                        <span class="text-2xl">🐛</span>
-                        Report a Bug
-                    </h3>
-                    <p class="txt2 text-sm mb-4">
-                        Found something not working? Let us know! Include what you were doing, what happened, and your browser/device.
-                    </p>
-                    <a href="mailto:info@toolspry.tech?subject=Bug Report" class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-                        Email: Bug Report →
-                    </a>
-                </div>
-
-                <div class="card bdr border rounded-lg p-6">
-                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                        <span class="text-2xl">💭</span>
-                        Feedback & Suggestions
-                    </h3>
-                    <p class="txt2 text-sm mb-4">
-                        Have ideas to make ToolSpry better? We're all ears! Tell us what features or improvements you'd like to see.
-                    </p>
-                    <a href="mailto:info@toolspry.tech?subject=Feedback" class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-                        Email: Feedback →
-                    </a>
-                </div>
-
-                <div class="card bdr border rounded-lg p-6">
-                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                        <span class="text-2xl">📚</span>
-                        Tutorial Request
-                    </h3>
-                    <p class="txt2 text-sm mb-4">
-                        Want to learn a specific SQL topic? Request a tutorial! We focus on beginner-friendly content.
-                    </p>
-                    <a href="mailto:info@toolspry.tech?subject=Tutorial Request" class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-                        Email: Tutorial Request →
-                    </a>
-                </div>
-
-                <div class="card bdr border rounded-lg p-6">
-                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                        <span class="text-2xl">❓</span>
-                        General Question
-                    </h3>
-                    <p class="txt2 text-sm mb-4">
-                        Have a question about SQL or ToolSpry? Ask away! We're here to help you learn.
-                    </p>
-                    <a href="mailto:info@toolspry.tech?subject=Question" class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-                        Email: Question →
-                    </a>
-                </div>
-
+            <!-- Search Suggestion -->
+            <div class="txt2 text-sm mb-4">
+                Can't find what you're looking for?
             </div>
-
-            <!-- Before You Email -->
-            <div class="card bdr border rounded-lg p-8 mb-8 bg-blue-50 dark:bg-blue-900/20">
-                <h2 class="text-xl font-bold mb-4">💡 Before You Email</h2>
-                <p class="txt2 text-sm mb-4">
-                    Check these resources first - you might find your answer right away!
-                </p>
-                <ul class="space-y-2 text-sm">
-                    <li>
-                        <a href="/learn/sql-errors-beginners.html" class="text-blue-600 dark:text-blue-400 hover:underline">
-                            → Common SQL Errors Guide
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/learn/sql-empty-results.html" class="text-blue-600 dark:text-blue-400 hover:underline">
-                            → Why Am I Getting Empty Results?
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/learn/sql-cheat-sheet.html" class="text-blue-600 dark:text-blue-400 hover:underline">
-                            → SQL Cheat Sheet
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/about.html" class="text-blue-600 dark:text-blue-400 hover:underline">
-                            → About ToolSpry & FAQ
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Support Section -->
-            <div class="card bdr border rounded-lg p-8 text-center">
-                <span class="text-5xl mb-4 block">☕</span>
-                <h2 class="text-2xl font-bold mb-3">Support ToolSpry</h2>
-                <p class="txt2 mb-6">
-                    Like what we're doing? Consider supporting us on Ko-fi to help keep ToolSpry free for everyone!
-                </p>
-                <a href="https://ko-fi.com/toolspry"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg transition font-medium">
-                    Support on Ko-fi →
-                </a>
-            </div>
+            <a href="/contact.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition font-medium">
+                Contact Us
+            </a>
 
         </div>
 
     </main>
 
     <!-- Footer -->
-    <footer class="nav-footer py-12 mt-12">
+    <footer class="nav-footer py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 
@@ -336,7 +241,7 @@
                     <h3 class="font-bold mb-4">Contact</h3>
                     <ul class="space-y-2 text-sm">
                         <li><a href="mailto:info@toolspry.tech" class="hover:opacity-80 transition">info@toolspry.tech</a></li>
-                        <li><a href="/contact.html" class="hover:opacity-80 transition">Contact Page</a></li>
+                        <li><a href="/contact.html" class="hover:opacity-80 transition">Contact</a></li>
                         <li><a href="/privacy.html" class="hover:opacity-80 transition">Privacy</a></li>
                         <li><a href="/terms.html" class="hover:opacity-80 transition">Terms</a></li>
                         <li><a href="/disclaimer.html" class="hover:opacity-80 transition">Disclaimer</a></li>

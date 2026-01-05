@@ -1,12 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://toolspry.tech/</loc></url>
-  <url><loc>https://toolspry.tech/practice.html</loc></url>
-  <url><loc>https://toolspry.tech/learn/index.html</loc></url>
-  <url><loc>https://toolspry.tech/learn/sql-errors-beginners.html</loc></url>
-  <url><loc>https://toolspry.tech/learn/sql-empty-results.html</loc></url>
-  <url><loc>https://toolspry.tech/about.html</loc></url>
-  <url><loc>https://toolspry.tech/contact.html</loc></url>
-  <url><loc>https://toolspry.tech/privacy.html</loc></url>
-  <url><loc>https://toolspry.tech/terms.html</loc></url>
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://toolspry.tech/</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Practice Page -->
+  <url>
+    <loc>https://toolspry.tech/practice.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Challenges Hub -->
+  <url>
+    <loc>https://toolspry.tech/challenges/</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Learn Hub -->
+  <url>
+    <loc>https://toolspry.tech/learn/</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Tutorial: SQL Basics -->
+  <url>
+    <loc>https://toolspry.tech/learn/sql-basics-beginner.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Tutorial: WHERE Filtering -->
+  <url>
+    <loc>https://toolspry.tech/learn/sql-where-filtering.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Tutorial: ORDER BY & LIMIT -->
+  <url>
+    <loc>https://toolspry.tech/learn/sql-order-limit.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Tutorial: NULL Values -->
+  <url>
+    <loc>https://toolspry.tech/learn/sql-null-explained.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Tutorial: Empty Results -->
+  <url>
+    <loc>https://toolspry.tech/learn/sql-empty-results.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Tutorial: Common Errors -->
+  <url>
+    <loc>https://toolspry.tech/learn/sql-errors-beginners.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Tutorial: Cheat Sheet -->
+  <url>
+    <loc>https://toolspry.tech/learn/sql-cheat-sheet.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- About Page -->
+  <url>
+    <loc>https://toolspry.tech/about.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Contact Page -->
+  <url>
+    <loc>https://toolspry.tech/contact.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://toolspry.tech/privacy.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Terms of Service -->
+  <url>
+    <loc>https://toolspry.tech/terms.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+<!-- Disclaimer Page -->
+<url>
+  <loc>https://toolspry.tech/disclaimer.html</loc>
+  <lastmod>2026-01-05</lastmod>
+  <changefreq>yearly</changefreq>
+  <priority>0.3</priority>
+</url>
+
 </urlset>

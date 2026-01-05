@@ -1,101 +1,465 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About | SQL Practice</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description"
-        content="Learn why SQL Practice exists and who it is built for." />
-
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-</head>
-
-<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
-
-<!-- NAVBAR -->
-<header class="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-    <a href="/" class="text-xl font-semibold">SQL Practice</a>
-
-    <nav class="hidden md:flex space-x-6 text-sm">
-      <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
-      <a href="/practice.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Practice</a>
-      <a href="/learn/index.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Learn</a>
-      <a href="/about.html" class="font-medium">About</a>
-      <a href="/contact.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<!-- MAIN -->
-<main class="flex-grow max-w-3xl mx-auto px-4 py-10">
-
-<h1 class="text-3xl font-semibold mb-6">About SQL Practice</h1>
-
-<p class="text-gray-600 dark:text-gray-400 mb-8">
-  SQL Practice was created to make learning SQL calmer, clearer, and less frustrating —
-  especially for beginners.
-</p>
-
-<section class="mb-8">
-  <h2 class="text-xl font-semibold mb-2">Why this exists</h2>
-  <p>
-    Many SQL practice platforms assume prior knowledge or hide errors behind vague messages.
-    This site takes a different approach.
-  </p>
-  <p class="mt-2">
-    Here, errors are explained clearly, datasets feel real, and learning happens step by step.
-  </p>
-</section>
-
-<section class="mb-8">
-  <h2 class="text-xl font-semibold mb-2">Who this is for</h2>
-  <ul class="list-disc list-inside space-y-2">
-    <li>Beginners learning SQL for the first time</li>
-    <li>Students preparing for interviews or coursework</li>
-    <li>Self-learners who want clarity instead of shortcuts</li>
-  </ul>
-</section>
-
-<section class="mb-8">
-  <h2 class="text-xl font-semibold mb-2">How it works</h2>
-  <p>
-    SQL Practice runs entirely in your browser. There is no login, no backend,
-    and no tracking of your queries.
-  </p>
-  <p class="mt-2 text-gray-600 dark:text-gray-400">
-    This keeps the experience fast, private, and distraction-free.
-  </p>
-</section>
-
-<section class="bg-gray-100 dark:bg-gray-800 border rounded p-6">
-  <h2 class="text-xl font-semibold mb-2">A simple promise</h2>
-  <p class="text-gray-700 dark:text-gray-300">
-    This platform will remain beginner-focused.
-    No hidden paywalls. No unnecessary complexity.
-  </p>
-</section>
-
-</main>
-
-<!-- FOOTER -->
-<footer class="border-t bg-white dark:bg-gray-800 dark:border-gray-700 text-sm">
-  <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
-    <p class="text-gray-600 dark:text-gray-400">
-      © <span id="year"></span> SQL Practice
-    </p>
-    <div class="space-x-4 mt-2 md:mt-0">
-      <a href="/privacy.html" class="hover:underline">Privacy</a>
-      <a href="/terms.html" class="hover:underline">Terms</a>
-      <a href="/contact.html" class="hover:underline">Contact</a>
-    </div>
-  </div>
-</footer>
-
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMDYXFQTJ1"></script>
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KMDYXFQTJ1');
 </script>
+
+    <title>About ToolSpry - Free SQL Learning Platform | ToolSpry</title>
+    <meta name="description" content="Learn about ToolSpry's mission to make SQL accessible to everyone. Free tutorials, practice datasets, and challenges for absolute beginners.">
+
+    <link rel="canonical" href="https://toolspry.tech/about.html">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+
+        .nav-footer {
+            background-color: #24292f !important;
+            color: #ffffff !important;
+        }
+        .nav-footer a { color: #ffffff !important; }
+        .nav-footer a:hover { color: #58a6ff !important; }
+        .nav-footer button { color: #ffffff !important; }
+
+        :root {
+            --bg: #f6f8fa;
+            --bg2: #ffffff;
+            --text: #24292f;
+            --text2: #57606a;
+            --border: #d0d7de;
+        }
+
+        .dark {
+            --bg: #0d1117;
+            --bg2: #161b22;
+            --text: #c9d1d9;
+            --text2: #8b949e;
+            --border: #30363d;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .card { background-color: var(--bg2); }
+        .txt2 { color: var(--text2); }
+        .bdr { border-color: var(--border); }
+
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+        .mobile-menu.active { max-height: 500px; }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav-footer sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold hover:opacity-80 transition">
+                        ⚡ ToolSpry
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/practice.html" class="hover:opacity-80 transition">Practice</a>
+                    <a href="/challenges/" class="hover:opacity-80 transition">Challenges</a>
+                    <a href="/learn/" class="hover:opacity-80 transition">Learn</a>
+                    <a href="/about.html" class="opacity-80">About</a>
+                    <a href="/contact.html" class="hover:opacity-80 transition">Contact</a>
+
+                    <button id="theme-btn" class="p-2 rounded-lg hover:bg-gray-700 transition">
+                        <span id="theme-icon">🌙</span>
+                    </button>
+
+                    <a href="https://ko-fi.com/toolspry"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
+                        ☕ Support
+                    </a>
+                </div>
+
+                <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-700 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="mobile-menu md:hidden">
+                <div class="py-4 space-y-3">
+                    <a href="/practice.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Practice</a>
+                    <a href="/challenges/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Challenges</a>
+                    <a href="/learn/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Learn</a>
+                    <a href="/about.html" class="block px-4 py-2 bg-gray-700 rounded">About</a>
+                    <a href="/contact.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Contact</a>
+
+                    <div class="flex items-center justify-between px-4 py-2">
+                        <span>Theme</span>
+                        <button id="theme-btn-mobile" class="p-2 rounded-lg hover:bg-gray-700 transition">
+                            <span id="theme-icon-mobile">🌙</span>
+                        </button>
+                    </div>
+
+                    <a href="https://ko-fi.com/toolspry"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="block mx-4 text-center bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
+                        ☕ Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="py-12">
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">About ToolSpry</h1>
+                <p class="text-xl txt2">
+                    Making SQL accessible to everyone, for free.
+                </p>
+            </div>
+
+            <!-- Mission Section -->
+            <div class="card bdr border rounded-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-4">🎯 Our Mission</h2>
+                <p class="txt2 mb-4 leading-relaxed">
+                    ToolSpry exists to help beginners learn SQL without barriers. No paywalls, no credit cards, no complicated jargon. Just clear, simple tutorials and real datasets to practice with.
+                </p>
+                <p class="txt2 leading-relaxed">
+                    We believe everyone should have access to quality SQL education, whether you're a student, career changer, or curious learner. SQL is a fundamental skill for working with data, and we want to make it easy for you to get started.
+                </p>
+            </div>
+
+            <!-- Why ToolSpry Section -->
+            <div class="card bdr border rounded-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6">💡 Why ToolSpry?</h2>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-bold mb-2 flex items-center gap-2">
+                            <span class="text-2xl">🆓</span>
+                            Completely Free
+                        </h3>
+                        <p class="txt2 leading-relaxed">
+                            No premium tiers, no hidden costs. Everything on ToolSpry is free forever. We're supported by optional donations, not by locking features behind paywalls.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold mb-2 flex items-center gap-2">
+                            <span class="text-2xl">👶</span>
+                            Beginner-Focused
+                        </h3>
+                        <p class="txt2 leading-relaxed">
+                            We don't assume you know anything about databases. Our tutorials start from absolute zero and explain everything in plain language, not technical jargon.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold mb-2 flex items-center gap-2">
+                            <span class="text-2xl">💻</span>
+                            Real Practice
+                        </h3>
+                        <p class="txt2 leading-relaxed">
+                            You learn by doing. Our practice environment uses real datasets (customers, products, orders) so you can see how SQL works with actual business data.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold mb-2 flex items-center gap-2">
+                            <span class="text-2xl">🎯</span>
+                            No Distractions
+                        </h3>
+                        <p class="txt2 leading-relaxed">
+                            Clean interface, no ads, no popups. Just you and SQL. We focus on teaching, not monetizing your attention.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What You'll Learn -->
+            <div class="card bdr border rounded-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6">📚 What You'll Learn</h2>
+                <p class="txt2 mb-4 leading-relaxed">
+                    ToolSpry covers the fundamentals every SQL beginner needs:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-600 dark:text-green-400 mt-1">✓</span>
+                        <div>
+                            <div class="font-bold">SELECT & FROM</div>
+                            <div class="txt2 text-sm">Getting data from tables</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-600 dark:text-green-400 mt-1">✓</span>
+                        <div>
+                            <div class="font-bold">WHERE Clause</div>
+                            <div class="txt2 text-sm">Filtering and finding data</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-600 dark:text-green-400 mt-1">✓</span>
+                        <div>
+                            <div class="font-bold">ORDER BY & LIMIT</div>
+                            <div class="txt2 text-sm">Sorting and controlling results</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-600 dark:text-green-400 mt-1">✓</span>
+                        <div>
+                            <div class="font-bold">NULL Values</div>
+                            <div class="txt2 text-sm">Handling missing data</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-600 dark:text-green-400 mt-1">✓</span>
+                        <div>
+                            <div class="font-bold">Pattern Matching</div>
+                            <div class="txt2 text-sm">Using LIKE, BETWEEN, IN</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-600 dark:text-green-400 mt-1">✓</span>
+                        <div>
+                            <div class="font-bold">Error Debugging</div>
+                            <div class="txt2 text-sm">Understanding error messages</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Who It's For -->
+            <div class="card bdr border rounded-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6">👥 Who Is ToolSpry For?</h2>
+
+                <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                        <span class="text-2xl">🎓</span>
+                        <div>
+                            <div class="font-bold">Students</div>
+                            <p class="txt2 text-sm">Learning databases for school or building your resume with practical skills.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="text-2xl">🔄</span>
+                        <div>
+                            <div class="font-bold">Career Changers</div>
+                            <p class="txt2 text-sm">Transitioning into data analysis, business intelligence, or tech roles.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="text-2xl">💼</span>
+                        <div>
+                            <div class="font-bold">Business Professionals</div>
+                            <p class="txt2 text-sm">Want to analyze your own data instead of waiting for IT or data teams.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="text-2xl">🆕</span>
+                        <div>
+                            <div class="font-bold">Complete Beginners</div>
+                            <p class="txt2 text-sm">Never written a line of code? Perfect! We start from zero.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Philosophy -->
+            <div class="card bdr border rounded-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-4">💭 Our Philosophy</h2>
+                <div class="space-y-4 txt2 leading-relaxed">
+                    <p>
+                        <strong>Keep it simple.</strong> We explain SQL like we're talking to a friend, not a computer science textbook. No unnecessary jargon. If there's an easier way to say something, we use it.
+                    </p>
+                    <p>
+                        <strong>Show, don't just tell.</strong> Every concept comes with real examples using datasets you can actually understand - customers, products, orders. Not abstract table1 and table2.
+                    </p>
+                    <p>
+                        <strong>Learning by doing works.</strong> You can read about SQL all day, but you won't really get it until you write queries yourself. That's why our practice environment is front and center.
+                    </p>
+                    <p>
+                        <strong>Free means free.</strong> Not "free trial" or "free tier." Everything on ToolSpry is accessible without payment, now and forever. Optional support is appreciated but never required.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Support Section -->
+            <div class="card bdr border rounded-lg p-8 mb-8 bg-blue-50 dark:bg-blue-900/20">
+                <h2 class="text-2xl font-bold mb-4">☕ Support ToolSpry</h2>
+                <p class="txt2 mb-4 leading-relaxed">
+                    ToolSpry is a passion project maintained by one person. If you find it helpful and want to support keeping it free for everyone, consider buying me a coffee!
+                </p>
+                <div class="flex items-center gap-4">
+                    <a href="https://ko-fi.com/toolspry"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition font-medium">
+                        ☕ Support on Ko-fi
+                    </a>
+                    <span class="txt2 text-sm">100% optional, 100% appreciated!</span>
+                </div>
+            </div>
+
+            <!-- Built For You -->
+            <div class="card bdr border rounded-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-4">🚀 Built for You</h2>
+                <p class="txt2 leading-relaxed mb-4">
+                    ToolSpry was created because learning SQL shouldn't be complicated or expensive. Whether you're here to land your first data job, understand your business better, or just curious about databases, you're in the right place.
+                </p>
+                <p class="txt2 leading-relaxed">
+                    Start with the <a href="/learn/" class="text-blue-600 dark:text-blue-400 hover:underline">tutorials</a>, practice with <a href="/practice.html" class="text-blue-600 dark:text-blue-400 hover:underline">real data</a>, and test yourself with <a href="/challenges/" class="text-blue-600 dark:text-blue-400 hover:underline">challenges</a>. You've got this! 💪
+                </p>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a href="/learn/" class="card bdr border rounded-lg p-6 text-center hover:shadow-lg transition block">
+                    <div class="text-3xl mb-2">📚</div>
+                    <div class="font-bold mb-1">Start Learning</div>
+                    <div class="txt2 text-sm">Begin with tutorials</div>
+                </a>
+
+                <a href="/practice.html" class="card bdr border rounded-lg p-6 text-center hover:shadow-lg transition block">
+                    <div class="text-3xl mb-2">💻</div>
+                    <div class="font-bold mb-1">Practice SQL</div>
+                    <div class="txt2 text-sm">Write real queries</div>
+                </a>
+
+                <a href="/contact.html" class="card bdr border rounded-lg p-6 text-center hover:shadow-lg transition block">
+                    <div class="text-3xl mb-2">✉️</div>
+                    <div class="font-bold mb-1">Get in Touch</div>
+                    <div class="txt2 text-sm">Questions or feedback</div>
+                </a>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="nav-footer py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+                <div>
+                    <div class="text-2xl font-bold mb-4">⚡ ToolSpry</div>
+                    <p class="text-sm opacity-80">
+                        Practice SQL with real datasets. Free forever.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Learn</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/practice.html" class="hover:opacity-80 transition">Practice SQL</a></li>
+                        <li><a href="/challenges/" class="hover:opacity-80 transition">Challenges</a></li>
+                        <li><a href="/learn/" class="hover:opacity-80 transition">SQL Guides</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/learn/sql-errors-beginners.html" class="hover:opacity-80 transition">Common Errors</a></li>
+                        <li><a href="/about.html" class="hover:opacity-80 transition">About</a></li>
+                        <li><a href="https://ko-fi.com/toolspry" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition">☕ Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="mailto:info@toolspry.tech" class="hover:opacity-80 transition">info@toolspry.tech</a></li>
+                        <li><a href="/contact.html" class="hover:opacity-80 transition">Contact Form</a></li>
+                        <li><a href="/privacy.html" class="hover:opacity-80 transition">Privacy</a></li>
+                        <li><a href="/disclaimer.html" class="hover:opacity-80 transition">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm opacity-80">
+                <p>&copy; 2026 ToolSpry. Built for beginners.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme toggle script -->
+    <script>
+        (function() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const themeBtn = document.getElementById('theme-btn');
+            const themeBtnMobile = document.getElementById('theme-btn-mobile');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeIconMobile = document.getElementById('theme-icon-mobile');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('active');
+                });
+            }
+
+            function updateIcons(dark) {
+                const icon = dark ? '☀️' : '🌙';
+                if (themeIcon) themeIcon.textContent = icon;
+                if (themeIconMobile) themeIconMobile.textContent = icon;
+            }
+
+            updateIcons(localStorage.getItem('theme') === 'dark');
+
+            function toggleTheme() {
+                const dark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', dark ? 'dark' : 'light');
+                updateIcons(dark);
+            }
+
+            if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+            if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
+        });
+    </script>
 
 </body>
 </html>

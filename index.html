@@ -1,198 +1,608 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Practice SQL for Beginners | SQL Practice</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description"
-        content="Practice beginner-level SQL with real-world data. Understand errors clearly. No login. Runs in your browser." />
-
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-</head>
-
-<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
-
-<!-- ================= NAVBAR ================= -->
-<header class="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-    <a href="/" class="text-xl font-semibold">SQL Practice</a>
-
-    <nav class="hidden md:flex space-x-6 text-sm">
-      <a href="/" class="font-medium">Home</a>
-      <a href="/practice.html"
-         class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-         Practice
-      </a>
-      <a href="/learn/index.html"
-         class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-         Learn
-      </a>
-      <a href="/about.html"
-         class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-         About
-      </a>
-      <a href="/contact.html"
-         class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-         Contact
-      </a>
-    </nav>
-  </div>
-</header>
-
-<!-- ================= HERO ================= -->
-<main class="flex-grow">
-
-<section class="max-w-5xl mx-auto px-4 py-16 text-center">
-
-  <h1 class="text-3xl md:text-4xl font-semibold mb-4">
-    Practice SQL the calm, beginner-friendly way
-  </h1>
-
-  <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
-    Practice real SQL queries on realistic data — and actually understand
-    errors instead of guessing.
-  </p>
-
-  <a href="/practice.html"
-     class="inline-block px-6 py-3 rounded
-            bg-gray-900 text-white
-            hover:bg-gray-800
-            dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white">
-    Start Practicing →
-  </a>
-
-</section>
-
-<!-- AD SLOT -->
-<div class="my-8 max-w-5xl mx-auto px-4">
-  <div
-    id="ad-slot-home-1"
-    class="border border-dashed rounded-lg p-4 text-center
-           text-sm text-gray-500 dark:text-gray-400
-           bg-white dark:bg-gray-800">
-    Advertisement
-  </div>
-</div>
-
-<!-- ================= WHY THIS EXISTS ================= -->
-<section class="bg-white dark:bg-gray-800 border-t dark:border-gray-700">
-  <div class="max-w-5xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-3">
-
-    <div>
-      <h2 class="font-semibold mb-2">Beginner-only focus</h2>
-      <p class="text-sm text-gray-600 dark:text-gray-400">
-        This platform is intentionally limited to core SQL used in real jobs.
-        No advanced topics. No overwhelm.
-      </p>
-    </div>
-
-    <div>
-      <h2 class="font-semibold mb-2">Real-world data</h2>
-      <p class="text-sm text-gray-600 dark:text-gray-400">
-        Practice on realistic customers, orders, and employees —
-        not fake or toy examples.
-      </p>
-    </div>
-
-    <div>
-      <h2 class="font-semibold mb-2">Errors explained clearly</h2>
-      <p class="text-sm text-gray-600 dark:text-gray-400">
-        When something goes wrong, you’re told why —
-        in simple language, with examples.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<!-- ================= HOW IT WORKS ================= -->
-<section class="max-w-5xl mx-auto px-4 py-12">
-
-  <h2 class="text-2xl font-semibold mb-6 text-center">
-    How it works
-  </h2>
-
-  <ol class="grid gap-6 md:grid-cols-3 text-sm">
-
-    <li class="border rounded p-4 bg-white dark:bg-gray-800 dark:border-gray-700">
-      <strong>1.</strong> Select a dataset
-      <p class="mt-1 text-gray-600 dark:text-gray-400">
-        Choose customers, orders, or employees.
-      </p>
-    </li>
-
-    <li class="border rounded p-4 bg-white dark:bg-gray-800 dark:border-gray-700">
-      <strong>2.</strong> Read the schema
-      <p class="mt-1 text-gray-600 dark:text-gray-400">
-        Understand the table and column names.
-      </p>
-    </li>
-
-    <li class="border rounded p-4 bg-white dark:bg-gray-800 dark:border-gray-700">
-      <strong>3.</strong> Write and run SQL
-      <p class="mt-1 text-gray-600 dark:text-gray-400">
-        See results and explanations instantly.
-      </p>
-    </li>
-
-  </ol>
-
-</section>
-
-<!-- ================= TRUST SIGNALS ================= -->
-<section class="bg-gray-100 dark:bg-gray-800 border-t dark:border-gray-700">
-  <div class="max-w-5xl mx-auto px-4 py-10 text-sm text-center text-gray-600 dark:text-gray-400">
-
-    <p class="mb-2">
-      ✔ No login required
-      ✔ Runs entirely in your browser
-      ✔ No tracking of personal data
-    </p>
-
-    <p>
-      Built for learners who want clarity, not shortcuts.
-    </p>
-
-  </div>
-</section>
-
-</main>
-
-<!-- AD SLOT -->
-<div class="my-8 max-w-5xl mx-auto px-4">
-  <div
-    id="ad-slot-home-1"
-    class="border border-dashed rounded-lg p-4 text-center
-           text-sm text-gray-500 dark:text-gray-400
-           bg-white dark:bg-gray-800">
-    Advertisement
-  </div>
-</div>
-
-<!-- ================= FOOTER ================= -->
-<footer class="border-t bg-white dark:bg-gray-800 dark:border-gray-700 text-sm">
-  <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
-    <p class="text-gray-600 dark:text-gray-400">
-      © <span id="year"></span> SQL Practice
-    </p>
-    <div class="space-x-4 mt-2 md:mt-0">
-      <a href="https://ko-fi.com/YOUR_KOFI_USERNAME"
-   target="_blank"
-   rel="noopener noreferrer"
-   class="text-sm underline text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">
-  Support this project ☕
-</a>
-      <a href="/privacy.html" class="hover:underline">Privacy</a>
-      <a href="/terms.html" class="hover:underline">Terms</a>
-      <a href="/contact.html" class="hover:underline">Contact</a>
-    </div>
-  </div>
-</footer>
-
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMDYXFQTJ1"></script>
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KMDYXFQTJ1');
 </script>
+
+    <!-- Primary Meta Tags -->
+    <title>ToolSpry - Learn SQL with Interactive Practice & Challenges</title>
+    <meta name="title" content="ToolSpry - Learn SQL with Interactive Practice & Challenges">
+    <meta name="description" content="Master SQL for free with our interactive playground, 35 challenges, and beginner-friendly tutorials. Practice with 7 real datasets. No signup required.">
+    <meta name="keywords" content="learn SQL, SQL practice, SQL challenges, SQL tutorial, free SQL learning, SQL playground, interactive SQL, SQL for beginners">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="author" content="ToolSpry">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://toolspry.tech/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolspry.tech/">
+    <meta property="og:title" content="ToolSpry - Learn SQL with Interactive Practice & Challenges">
+    <meta property="og:description" content="Master SQL for free with our interactive playground, 35 challenges, and beginner-friendly tutorials. Practice with 7 real datasets.">
+    <meta property="og:image" content="https://toolspry.tech/assets/images/og-home.png">
+    <meta property="og:site_name" content="ToolSpry">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://toolspry.tech/">
+    <meta property="twitter:title" content="ToolSpry - Learn SQL with Interactive Practice & Challenges">
+    <meta property="twitter:description" content="Master SQL for free with our interactive playground, 35 challenges, and beginner-friendly tutorials. Practice with 7 real datasets.">
+    <meta property="twitter:image" content="https://toolspry.tech/assets/images/og-home.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "ToolSpry",
+      "url": "https://toolspry.tech",
+      "description": "Free interactive SQL learning platform with practice playground and challenges",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://toolspry.tech/learn/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+
+        .nav-footer {
+            background-color: #24292f !important;
+            color: #ffffff !important;
+        }
+        .nav-footer a { color: #ffffff !important; }
+        .nav-footer a:hover { color: #58a6ff !important; }
+        .nav-footer button { color: #ffffff !important; }
+
+        :root {
+            --bg: #f6f8fa;
+            --bg2: #ffffff;
+            --text: #24292f;
+            --text2: #57606a;
+            --border: #d0d7de;
+        }
+
+        .dark {
+            --bg: #0d1117;
+            --bg2: #161b22;
+            --text: #c9d1d9;
+            --text2: #8b949e;
+            --border: #30363d;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .card { background-color: var(--bg2); }
+        .txt2 { color: var(--text2); }
+        .bdr { border-color: var(--border); }
+
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+        .mobile-menu.active { max-height: 500px; }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .dark .hero-gradient {
+            background: linear-gradient(135deg, #4c51bf 0%, #553c9a 100%);
+        }
+
+        .feature-card {
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            background-color: var(--bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav-footer sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold hover:opacity-80 transition">
+                        ⚡ ToolSpry
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/practice.html" class="hover:opacity-80 transition">Practice</a>
+                    <a href="/challenges/" class="hover:opacity-80 transition">Challenges</a>
+                    <a href="/learn/" class="hover:opacity-80 transition">Learn</a>
+                    <a href="/about.html" class="hover:opacity-80 transition">About</a>
+                    <a href="/contact.html" class="hover:opacity-80 transition">Contact</a>
+
+                    <button id="theme-btn" class="p-2 rounded-lg hover:bg-gray-700 transition">
+                        <span id="theme-icon">🌙</span>
+                    </button>
+
+                    <a href="https://ko-fi.com/toolspry"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
+                        ☕ Support
+                    </a>
+                </div>
+
+                <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-700 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="mobile-menu md:hidden">
+                <div class="py-4 space-y-3">
+                    <a href="/practice.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Practice</a>
+                    <a href="/challenges/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Challenges</a>
+                    <a href="/learn/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Learn</a>
+                    <a href="/about.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">About</a>
+                    <a href="/contact.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Contact</a>
+
+                    <div class="flex items-center justify-between px-4 py-2">
+                        <span>Theme</span>
+                        <button id="theme-btn-mobile" class="p-2 rounded-lg hover:bg-gray-700 transition">
+                            <span id="theme-icon-mobile">🌙</span>
+                        </button>
+                    </div>
+
+                    <a href="https://ko-fi.com/toolspry"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="block mx-4 text-center bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
+                        ☕ Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    Master SQL for Free
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">
+                    Interactive playground • 35 Challenges • Beginner-friendly tutorials
+                </p>
+                <p class="text-lg mb-10 opacity-80 max-w-2xl mx-auto">
+                    Practice SQL with 7 real datasets, get instant feedback, and track your progress. No signup required. 100% free forever.
+                </p>
+
+                <div class="flex gap-4 justify-center flex-wrap">
+                    <a href="/practice.html"
+                       class="bg-white text-purple-700 px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl transition transform hover:scale-105">
+                        Start Practicing →
+                    </a>
+                    <a href="/challenges/"
+                       class="bg-purple-800 border-2 border-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-purple-700 transition">
+                        Try Challenges
+                    </a>
+                </div>
+
+                <!-- Quick stats -->
+                <div class="mt-12 grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+                    <div>
+                        <div class="text-3xl font-bold">7</div>
+                        <div class="text-sm opacity-80">Datasets</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold">35</div>
+                        <div class="text-sm opacity-80">Challenges</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold">100%</div>
+                        <div class="text-sm opacity-80">Free</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Features -->
+    <section class="py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Everything You Need to Learn SQL</h2>
+                <p class="txt2 text-lg">Three powerful tools working together</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Practice -->
+                <a href="/practice.html" class="feature-card card bdr border rounded-xl p-8 block">
+                    <div class="text-5xl mb-4">⚡</div>
+                    <h3 class="text-2xl font-bold mb-3">Practice Mode</h3>
+                    <p class="txt2 mb-4">
+                        Write and run SQL queries instantly. Experiment with 7 real-world datasets including employees, customers, orders, and more.
+                    </p>
+                    <ul class="text-sm txt2 space-y-2">
+                        <li>✓ Smart error messages</li>
+                        <li>✓ Query history</li>
+                        <li>✓ Copy & export results</li>
+                        <li>✓ Query formatter</li>
+                    </ul>
+                    <div class="mt-6 text-blue-600 dark:text-blue-400 font-medium">
+                        Start Practicing →
+                    </div>
+                </a>
+
+                <!-- Challenges -->
+                <a href="/challenges/" class="feature-card card bdr border rounded-xl p-8 block">
+                    <div class="text-5xl mb-4">🎯</div>
+                    <h3 class="text-2xl font-bold mb-3">35 Challenges</h3>
+                    <p class="txt2 mb-4">
+                        Test your skills with interactive problems. Get instant validation, hints when stuck, and track your progress.
+                    </p>
+                    <ul class="text-sm txt2 space-y-2">
+                        <li>✓ Beginner to intermediate</li>
+                        <li>✓ Instant feedback</li>
+                        <li>✓ Progress tracking</li>
+                        <li>✓ Hints system</li>
+                    </ul>
+                    <div class="mt-6 text-blue-600 dark:text-blue-400 font-medium">
+                        Try Challenges →
+                    </div>
+                </a>
+
+                <!-- Learn -->
+                <a href="/learn/" class="feature-card card bdr border rounded-xl p-8 block">
+                    <div class="text-5xl mb-4">📚</div>
+                    <h3 class="text-2xl font-bold mb-3">Learn SQL</h3>
+                    <p class="txt2 mb-4">
+                        Beginner-friendly tutorials covering SELECT, WHERE, ORDER BY, NULL values, and common errors.
+                    </p>
+                    <ul class="text-sm txt2 space-y-2">
+                        <li>✓ Step-by-step guides</li>
+                        <li>✓ Practical examples</li>
+                        <li>✓ Common mistakes</li>
+                        <li>✓ Error explanations</li>
+                    </ul>
+                    <div class="mt-6 text-blue-600 dark:text-blue-400 font-medium">
+                        Start Learning →
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-16 card">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+                <p class="txt2 text-lg">Start learning SQL in 3 simple steps</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-2xl font-bold mb-4">
+                        1
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Learn the Basics</h3>
+                    <p class="txt2">
+                        Read our beginner-friendly tutorials. Understand SELECT, WHERE, and basic query structure.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full text-2xl font-bold mb-4">
+                        2
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Practice Your Skills</h3>
+                    <p class="txt2">
+                        Write queries in our playground. Experiment with real datasets and see instant results.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-full text-2xl font-bold mb-4">
+                        3
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Solve Challenges</h3>
+                    <p class="txt2">
+                        Test your knowledge with 35 problems. Get feedback and track your progress.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Datasets Preview -->
+    <section class="py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Practice with Real Data</h2>
+                <p class="txt2 text-lg">7 different datasets to explore</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+                <div class="card bdr border rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">👥</div>
+                    <div class="font-bold">Employees</div>
+                    <div class="text-sm txt2">50 records</div>
+                </div>
+
+                <div class="card bdr border rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">🛒</div>
+                    <div class="font-bold">Customers</div>
+                    <div class="text-sm txt2">100 records</div>
+                </div>
+
+                <div class="card bdr border rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">📦</div>
+                    <div class="font-bold">Orders</div>
+                    <div class="text-sm txt2">200 records</div>
+                </div>
+
+                <div class="card bdr border rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">🏷️</div>
+                    <div class="font-bold">Products</div>
+                    <div class="text-sm txt2">150 records</div>
+                </div>
+
+                <div class="card bdr border rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">📊</div>
+                    <div class="font-bold">Sales</div>
+                    <div class="text-sm txt2">300 records</div>
+                </div>
+
+                <div class="card bdr border rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">🏢</div>
+                    <div class="font-bold">Departments</div>
+                    <div class="text-sm txt2">12 records</div>
+                </div>
+
+                <div class="card bdr border rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">💳</div>
+                    <div class="font-bold">Transactions</div>
+                    <div class="text-sm txt2">500 records</div>
+                </div>
+
+                <div class="card bdr border rounded-lg p-4 text-center bg-blue-50 dark:bg-blue-900/20">
+                    <div class="text-3xl mb-2">✨</div>
+                    <div class="font-bold">More Soon</div>
+                    <div class="text-sm txt2">Coming soon</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Why ToolSpry -->
+    <section class="py-16 card">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose ToolSpry?</h2>
+                <p class="txt2 text-lg">Built specifically for beginners</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <div class="flex gap-4">
+                    <div class="text-3xl">✅</div>
+                    <div>
+                        <h3 class="font-bold mb-2">100% Free Forever</h3>
+                        <p class="txt2">No hidden costs, no premium plans. Everything is free and always will be.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="text-3xl">🚀</div>
+                    <div>
+                        <h3 class="font-bold mb-2">No Signup Required</h3>
+                        <p class="txt2">Start learning immediately. No email, no registration, no hassle.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="text-3xl">💡</div>
+                    <div>
+                        <h3 class="font-bold mb-2">Instant Feedback</h3>
+                        <p class="txt2">See results immediately. Learn from smart error messages.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="text-3xl">📱</div>
+                    <div>
+                        <h3 class="font-bold mb-2">Works Everywhere</h3>
+                        <p class="txt2">Practice on desktop, tablet, or mobile. Dark mode supported.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="text-3xl">🎯</div>
+                    <div>
+                        <h3 class="font-bold mb-2">Beginner-Friendly</h3>
+                        <p class="txt2">Clear explanations, helpful hints, and step-by-step guidance.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="text-3xl">📈</div>
+                    <div>
+                        <h3 class="font-bold mb-2">Track Progress</h3>
+                        <p class="txt2">See your improvement with challenge completion tracking.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="hero-gradient text-white rounded-2xl p-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Master SQL?</h2>
+                <p class="text-xl mb-8 opacity-90">
+                    Join thousands learning SQL the practical way. Start your journey today!
+                </p>
+                <div class="flex gap-4 justify-center flex-wrap">
+                    <a href="/practice.html"
+                       class="bg-white text-purple-700 px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl transition">
+                        Start Now - It's Free →
+                    </a>
+                    <a href="/learn/"
+                       class="bg-purple-800 border-2 border-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-purple-700 transition">
+                        Read Tutorials
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="nav-footer py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+                <div>
+                    <div class="text-2xl font-bold mb-4">⚡ ToolSpry</div>
+                    <p class="text-sm opacity-80">
+                        Practice SQL with real datasets. Free forever.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Learn</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/practice.html" class="hover:opacity-80 transition">Practice SQL</a></li>
+                        <li><a href="/challenges/" class="hover:opacity-80 transition">Challenges</a></li>
+                        <li><a href="/learn/" class="hover:opacity-80 transition">SQL Guides</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/learn/sql-errors-beginners.html" class="hover:opacity-80 transition">Common Errors</a></li>
+                        <li><a href="/about.html" class="hover:opacity-80 transition">About</a></li>
+                        <li><a href="https://ko-fi.com/toolspry" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition">☕ Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="mailto:info@toolspry.tech" class="hover:opacity-80 transition">info@toolspry.tech</a></li>
+                        <li><a href="/contact.html" class="hover:opacity-80 transition">Contact Form</a></li>
+                        <li><a href="/privacy.html" class="hover:opacity-80 transition">Privacy</a></li>
+                        <li><a href="/disclaimer.html" class="hover:opacity-80 transition">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm opacity-80">
+                <p>&copy; 2026 ToolSpry. Built for beginners.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme toggle script -->
+    <script>
+        (function() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const themeBtn = document.getElementById('theme-btn');
+            const themeBtnMobile = document.getElementById('theme-btn-mobile');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeIconMobile = document.getElementById('theme-icon-mobile');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('active');
+                });
+            }
+
+            function updateIcons(dark) {
+                const icon = dark ? '☀️' : '🌙';
+                if (themeIcon) themeIcon.textContent = icon;
+                if (themeIconMobile) themeIconMobile.textContent = icon;
+            }
+
+            updateIcons(localStorage.getItem('theme') === 'dark');
+
+            function toggleTheme() {
+                const dark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', dark ? 'dark' : 'light');
+                updateIcons(dark);
+            }
+
+            if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+            if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
+        });
+    </script>
 
 </body>
 </html>

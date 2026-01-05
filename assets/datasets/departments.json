@@ -1,0 +1,27 @@
+{
+  "name": "departments",
+  "description": "Company department reference table",
+  "rows": 12,
+  "columns": [
+    {"name": "dept_id", "type": "INTEGER"},
+    {"name": "dept_name", "type": "TEXT"},
+    {"name": "location", "type": "TEXT"},
+    {"name": "budget", "type": "INTEGER"},
+    {"name": "employee_count", "type": "INTEGER"},
+    {"name": "manager_name", "type": "TEXT"}
+  ],
+  "data": [
+    [1, "Engineering", "San Francisco", 2500000, 45, "Sarah Chen"],
+    [2, "Sales", "New York", 1800000, 32, "Allison Roberts"],
+    [3, "Marketing", "Austin", 950000, 18, "Daniel Wilson"],
+    [4, "HR", "Chicago", 650000, 12, "Jessica Williams"],
+    [5, "Finance", "New York", 1200000, 15, "Rachel Martinez"],
+    [6, "Customer Support", "Remote", 780000, 28, "Kevin Park"],
+    [7, "Product", "San Francisco", 1600000, 22, "Michael Torres"],
+    [8, "Operations", "Chicago", 890000, 19, "Amanda Foster"],
+    [9, "Legal", "New York", 720000, 8, "Robert Hayes"],
+    [10, "IT", "Seattle", 1100000, 16, "Christopher Lopez"],
+    [11, "Design", "Austin", 840000, 14, "Emily Carter"],
+    [12, "Research", "Boston", 1350000, 11, "David Kim"]
+  ]
+}
