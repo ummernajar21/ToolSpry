@@ -4,17 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Practice SQL Online - Interactive SQL Editor | ToolSpry</title>
-    <meta name="description" content="Practice SQL queries in your browser with our free interactive editor. No installation required. Learn by doing with real datasets.">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMDYXFQTJ1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KMDYXFQTJ1');
+</script>
+
+    <title>Practice SQL | ToolSpry</title>
+    <meta name="description" content="Practice SQL queries with real datasets. Instant feedback, beginner-friendly errors, runs entirely in your browser.">
+    <meta name="keywords" content="SQL practice, SQL playground, learn SQL">
+
+    <meta property="og:title" content="Practice SQL | ToolSpry">
+    <meta property="og:description" content="Practice SQL with real datasets. Free, no installation.">
+    <meta property="og:image" content="https://toolspry.tech/assets/images/og-image.png">
 
     <link rel="canonical" href="https://toolspry.tech/practice.html">
-    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <style>
         html { scroll-behavior: smooth; }
 
+        /* navbar/footer always dark */
         .nav-footer {
             background-color: #24292f !important;
             color: #ffffff !important;
@@ -23,6 +39,7 @@
         .nav-footer a:hover { color: #58a6ff !important; }
         .nav-footer button { color: #ffffff !important; }
 
+        /* theme vars */
         :root {
             --bg: #f6f8fa;
             --bg2: #ffffff;
@@ -56,97 +73,62 @@
         }
         .mobile-menu.active { max-height: 500px; }
 
-        #sql-query {
+        #editor {
             font-family: 'Courier New', monospace;
-            background-color: var(--bg2);
-            color: var(--text);
-            border: 1px solid var(--border);
+            font-size: 14px;
+            line-height: 1.6;
             resize: vertical;
         }
 
-        .btn-primary {
-            background-color: #2563eb;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: all 0.2s;
+        .schema-box {
+            max-height: calc(100vh - 300px);
+            overflow-y: auto;
         }
 
-        .btn-primary:hover {
-            background-color: #1d4ed8;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        .results {
+            max-height: 400px;
+            overflow: auto;
         }
 
-        .btn-secondary {
-            background-color: var(--bg2);
-            color: var(--text);
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: 1px solid var(--border);
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--bg);
-            transform: translateY(-2px);
-        }
-
-        .example-btn {
-            background-color: var(--bg2);
-            color: var(--text2);
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid var(--border);
-            font-size: 0.875rem;
-            transition: all 0.2s;
-        }
-
-        .example-btn:hover {
-            background-color: var(--bg);
-            color: var(--text);
-            border-color: #2563eb;
-        }
-
-        #results {
-            min-height: 100px;
-        }
-
-        #results table {
-            width: 100%;
+        .results table {
             border-collapse: collapse;
+            width: 100%;
+            font-size: 14px;
         }
 
-        #results th,
-        #results td {
-            padding: 0.75rem;
-            text-align: left;
-        }
-
-        #results th {
-            background-color: var(--bg);
+        .results th {
+            background-color: var(--bg2);
+            position: sticky;
+            top: 0;
             font-weight: 600;
+            text-align: left;
+            padding: 8px 12px;
             border-bottom: 2px solid var(--border);
         }
 
-        #results td {
+        .results td {
+            padding: 8px 12px;
             border-bottom: 1px solid var(--border);
         }
 
-        #results tr:hover {
-            background-color: var(--bg);
-        }
+        .results tr:hover { background-color: var(--bg); }
 
-        /* Loading spinner */
+        .btn-run {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-run:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(9, 105, 218, 0.3);
+        }
+        .btn-run:active { transform: translateY(0); }
+
         .spinner {
-            border: 3px solid var(--border);
-            border-top: 3px solid #2563eb;
+            border: 2px solid var(--border);
+            border-top: 2px solid #0969da;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+            width: 16px;
+            height: 16px;
+            animation: spin 0.8s linear infinite;
         }
 
         @keyframes spin {
@@ -154,34 +136,45 @@
             100% { transform: rotate(360deg); }
         }
 
-        #loading-indicator {
-            display: none;
+        /* History dropdown - UPDATED */
+        #history-dropdown {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 8px;
+            width: 400px;
+            max-width: 90vw;
+            max-height: 400px;
+            overflow: hidden;
+            z-index: 50;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        #loading-indicator.show {
-            display: flex;
+        @media (max-width: 768px) {
+            #editor { min-height: 200px; font-size: 13px; }
+            .schema-box { max-height: 300px; }
+            #history-dropdown { width: 300px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
     <nav class="nav-footer sticky top-0 z-50 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
 
                 <div class="flex items-center">
-                    <a href="./index.html" class="text-2xl font-bold hover:opacity-80 transition">
+                    <a href="/" class="text-2xl font-bold hover:opacity-80 transition">
                         ⚡ ToolSpry
                     </a>
                 </div>
 
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="./practice.html" class="opacity-80">Practice</a>
-                    <a href="./challenges/" class="hover:opacity-80 transition">Challenges</a>
-                    <a href="./learn/" class="hover:opacity-80 transition">Learn</a>
-                    <a href="./about.html" class="hover:opacity-80 transition">About</a>
-                    <a href="./contact.html" class="hover:opacity-80 transition">Contact</a>
+                    <a href="/practice.html" class="opacity-80">Practice</a>
+                    <a href="/challenges/" class="hover:opacity-80 transition">Challenges</a>
+                    <a href="/learn/" class="hover:opacity-80 transition">Learn</a>
+                    <a href="/about.html" class="hover:opacity-80 transition">About</a>
+                    <a href="/contact.html" class="hover:opacity-80 transition">Contact</a>
 
                     <button id="theme-btn" class="p-2 rounded-lg hover:bg-gray-700 transition">
                         <span id="theme-icon">🌙</span>
@@ -189,7 +182,7 @@
 
                     <a href="https://ko-fi.com/toolspry"
                        target="_blank"
-                       rel="noopener noreferrer"
+                       rel="noopener"
                        class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
                         ☕ Support
                     </a>
@@ -204,11 +197,11 @@
 
             <div id="mobile-menu" class="mobile-menu md:hidden">
                 <div class="py-4 space-y-3">
-                    <a href="./practice.html" class="block px-4 py-2 bg-gray-700 rounded">Practice</a>
-                    <a href="./challenges/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Challenges</a>
-                    <a href="./learn/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Learn</a>
-                    <a href="./about.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">About</a>
-                    <a href="./contact.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Contact</a>
+                    <a href="/practice.html" class="block px-4 py-2 bg-gray-700 rounded">Practice</a>
+                    <a href="/challenges/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Challenges</a>
+                    <a href="/learn/" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Learn</a>
+                    <a href="/about.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">About</a>
+                    <a href="/contact.html" class="block px-4 py-2 hover:bg-gray-700 rounded transition">Contact</a>
 
                     <div class="flex items-center justify-between px-4 py-2">
                         <span>Theme</span>
@@ -219,7 +212,7 @@
 
                     <a href="https://ko-fi.com/toolspry"
                        target="_blank"
-                       rel="noopener noreferrer"
+                       rel="noopener"
                        class="block mx-4 text-center bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition font-medium">
                         ☕ Support
                     </a>
@@ -228,152 +221,262 @@
         </div>
     </nav>
 
-    <!-- Loading Indicator -->
-    <div id="loading-indicator" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-        <div class="card rounded-lg p-8 text-center">
-            <div class="spinner mx-auto mb-4"></div>
-            <p class="txt2">Loading SQL Engine v1.12.0...</p>
-        </div>
-    </div>
+    <main class="py-6">
 
-    <!-- Main Content -->
-    <main class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">Practice SQL</h1>
+            <p class="txt2 text-lg">Write real SQL. Read real feedback. Learn calmly.</p>
+        </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <!-- Header -->
-            <div class="text-center mb-8">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">💻 Practice SQL</h1>
-                <p class="text-xl txt2 max-w-3xl mx-auto">
-                    Write and execute SQL queries right in your browser. No installation required!
-                </p>
+            <div class="mb-6">
+                <label for="dataset" class="block text-sm font-medium mb-2">Choose dataset</label>
+                <select id="dataset" class="w-full md:w-auto bdr card border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="customers">👥 Customers (350 rows) - E-commerce</option>
+                    <option value="employees" selected>💼 Employees (180 rows) - HR data</option>
+                    <option value="orders">📦 Orders (650 rows) - Purchases</option>
+                    <option value="products">🛍️ Products (250 rows) - Catalog</option>
+                    <option value="sales">📊 Sales (800 rows) - Analytics</option>
+                    <option value="departments">🏢 Departments (12 rows)</option>
+                    <option value="transactions">💳 Transactions (500 rows)</option>
+                </select>
             </div>
 
-            <!-- SQL Editor -->
-            <div class="card bdr border rounded-lg p-6 mb-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                <!-- Editor Header -->
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-bold">SQL Editor</h2>
-                    <div class="txt2 text-sm">
-                        <kbd class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl</kbd> +
-                        <kbd class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Enter</kbd> to run
+                <!-- sidebar -->
+                <div class="lg:col-span-1 space-y-6">
+
+                    <div class="card bdr border rounded-lg p-6">
+                        <h2 class="text-xl font-bold mb-4">Your task</h2>
+                        <div id="task-content" class="txt2 space-y-3">
+                            <p class="font-medium" style="color: var(--text);">Practice with employees dataset</p>
+
+                            <p class="text-sm">Try these:</p>
+                            <ul class="text-sm space-y-2">
+                                <li>• SELECT * FROM employees</li>
+                                <li>• Find Sales department employees</li>
+                                <li>• Top 5 highest salaries</li>
+                                <li>• Average salary by department</li>
+                            </ul>
+
+                            <div class="mt-4 pt-4 bdr" style="border-top-width: 1px;">
+                                <a href="/challenges/" class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
+                                    Want guided challenges? →
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Textarea -->
-                <textarea
-                    id="sql-query"
-                    rows="8"
-                    class="w-full p-4 rounded-lg mb-4"
-                    placeholder="-- Write your SQL query here&#10;SELECT * FROM customers;"
-                ></textarea>
-
-                <!-- Buttons -->
-                <div class="flex flex-wrap gap-3">
-                    <button onclick="executeQuery()" class="btn-primary">
-                        ▶️ Run Query
-                    </button>
-                    <button onclick="clearQuery()" class="btn-secondary">
-                        🗑️ Clear
-                    </button>
-                </div>
-
-            </div>
-
-            <!-- Example Queries -->
-            <div class="card bdr border rounded-lg p-6 mb-6">
-                <h3 class="font-bold mb-3">📋 Try These Examples:</h3>
-                <div class="flex flex-wrap gap-2">
-                    <button onclick="loadExample(1)" class="example-btn">Show all customers</button>
-                    <button onclick="loadExample(2)" class="example-btn">Filter by country</button>
-                    <button onclick="loadExample(3)" class="example-btn">Sort by price</button>
-                    <button onclick="loadExample(4)" class="example-btn">Products over $100</button>
-                    <button onclick="loadExample(5)" class="example-btn">Select specific columns</button>
-                </div>
-            </div>
-
-            <!-- Results Section -->
-            <div class="card bdr border rounded-lg p-6">
-                <h2 class="text-xl font-bold mb-4">Results</h2>
-                <div id="results" class="overflow-x-auto">
-                    <div class="bg-blue-50 dark:bg-blue-900/20 bdr border rounded-lg p-4">
-                        <p class="txt2">👆 Run a query to see results here!</p>
+                    <!-- Examples Section -->
+                    <div class="card bdr border rounded-lg p-6">
+                        <h2 class="text-xl font-bold mb-4">📚 Examples</h2>
+                        <div id="examples-content" class="space-y-2">
+                            <!-- Populated by JavaScript -->
+                        </div>
                     </div>
+
+                    <div class="card bdr border rounded-lg p-6">
+                        <h2 class="text-xl font-bold mb-4">Table schema</h2>
+                        <div id="schema-content" class="schema-box">
+                            <div class="text-sm space-y-2">
+                                <div class="font-semibold text-blue-600 dark:text-blue-400 mb-3">
+                                    📋 employees (180 rows)
+                                </div>
+
+                                <div class="space-y-1 font-mono text-xs">
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>employee_id</span>
+                                        <span class="txt2">INTEGER</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>first_name</span>
+                                        <span class="txt2">TEXT</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>last_name</span>
+                                        <span class="txt2">TEXT</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>email</span>
+                                        <span class="txt2">TEXT</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>department</span>
+                                        <span class="txt2">TEXT</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>job_title</span>
+                                        <span class="txt2">TEXT</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>salary</span>
+                                        <span class="txt2">INTEGER</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>hire_date</span>
+                                        <span class="txt2">DATE</span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>manager_id</span>
+                                        <span class="txt2">INTEGER <span class="text-xs">(some NULL)</span></span>
+                                    </div>
+                                    <div class="flex justify-between p-2 card rounded hover:opacity-80 cursor-pointer">
+                                        <span>office_location</span>
+                                        <span class="txt2">TEXT</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 pt-3 bdr text-xs txt2" style="border-top-width: 1px;">
+                                    💡 Most errors come from typos in column names
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
 
-            <!-- Available Tables -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <!-- editor + results -->
+                <div class="lg:col-span-2 space-y-6">
 
-                <!-- Customers Table -->
-                <div class="card bdr border rounded-lg p-6">
-                    <h3 class="font-bold mb-3">📊 customers</h3>
-                    <ul class="text-sm txt2 space-y-1">
-                        <li><code>customer_id</code> (INTEGER)</li>
-                        <li><code>first_name</code> (TEXT)</li>
-                        <li><code>last_name</code> (TEXT)</li>
-                        <li><code>email</code> (TEXT)</li>
-                        <li><code>city</code> (TEXT)</li>
-                        <li><code>country</code> (TEXT)</li>
-                    </ul>
-                    <p class="text-xs txt2 mt-3">5 rows available</p>
+                    <div class="card bdr border rounded-lg overflow-hidden">
+                        <div class="card bdr px-4 py-3 flex justify-between items-center" style="border-bottom-width: 1px;">
+                            <h2 class="font-semibold">SQL editor</h2>
+                            <div class="flex items-center gap-2">
+                                <!-- History Button -->
+                                <div class="relative">
+                                    <button id="history-btn"
+                                            class="text-sm px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                                            title="View query history">
+                                        📜 History
+                                    </button>
+                                    <div id="history-dropdown" class="hidden card bdr border rounded-lg">
+                                        <!-- Populated by JavaScript -->
+                                    </div>
+                                </div>
+
+                                <button id="clear" class="text-sm px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                                    Clear
+                                </button>
+                                <span class="text-xs txt2">Ctrl+Enter to run</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <textarea
+                                id="editor"
+                                class="w-full card bdr border rounded p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                rows="10"
+                                placeholder="SELECT first_name, last_name, salary
+FROM employees
+WHERE department = 'Sales'
+ORDER BY salary DESC
+LIMIT 5;
+
+Tip: SQL keywords aren't case-sensitive"
+                                spellcheck="false"></textarea>
+                        </div>
+
+                        <div class="px-4 pb-4 flex flex-wrap gap-3 items-center">
+                            <button id="run"
+                                    class="btn-run bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium"
+                                    title="Run your SQL query (Ctrl+Enter)">
+                                ▶ Run query
+                            </button>
+                            <button id="format"
+                                    class="bdr border px-4 py-3 rounded-lg hover:opacity-80 transition"
+                                    title="Format and beautify your SQL (Ctrl+Shift+F)">
+                                ✨ Format
+                            </button>
+                            <button id="shortcuts-btn"
+                                    class="bdr border px-4 py-3 rounded-lg hover:opacity-80 transition"
+                                    title="View keyboard shortcuts (Ctrl+/)">
+                                ⌨️ Shortcuts
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card bdr border rounded-lg overflow-hidden">
+                        <div class="card bdr px-4 py-3 flex justify-between items-center" style="border-bottom-width: 1px;">
+                            <h2 class="font-semibold">Results</h2>
+                            <div id="meta" class="text-xs txt2"></div>
+                        </div>
+
+                        <div id="output" class="p-4">
+
+                            <div id="empty" class="text-center py-12 txt2">
+                                <div class="text-4xl mb-4">💡</div>
+                                <p>Run a query to see results</p>
+                                <p class="text-sm mt-2">Try clicking an example from the sidebar</p>
+                            </div>
+
+                            <div id="loading" class="hidden text-center py-12">
+                                <div class="spinner mx-auto mb-4"></div>
+                                <p class="txt2">Running...</p>
+                            </div>
+
+                            <div id="error" class="hidden bg-red-50 dark:bg-red-900/20 bdr rounded-lg p-6" style="border-color: #fca5a5;">
+                                <div class="flex gap-3">
+                                    <div class="text-2xl">⚠️</div>
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-red-900 dark:text-red-300 mb-2">Something's wrong</h3>
+                                        <p id="error-msg" class="text-red-800 dark:text-red-200 mb-3"></p>
+                                        <div id="error-hint" class="text-sm text-red-700 dark:text-red-300"></div>
+                                        <!-- Smart suggestions -->
+                                        <div id="error-suggestion" class="hidden"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="success" class="hidden space-y-4">
+                                <div class="bg-green-50 dark:bg-green-900/20 bdr rounded-lg p-4" style="border-color: #86efac;">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2 text-green-900 dark:text-green-300">
+                                            <span>✓</span>
+                                            <span id="success-msg" class="font-medium"></span>
+                                        </div>
+
+                                        <!-- Export Buttons -->
+                                        <div id="export-buttons" class="flex gap-2">
+                                            <button onclick="copyResultsToClipboard(event)"
+                                                    class="text-sm px-3 py-1 rounded hover:bg-green-100 dark:hover:bg-green-800 transition"
+                                                    title="Copy results to clipboard">
+                                                📋 Copy
+                                            </button>
+                                            <button onclick="exportToCSV()"
+                                                    class="text-sm px-3 py-1 rounded hover:bg-green-100 dark:hover:bg-green-800 transition"
+                                                    title="Download as CSV file">
+                                                ⬇️ CSV
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="results">
+                                    <table id="table">
+                                        <thead id="thead"></thead>
+                                        <tbody id="tbody"></tbody>
+                                    </table>
+                                </div>
+
+                                <div class="bg-blue-50 dark:bg-blue-900/20 bdr rounded-lg p-4 text-sm" style="border-color: #93c5fd;">
+                                    <div class="font-medium text-blue-900 dark:text-blue-300 mb-2">💡 What happened:</div>
+                                    <p id="explain" class="text-blue-800 dark:text-blue-200"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- Products Table -->
-                <div class="card bdr border rounded-lg p-6">
-                    <h3 class="font-bold mb-3">📦 products</h3>
-                    <ul class="text-sm txt2 space-y-1">
-                        <li><code>product_id</code> (INTEGER)</li>
-                        <li><code>product_name</code> (TEXT)</li>
-                        <li><code>category</code> (TEXT)</li>
-                        <li><code>price</code> (REAL)</li>
-                        <li><code>stock</code> (INTEGER)</li>
-                    </ul>
-                    <p class="text-xs txt2 mt-3">5 rows available</p>
-                </div>
-
-                <!-- Orders Table -->
-                <div class="card bdr border rounded-lg p-6">
-                    <h3 class="font-bold mb-3">🛒 orders</h3>
-                    <ul class="text-sm txt2 space-y-1">
-                        <li><code>order_id</code> (INTEGER)</li>
-                        <li><code>customer_id</code> (INTEGER)</li>
-                        <li><code>product_id</code> (INTEGER)</li>
-                        <li><code>quantity</code> (INTEGER)</li>
-                        <li><code>order_date</code> (TEXT)</li>
-                    </ul>
-                    <p class="text-xs txt2 mt-3">5 rows available</p>
-                </div>
-
-            </div>
-
-            <!-- Tips Section -->
-            <div class="card bdr border rounded-lg p-6 mt-8 bg-green-50 dark:bg-green-900/20">
-                <h3 class="font-bold mb-3">💡 Quick Tips</h3>
-                <ul class="txt2 space-y-2 text-sm">
-                    <li>✓ SQL commands are not case-sensitive, but UPPERCASE is conventional</li>
-                    <li>✓ End your statements with a semicolon <code>;</code></li>
-                    <li>✓ Use <code>SELECT *</code> to get all columns from a table</li>
-                    <li>✓ Use <code>WHERE</code> to filter results (e.g., <code>WHERE country = 'USA'</code>)</li>
-                    <li>✓ Use <code>ORDER BY</code> to sort results (e.g., <code>ORDER BY price DESC</code>)</li>
-                    <li>✓ Press <kbd>Ctrl+Enter</kbd> (or <kbd>Cmd+Enter</kbd> on Mac) to run your query</li>
-                </ul>
-            </div>
-
-            <!-- Learn More -->
-            <div class="text-center mt-8">
-                <p class="txt2 mb-4">Want to learn SQL from scratch?</p>
-                <a href="./learn/" class="btn-primary inline-block">
-                    📚 Browse Tutorials
-                </a>
             </div>
 
         </div>
 
     </main>
 
-    <!-- Footer -->
+    <!-- footer -->
     <footer class="nav-footer py-12 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -388,28 +491,31 @@
                 <div>
                     <h3 class="font-bold mb-4">Learn</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="./practice.html" class="hover:opacity-80 transition">Practice SQL</a></li>
-                        <li><a href="./challenges/" class="hover:opacity-80 transition">Challenges</a></li>
-                        <li><a href="./learn/" class="hover:opacity-80 transition">SQL Guides</a></li>
+                        <li><a href="/practice.html" class="hover:opacity-80 transition">Practice SQL</a></li>
+                        <li><a href="/challenges/" class="hover:opacity-80 transition">45 Challenges</a></li>
+                        <li><a href="/learn/" class="hover:opacity-80 transition">SQL Guides</a></li>
+                        <li><a href="/learn/sql-basics-beginners.html" class="hover:opacity-80 transition">Beginners Guide</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h3 class="font-bold mb-4">Resources</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="./learn/sql-errors-beginners.html" class="hover:opacity-80 transition">Common Errors</a></li>
-                        <li><a href="./about.html" class="hover:opacity-80 transition">About</a></li>
-                        <li><a href="https://ko-fi.com/toolspry" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition">☕ Support</a></li>
+                        <li><a href="/learn/sql-errors-beginners.html" class="hover:opacity-80 transition">Common Errors</a></li>
+                        <li><a href="/learn/sql-null-explained.html" class="hover:opacity-80 transition">Understanding NULL</a></li>
+                        <li><a href="/about.html" class="hover:opacity-80 transition">About</a></li>
+                        <li><a href="https://ko-fi.com/toolspry" target="_blank" rel="noopener" class="hover:opacity-80 transition">☕ Support</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="font-bold mb-4">Legal</h3>
+                    <h3 class="font-bold mb-4">Contact</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="./privacy.html" class="hover:opacity-80 transition">Privacy</a></li>
-                        <li><a href="./terms.html" class="hover:opacity-80 transition">Terms</a></li>
-                        <li><a href="./disclaimer.html" class="hover:opacity-80 transition">Disclaimer</a></li>
-                        <li><a href="./contact.html" class="hover:opacity-80 transition">Contact</a></li>
+                        <li><a href="mailto:info@toolspry.tech" class="hover:opacity-80 transition">info@toolspry.tech</a></li>
+                        <li><a href="/contact.html" class="hover:opacity-80 transition">Contact Form</a></li>
+                        <li><a href="/privacy.html" class="hover:opacity-80 transition">Privacy</a></li>
+                        <li><a href="/terms.html" class="hover:opacity-80 transition">Terms</a></li>
+                        <li><a href="/disclaimer.html" class="hover:opacity-80 transition">Disclaimer</a></li>
                     </ul>
                 </div>
 
@@ -421,250 +527,15 @@
         </div>
     </footer>
 
-    <!-- Load SQL.js Library v1.12.0 (STABLE) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-wasm.js"></script>
+<!-- SQL.js 1.12.0 - Stable (recommended) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-wasm.js"></script>
 
-    <!-- SQL.js Initialization and Query Execution -->
+    <!-- Our scripts -->
+    <script src="/assets/js/dataset-loader.js"></script>
+    <script src="/assets/js/practice.js"></script>
+
     <script>
-        // SQL.js initialization
-        let db = null;
-        let isInitialized = false;
-
-        // Show loading indicator
-        function showLoading() {
-            const loadingEl = document.getElementById('loading-indicator');
-            if (loadingEl) loadingEl.classList.add('show');
-        }
-
-        // Hide loading indicator
-        function hideLoading() {
-            const loadingEl = document.getElementById('loading-indicator');
-            if (loadingEl) loadingEl.classList.remove('show');
-        }
-
-        // Initialize SQL.js when page loads
-        window.addEventListener('load', async function() {
-            showLoading();
-
-            try {
-                console.log('🔄 Initializing SQL.js v1.12.0...');
-
-                // Wait for initSqlJs to be available
-                if (typeof initSqlJs === 'undefined') {
-                    throw new Error('SQL.js library not loaded from CDN');
-                }
-
-                // Initialize SQL.js with CDN path
-                const SQL = await initSqlJs({
-                    locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/${file}`
-                });
-
-                // Create database
-                db = new SQL.Database();
-
-                // Load sample data
-                loadSampleData();
-
-                isInitialized = true;
-                hideLoading();
-
-                console.log('✅ SQL.js v1.12.0 initialized successfully!');
-
-            } catch (error) {
-                hideLoading();
-                console.error('❌ Failed to initialize SQL.js:', error);
-                showError('Failed to initialize SQL engine. Please refresh the page. Error: ' + error.message);
-            }
-        });
-
-        // Load sample data function
-        function loadSampleData() {
-            try {
-                // Create customers table
-                db.run(`
-                    CREATE TABLE customers (
-                        customer_id INTEGER PRIMARY KEY,
-                        first_name TEXT,
-                        last_name TEXT,
-                        email TEXT,
-                        city TEXT,
-                        country TEXT
-                    );
-                `);
-
-                // Insert sample customers
-                db.run(`
-                    INSERT INTO customers VALUES
-                    (1, 'John', 'Doe', 'john@email.com', 'New York', 'USA'),
-                    (2, 'Jane', 'Smith', 'jane@email.com', 'London', 'UK'),
-                    (3, 'Bob', 'Johnson', 'bob@email.com', 'Toronto', 'Canada'),
-                    (4, 'Alice', 'Williams', 'alice@email.com', 'Sydney', 'Australia'),
-                    (5, 'Charlie', 'Brown', 'charlie@email.com', 'Paris', 'France');
-                `);
-
-                // Create products table
-                db.run(`
-                    CREATE TABLE products (
-                        product_id INTEGER PRIMARY KEY,
-                        product_name TEXT,
-                        category TEXT,
-                        price REAL,
-                        stock INTEGER
-                    );
-                `);
-
-                // Insert sample products
-                db.run(`
-                    INSERT INTO products VALUES
-                    (1, 'Laptop', 'Electronics', 999.99, 50),
-                    (2, 'Mouse', 'Electronics', 29.99, 200),
-                    (3, 'Desk', 'Furniture', 299.99, 30),
-                    (4, 'Chair', 'Furniture', 199.99, 45),
-                    (5, 'Monitor', 'Electronics', 399.99, 75);
-                `);
-
-                // Create orders table
-                db.run(`
-                    CREATE TABLE orders (
-                        order_id INTEGER PRIMARY KEY,
-                        customer_id INTEGER,
-                        product_id INTEGER,
-                        quantity INTEGER,
-                        order_date TEXT
-                    );
-                `);
-
-                // Insert sample orders
-                db.run(`
-                    INSERT INTO orders VALUES
-                    (1, 1, 1, 1, '2024-01-15'),
-                    (2, 2, 2, 2, '2024-01-16'),
-                    (3, 1, 3, 1, '2024-01-17'),
-                    (4, 3, 4, 1, '2024-01-18'),
-                    (5, 4, 5, 1, '2024-01-19');
-                `);
-
-                console.log('✅ Sample data loaded!');
-            } catch (error) {
-                console.error('❌ Error loading sample data:', error);
-            }
-        }
-
-        // Execute SQL query
-        function executeQuery() {
-            if (!isInitialized || !db) {
-                showError('Database not initialized yet. Please wait a moment and try again.');
-                return;
-            }
-
-            const queryInput = document.getElementById('sql-query');
-            const query = queryInput.value.trim();
-
-            if (!query) {
-                showError('Please enter a SQL query.');
-                return;
-            }
-
-            try {
-                const results = db.exec(query);
-                displayResults(results);
-            } catch (error) {
-                showError(error.message);
-            }
-        }
-
-        // Display query results
-        function displayResults(results) {
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = '';
-
-            if (results.length === 0) {
-                resultsDiv.innerHTML = `
-                    <div class="bg-yellow-50 dark:bg-yellow-900/20 bdr border rounded-lg p-4">
-                        <p class="text-yellow-800 dark:text-yellow-200">✓ Query executed successfully, but returned no results.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            results.forEach((result) => {
-                // Create table
-                let html = '<div class="overflow-x-auto">';
-                html += '<table class="min-w-full">';
-
-                // Table header
-                html += '<thead>';
-                html += '<tr>';
-                result.columns.forEach(column => {
-                    html += `<th>${column}</th>`;
-                });
-                html += '</tr>';
-                html += '</thead>';
-
-                // Table body
-                html += '<tbody>';
-                result.values.forEach((row) => {
-                    html += '<tr>';
-                    row.forEach(cell => {
-                        html += `<td>${cell !== null ? cell : '<span class="txt2 italic">NULL</span>'}</td>`;
-                    });
-                    html += '</tr>';
-                });
-                html += '</tbody>';
-                html += '</table>';
-                html += '</div>';
-
-                html += `<p class="mt-4 txt2 text-sm">✓ ${result.values.length} row(s) returned</p>`;
-
-                resultsDiv.innerHTML = html;
-            });
-        }
-
-        // Show error message
-        function showError(message) {
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = `
-                <div class="bg-red-50 dark:bg-red-900/20 bdr border rounded-lg p-4">
-                    <h3 class="font-bold text-red-800 dark:text-red-200 mb-2">⚠️ Something's wrong</h3>
-                    <p class="text-red-700 dark:text-red-300">${message}</p>
-                </div>
-            `;
-        }
-
-        // Load example query
-        function loadExample(exampleNum) {
-            const queryInput = document.getElementById('sql-query');
-            const examples = {
-                1: 'SELECT * FROM customers;',
-                2: "SELECT * FROM customers WHERE country = 'USA';",
-                3: 'SELECT * FROM products ORDER BY price DESC;',
-                4: 'SELECT * FROM products WHERE price > 100;',
-                5: 'SELECT first_name, last_name, email FROM customers;'
-            };
-
-            queryInput.value = examples[exampleNum] || '';
-        }
-
-        // Clear query
-        function clearQuery() {
-            document.getElementById('sql-query').value = '';
-            document.getElementById('results').innerHTML = `
-                <div class="bg-blue-50 dark:bg-blue-900/20 bdr border rounded-lg p-4">
-                    <p class="txt2">👆 Run a query to see results here!</p>
-                </div>
-            `;
-        }
-
-        // Keyboard shortcut: Ctrl+Enter to run query
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-                executeQuery();
-            }
-        });
-    </script>
-
-    <!-- Theme toggle script -->
-    <script>
+        // theme on load
         (function() {
             if (localStorage.getItem('theme') === 'dark') {
                 document.documentElement.classList.add('dark');
@@ -672,6 +543,7 @@
         })();
 
         document.addEventListener('DOMContentLoaded', function() {
+
             const menuBtn = document.getElementById('menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             const themeBtn = document.getElementById('theme-btn');
@@ -679,12 +551,14 @@
             const themeIcon = document.getElementById('theme-icon');
             const themeIconMobile = document.getElementById('theme-icon-mobile');
 
+            // mobile menu
             if (menuBtn && mobileMenu) {
                 menuBtn.addEventListener('click', () => {
                     mobileMenu.classList.toggle('active');
                 });
             }
 
+            // theme
             function updateIcons(dark) {
                 const icon = dark ? '☀️' : '🌙';
                 if (themeIcon) themeIcon.textContent = icon;
@@ -701,6 +575,20 @@
 
             if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
             if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
+
+            // close menu on outside click
+            document.addEventListener('click', (e) => {
+                if (menuBtn && mobileMenu && !menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
+
+            // close menu on resize
+            window.addEventListener('resize', () => {
+                if (mobileMenu && window.innerWidth >= 768) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
         });
     </script>
 

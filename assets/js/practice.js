@@ -1,3 +1,16 @@
+// Wait for SQL.js to be ready
+async function waitForSQLInit() {
+    while (!isInitialized) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+}
+
+// Update your existing run button handler to wait for init
+document.getElementById('run').addEventListener('click', async function() {
+    await waitForSQLInit();
+    // ... rest of your existing code
+});
+
 // practice page controller
 let datasetInfo = null;
 
