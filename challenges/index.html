@@ -4,100 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMDYXFQTJ1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <title>SQL Challenges - Practice Your Skills | ToolSpry</title>
+    <meta name="description" content="Test your SQL skills with progressively challenging exercises. Track your progress and earn achievements.">
 
-  gtag('config', 'G-KMDYXFQTJ1');
-</script>
-
-    <!-- Primary Meta Tags -->
-    <title>SQL Challenges - Learn SQL Step by Step | ToolSpry</title>
-    <meta name="title" content="SQL Challenges - Learn SQL Step by Step | ToolSpry">
-    <meta name="description" content="Master SQL with 35 interactive challenges across 7 datasets. Get instant feedback, track progress, and learn at your own pace. Perfect for beginners. 100% free, no signup required.">
-    <meta name="keywords" content="SQL challenges, learn SQL, SQL exercises, SQL practice problems, SQL for beginners, interactive SQL, SQL tutorial, SQL validation, SQL learning path, free SQL course">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
-    <meta name="author" content="ToolSpry">
-
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://toolspry.tech/challenges/">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://toolspry.tech/challenges/">
-    <meta property="og:title" content="SQL Challenges - Learn SQL Step by Step | ToolSpry">
-    <meta property="og:description" content="Master SQL with 35 interactive challenges across 7 datasets. Get instant feedback and track your progress. Perfect for beginners.">
-    <meta property="og:image" content="https://toolspry.tech/assets/images/og-challenges.png">
-    <meta property="og:site_name" content="ToolSpry">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://toolspry.tech/challenges/">
-    <meta property="twitter:title" content="SQL Challenges - Learn SQL Step by Step | ToolSpry">
-    <meta property="twitter:description" content="Master SQL with 35 interactive challenges across 7 datasets. Get instant feedback and track your progress. Perfect for beginners.">
-    <meta property="twitter:image" content="https://toolspry.tech/assets/images/og-challenges.png">
-
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="/assets/images/favicon.png">
-    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
-
-    <!-- Structured Data / JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Course",
-      "name": "SQL Challenges",
-      "description": "Learn SQL step-by-step with 35 interactive challenges across 7 real-world datasets. Get instant feedback and track your progress.",
-      "provider": {
-        "@type": "Organization",
-        "name": "ToolSpry",
-        "url": "https://toolspry.tech"
-      },
-      "hasCourseInstance": {
-        "@type": "CourseInstance",
-        "courseMode": "online",
-        "courseWorkload": "PT8H"
-      },
-      "educationalLevel": "Beginner to Intermediate",
-      "inLanguage": "en",
-      "isAccessibleForFree": true,
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-    </script>
-
-    <!-- Breadcrumb Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://toolspry.tech"
-      },{
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Challenges",
-        "item": "https://toolspry.tech/challenges/"
-      }]
-    }
-    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <style>
         html { scroll-behavior: smooth; }
 
-        /* navbar/footer always dark */
         .nav-footer {
             background-color: #24292f !important;
             color: #ffffff !important;
@@ -106,7 +23,6 @@
         .nav-footer a:hover { color: #58a6ff !important; }
         .nav-footer button { color: #ffffff !important; }
 
-        /* theme vars */
         :root {
             --bg: #f6f8fa;
             --bg2: #ffffff;
@@ -140,77 +56,13 @@
         }
         .mobile-menu.active { max-height: 500px; }
 
-        /* Challenge card styles */
         .challenge-card {
-            transition: all 0.2s;
-            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .challenge-card:hover:not(.locked) {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .challenge-card.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .challenge-card.completed {
-            border-color: #22c55e;
-            background: linear-gradient(135deg, var(--bg2) 0%, rgba(34, 197, 94, 0.05) 100%);
-        }
-
-        /* Editor */
-        #challenge-editor {
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-            resize: vertical;
-        }
-
-        /* Results table */
-        .results-table {
-            max-height: 300px;
-            overflow: auto;
-        }
-
-        .results-table table {
-            border-collapse: collapse;
-            width: 100%;
-            font-size: 14px;
-        }
-
-        .results-table th {
-            background-color: var(--bg2);
-            position: sticky;
-            top: 0;
-            font-weight: 600;
-            text-align: left;
-            padding: 8px 12px;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .results-table td {
-            padding: 8px 12px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .results-table tr:hover { background-color: var(--bg); }
-
-        /* Spinner */
-        .spinner {
-            border: 2px solid var(--border);
-            border-top: 2px solid #0969da;
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .challenge-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
     </style>
 </head>
@@ -280,293 +132,198 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="py-8">
+    <main class="py-12">
 
-        <!-- LISTING VIEW (shows all challenges) -->
-        <div id="listing-view">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <!-- Header -->
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-                <h1 class="text-3xl md:text-4xl font-bold mb-3">🎯 SQL Challenges</h1>
-                <p class="txt2 text-lg mb-6">
-                    Learn SQL step-by-step with 35 challenges across 7 real-world datasets. Write queries, get instant feedback, track your progress.
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">🎯 SQL Challenges</h1>
+                <p class="text-xl txt2 max-w-3xl mx-auto">
+                    Test your SQL skills with real-world challenges. Start easy and progress to advanced queries!
                 </p>
-
-                <!-- Progress Overview -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div class="card bdr border rounded-lg p-6">
-                        <div class="text-3xl font-bold text-blue-600 dark:text-blue-400" id="completed-count">0</div>
-                        <div class="text-sm txt2 mt-1">Challenges Completed</div>
-                    </div>
-                    <div class="card bdr border rounded-lg p-6">
-                        <div class="text-3xl font-bold text-green-600 dark:text-green-400" id="progress-percent">0%</div>
-                        <div class="text-sm txt2 mt-1">Overall Progress</div>
-                    </div>
-                    <div class="card bdr border rounded-lg p-6">
-                        <div class="text-3xl font-bold text-purple-600 dark:text-purple-400" id="current-level">Beginner</div>
-                        <div class="text-sm txt2 mt-1">Current Level</div>
-                    </div>
-                </div>
-
-                <!-- Progress Bar -->
-                <div class="card bdr border rounded-lg p-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-sm font-medium">Your Progress</span>
-                        <span class="text-sm txt2" id="progress-text">0 of 35 completed</span>
-                    </div>
-                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-3">
-                        <div id="progress-bar" class="bg-blue-600 h-2 rounded-full transition-all" style="width: 0%"></div>
-                    </div>
-                    <button onclick="resetProgress()" class="text-xs txt2 hover:text-red-600 dark:hover:text-red-400 transition">
-                        🔄 Reset Progress
-                    </button>
-                </div>
-
-                <!-- Tips -->
-                <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 bdr border rounded-lg">
-                    <p class="text-sm">
-                        💡 <strong>How it works:</strong> Click a challenge → Read the problem → Write your SQL query → Submit for validation.
-                        Stuck? Use hints. Want to experiment? Try the <a href="/practice.html" class="text-blue-600 dark:text-blue-400 hover:underline">Practice page</a>!
-                    </p>
-                </div>
             </div>
 
-            <!-- Beginner Challenges -->
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-                <div class="flex items-center gap-3 mb-6">
-                    <h2 class="text-2xl font-bold">🌱 Beginner Level</h2>
-                    <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm">
-                        Start here
-                    </span>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="beginner-challenges">
-                    <!-- Loaded by JavaScript -->
-                </div>
-            </div>
-
-            <!-- Intermediate Challenges -->
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-                <div class="flex items-center gap-3 mb-6">
-                    <h2 class="text-2xl font-bold">🚀 Intermediate Level</h2>
-                    <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 rounded-full text-sm">
-                        After beginner
-                    </span>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="intermediate-challenges">
-                    <!-- Loaded by JavaScript -->
-                </div>
-            </div>
-
-            <!-- Call to action -->
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="card bdr border rounded-lg p-8 text-center">
-                    <h2 class="text-2xl font-bold mb-3">Need More Practice?</h2>
-                    <p class="txt2 mb-6">
-                        Try your SQL skills in our free playground with 7 different datasets.
-                    </p>
-                    <a href="/practice.html"
-                       class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition">
-                        Open Practice Page →
+            <!-- Coming Soon Notice -->
+            <div class="card bdr border rounded-lg p-8 mb-12 text-center bg-blue-50 dark:bg-blue-900/20">
+                <div class="text-6xl mb-4">🚧</div>
+                <h2 class="text-3xl font-bold mb-4">Challenges Coming Soon!</h2>
+                <p class="txt2 text-lg mb-6">
+                    We're building an amazing challenge system with progress tracking, hints, and achievements. Stay tuned!
+                </p>
+                <div class="flex items-center justify-center gap-4">
+                    <a href="/practice.html" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition font-medium">
+                        Practice SQL Now →
+                    </a>
+                    <a href="/learn/" class="card bdr border px-6 py-3 rounded-lg hover:shadow-lg transition font-medium">
+                        Browse Tutorials →
                     </a>
                 </div>
             </div>
 
-        </div>
+            <!-- Preview: What's Coming -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-center">📋 What's Coming</h2>
 
-        <!-- CHALLENGE VIEW (shows individual challenge) -->
-        <div id="challenge-view" class="hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
-                <!-- Back button -->
-                <button onclick="showListing()" class="mb-6 flex items-center gap-2 txt2 hover:opacity-70 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                    Back to challenges
-                </button>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-                    <!-- Left: Challenge Details -->
-                    <div class="lg:col-span-1 space-y-6">
-
-                        <!-- Challenge info -->
-                        <div class="card bdr border rounded-lg p-6">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="text-sm font-semibold txt2" id="challenge-number">Challenge #1</span>
-                                <span class="text-xs px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full" id="challenge-level">
-                                    Beginner
-                                </span>
-                            </div>
-
-                            <h1 class="text-2xl font-bold mb-4" id="challenge-title">Challenge Title</h1>
-
-                            <div class="mb-4">
-                                <h3 class="font-semibold mb-2">📋 Problem</h3>
-                                <p class="text-sm txt2" id="challenge-problem"></p>
-                            </div>
-
-                            <div class="mb-4">
-                                <h3 class="font-semibold mb-2">📊 Dataset</h3>
-                                <p class="text-sm txt2">Table: <code class="card bdr px-2 py-1 rounded" id="challenge-dataset">employees</code></p>
-                            </div>
-
-                            <div>
-                                <h3 class="font-semibold mb-2">✅ Expected Output</h3>
-                                <div class="text-xs txt2 card bdr border rounded p-3" style="font-family: 'Courier New', monospace;">
-                                    <div id="challenge-expected"></div>
-                                </div>
-                            </div>
+                    <!-- Beginner Challenges -->
+                    <div class="challenge-card card bdr border rounded-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl">🌱</span>
+                            <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-3 py-1 rounded-full text-sm font-medium">
+                                Beginner
+                            </span>
                         </div>
-
-                        <!-- Hints -->
-                        <div class="card bdr border rounded-lg p-6">
-                            <h3 class="font-semibold mb-3">💡 Need Help?</h3>
-                            <div class="space-y-2" id="hints-container">
-                                <!-- Hints loaded dynamically -->
-                            </div>
-                        </div>
-
+                        <h3 class="text-xl font-bold mb-2">Easy Challenges</h3>
+                        <p class="txt2 text-sm mb-4">
+                            10+ challenges covering SELECT, WHERE, ORDER BY basics. Perfect for beginners!
+                        </p>
+                        <ul class="text-sm txt2 space-y-1">
+                            <li>✓ Basic SELECT queries</li>
+                            <li>✓ Filtering with WHERE</li>
+                            <li>✓ Sorting results</li>
+                            <li>✓ Working with NULL</li>
+                        </ul>
                     </div>
 
-                    <!-- Right: SQL Editor & Results -->
-                    <div class="lg:col-span-2 space-y-6">
-
-                        <!-- Editor -->
-                        <div class="card bdr border rounded-lg overflow-hidden">
-                            <div class="card bdr px-4 py-3 flex justify-between items-center" style="border-bottom-width: 1px;">
-                                <h2 class="font-semibold">Your SQL Query</h2>
-                                <button onclick="clearEditor()" class="text-sm px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition">
-                                    Clear
-                                </button>
-                            </div>
-
-                            <div class="p-4">
-                                <textarea
-                                    id="challenge-editor"
-                                    class="w-full card bdr border rounded p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    rows="10"
-                                    placeholder="-- Write your SQL query here
-SELECT column1, column2
-FROM table_name
-WHERE condition;"
-                                    spellcheck="false"></textarea>
-                            </div>
-
-                            <div class="px-4 pb-4 flex gap-3">
-                                <button onclick="submitChallenge()"
-                                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition">
-                                    ▶ Submit Answer
-                                </button>
-                                <a href="/practice.html"
-                                   target="_blank"
-                                   class="bdr border px-4 py-3 rounded-lg hover:opacity-80 transition">
-                                    Practice in Playground
-                                </a>
-                            </div>
+                    <!-- Intermediate Challenges -->
+                    <div class="challenge-card card bdr border rounded-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl">🔥</span>
+                            <span class="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 px-3 py-1 rounded-full text-sm font-medium">
+                                Intermediate
+                            </span>
                         </div>
+                        <h3 class="text-xl font-bold mb-2">Medium Challenges</h3>
+                        <p class="txt2 text-sm mb-4">
+                            15+ challenges with JOINs, aggregations, and subqueries. Level up your skills!
+                        </p>
+                        <ul class="text-sm txt2 space-y-1">
+                            <li>✓ JOIN multiple tables</li>
+                            <li>✓ GROUP BY & HAVING</li>
+                            <li>✓ Aggregate functions</li>
+                            <li>✓ Subqueries</li>
+                        </ul>
+                    </div>
 
-                        <!-- Results -->
-                        <div class="card bdr border rounded-lg overflow-hidden">
-                            <div class="card bdr px-4 py-3" style="border-bottom-width: 1px;">
-                                <h2 class="font-semibold">Results</h2>
-                            </div>
-
-                            <div id="results-container" class="p-4">
-
-                                <!-- Empty state -->
-                                <div id="results-empty" class="text-center py-12 txt2">
-                                    <div class="text-4xl mb-4">💡</div>
-                                    <p>Write your query and submit to see results</p>
-                                </div>
-
-                                <!-- Loading state -->
-                                <div id="results-loading" class="hidden text-center py-12">
-                                    <div class="spinner mx-auto mb-4"></div>
-                                    <p class="txt2">Validating your query...</p>
-                                </div>
-
-                                <!-- Success state -->
-                                <div id="results-success" class="hidden">
-                                    <div class="bg-green-50 dark:bg-green-900/20 bdr rounded-lg p-4 mb-4" style="border-color: #86efac;">
-                                        <div class="flex items-center gap-2 text-green-900 dark:text-green-300">
-                                            <span class="text-2xl">🎉</span>
-                                            <div class="flex-1">
-                                                <div class="font-bold">Correct!</div>
-                                                <div class="text-sm" id="success-message"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="results-table">
-                                        <table id="results-table">
-                                            <!-- Results populated here -->
-                                        </table>
-                                    </div>
-
-                                    <div class="mt-4 flex gap-3">
-                                        <button onclick="nextChallenge()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition">
-                                            Next Challenge →
-                                        </button>
-                                        <button onclick="showListing()" class="bdr border px-4 py-3 rounded-lg hover:opacity-80 transition">
-                                            Back to List
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <!-- Error state -->
-                                <div id="results-error" class="hidden">
-                                    <div class="bg-red-50 dark:bg-red-900/20 bdr rounded-lg p-6 mb-4" style="border-color: #fca5a5;">
-                                        <div class="flex gap-3">
-                                            <div class="text-2xl">❌</div>
-                                            <div class="flex-1">
-                                                <h3 class="font-bold text-red-900 dark:text-red-300 mb-2">Not quite right</h3>
-                                                <p class="text-red-800 dark:text-red-200 text-sm mb-3" id="error-message"></p>
-                                                <div class="text-sm text-red-700 dark:text-red-300" id="error-hint"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Show their output vs expected -->
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <h4 class="font-semibold mb-2 text-sm">Your Output:</h4>
-                                            <div class="results-table">
-                                                <table id="user-output-table">
-                                                    <!-- User's result -->
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-semibold mb-2 text-sm">Expected Output:</h4>
-                                            <div class="results-table">
-                                                <table id="expected-output-table">
-                                                    <!-- Expected result -->
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-4 flex gap-3">
-                                        <button onclick="submitChallenge()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition">
-                                            Try Again
-                                        </button>
-                                        <button onclick="skipChallenge()" class="bdr border px-6 py-3 rounded-lg hover:opacity-80 transition">
-                                            Skip Challenge →
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
+                    <!-- Advanced Challenges -->
+                    <div class="challenge-card card bdr border rounded-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl">⚡</span>
+                            <span class="bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 px-3 py-1 rounded-full text-sm font-medium">
+                                Advanced
+                            </span>
                         </div>
-
+                        <h3 class="text-xl font-bold mb-2">Hard Challenges</h3>
+                        <p class="txt2 text-sm mb-4">
+                            20+ expert-level challenges. Window functions, CTEs, and complex queries!
+                        </p>
+                        <ul class="text-sm txt2 space-y-1">
+                            <li>✓ Window functions</li>
+                            <li>✓ Common Table Expressions</li>
+                            <li>✓ Query optimization</li>
+                            <li>✓ Real-world scenarios</li>
+                        </ul>
                     </div>
 
                 </div>
+            </div>
 
+            <!-- Features Preview -->
+            <div class="card bdr border rounded-lg p-8 mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-center">✨ Upcoming Features</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <div class="flex items-start gap-4">
+                        <span class="text-3xl">🏆</span>
+                        <div>
+                            <h3 class="font-bold mb-1">Progress Tracking</h3>
+                            <p class="txt2 text-sm">Track completed challenges, earn points, and level up your SQL skills!</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <span class="text-3xl">💡</span>
+                        <div>
+                            <h3 class="font-bold mb-1">Hints System</h3>
+                            <p class="txt2 text-sm">Stuck? Get progressive hints without spoiling the solution!</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <span class="text-3xl">🎖️</span>
+                        <div>
+                            <h3 class="font-bold mb-1">Achievements</h3>
+                            <p class="txt2 text-sm">Earn badges for milestones like "10 Challenges Completed" or "Perfect Streak"!</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <span class="text-3xl">📊</span>
+                        <div>
+                            <h3 class="font-bold mb-1">Leaderboard</h3>
+                            <p class="txt2 text-sm">Compare your progress with other learners (optional, anonymous)!</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <span class="text-3xl">⏱️</span>
+                        <div>
+                            <h3 class="font-bold mb-1">Timed Challenges</h3>
+                            <p class="txt2 text-sm">Test your speed with optional time limits for extra challenge!</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <span class="text-3xl">💾</span>
+                        <div>
+                            <h3 class="font-bold mb-1">Solution Explanations</h3>
+                            <p class="txt2 text-sm">Learn from detailed explanations of optimal solutions!</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Notify Me Section -->
+            <div class="card bdr border rounded-lg p-8 text-center bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+                <h2 class="text-2xl font-bold mb-3">📬 Get Notified When Challenges Launch!</h2>
+                <p class="txt2 mb-6">
+                    Want to be the first to know? Send us an email and we'll notify you when challenges go live!
+                </p>
+                <a href="mailto:info@toolspry.tech?subject=Notify me about SQL Challenges"
+                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg transition font-medium">
+                    ✉️ Email Me When Ready
+                </a>
+            </div>
+
+            <!-- Meanwhile Section -->
+            <div class="mt-12">
+                <h2 class="text-2xl font-bold mb-6 text-center">⚡ Meanwhile, Keep Learning!</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    <a href="/practice.html" class="card bdr border rounded-lg p-6 text-center hover:shadow-lg transition block">
+                        <div class="text-4xl mb-3">💻</div>
+                        <h3 class="font-bold text-lg mb-2">Practice SQL</h3>
+                        <p class="txt2 text-sm">Write queries with our interactive SQL editor</p>
+                    </a>
+
+                    <a href="/learn/" class="card bdr border rounded-lg p-6 text-center hover:shadow-lg transition block">
+                        <div class="text-4xl mb-3">📚</div>
+                        <h3 class="font-bold text-lg mb-2">Read Tutorials</h3>
+                        <p class="txt2 text-sm">Learn SQL fundamentals step-by-step</p>
+                    </a>
+
+                    <a href="/learn/sql-cheat-sheet.html" class="card bdr border rounded-lg p-6 text-center hover:shadow-lg transition block">
+                        <div class="text-4xl mb-3">📋</div>
+                        <h3 class="font-bold text-lg mb-2">SQL Cheat Sheet</h3>
+                        <p class="txt2 text-sm">Quick reference for all SQL commands</p>
+                    </a>
+
+                </div>
             </div>
 
         </div>
@@ -604,12 +361,12 @@ WHERE condition;"
                 </div>
 
                 <div>
-                    <h3 class="font-bold mb-4">Contact</h3>
+                    <h3 class="font-bold mb-4">Legal</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="mailto:info@toolspry.tech" class="hover:opacity-80 transition">info@toolspry.tech</a></li>
-                        <li><a href="/contact.html" class="hover:opacity-80 transition">Contact Form</a></li>
                         <li><a href="/privacy.html" class="hover:opacity-80 transition">Privacy</a></li>
+                        <li><a href="/terms.html" class="hover:opacity-80 transition">Terms</a></li>
                         <li><a href="/disclaimer.html" class="hover:opacity-80 transition">Disclaimer</a></li>
+                        <li><a href="/contact.html" class="hover:opacity-80 transition">Contact</a></li>
                     </ul>
                 </div>
 
@@ -621,18 +378,8 @@ WHERE condition;"
         </div>
     </footer>
 
-    <!-- SQL.js library -->
-    <script src="https://sql.js.org/dist/sql-wasm.js"></script>
-
-    <!-- Dataset loader (same as practice page) -->
-    <script src="/assets/js/dataset-loader.js"></script>
-
-    <!-- Challenges logic -->
-    <script src="/assets/js/challenges.js"></script>
-
     <!-- Theme toggle script -->
     <script>
-        // Load theme on page load
         (function() {
             if (localStorage.getItem('theme') === 'dark') {
                 document.documentElement.classList.add('dark');
@@ -647,14 +394,12 @@ WHERE condition;"
             const themeIcon = document.getElementById('theme-icon');
             const themeIconMobile = document.getElementById('theme-icon-mobile');
 
-            // Mobile menu toggle
             if (menuBtn && mobileMenu) {
                 menuBtn.addEventListener('click', () => {
                     mobileMenu.classList.toggle('active');
                 });
             }
 
-            // Theme toggle
             function updateIcons(dark) {
                 const icon = dark ? '☀️' : '🌙';
                 if (themeIcon) themeIcon.textContent = icon;
