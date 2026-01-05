@@ -1,3 +1,7 @@
+// ============================================
+// CHALLENGES.JS - Complete Challenge System
+// ============================================
+
 // ========================================
 // CHALLENGES DATA - 35 CHALLENGES (5 per dataset)
 // ========================================
@@ -631,13 +635,22 @@ let userProgress = {}; // {1: true, 2: true, ...}
 function loadProgress() {
   const saved = localStorage.getItem('challengeProgress');
   if (saved) {
-    userProgress = JSON.parse(saved);
+    try {
+      userProgress = JSON.parse(saved);
+    } catch (e) {
+      console.error('Failed to parse saved progress:', e);
+      userProgress = {};
+    }
   }
 }
 
 // Save progress to localStorage
 function saveProgress() {
-  localStorage.setItem('challengeProgress', JSON.stringify(userProgress));
+  try {
+    localStorage.setItem('challengeProgress', JSON.stringify(userProgress));
+  } catch (e) {
+    console.error('Failed to save progress:', e);
+  }
 }
 
 // Mark challenge as completed
@@ -678,6 +691,8 @@ function updateProgressDisplay() {
 function renderChallenges() {
   const beginnerContainer = document.getElementById('beginner-challenges');
   const intermediateContainer = document.getElementById('intermediate-challenges');
+
+  if (!beginnerContainer || !intermediateContainer) return;
 
   beginnerContainer.innerHTML = '';
   intermediateContainer.innerHTML = '';
@@ -774,6 +789,9 @@ function loadChallenge(challengeId) {
   // Load hints
   loadHints(challenge);
 
+  // Load the dataset for this challenge
+  loadDataset(challenge.dataset);
+
   // Clear editor
   document.getElementById('challenge-editor').value = '';
 
@@ -786,6 +804,8 @@ function loadChallenge(challengeId) {
 // Load hints (hidden by default)
 function loadHints(challenge) {
   const container = document.getElementById('hints-container');
+  if (!container) return;
+
   container.innerHTML = '';
 
   challenge.hints.forEach((hint, index) => {
@@ -806,12 +826,27 @@ function loadHints(challenge) {
 // Toggle hint visibility
 function toggleHint(index) {
   const hint = document.getElementById(`hint-${index}`);
-  hint.classList.toggle('hidden');
+  if (hint) {
+    hint.classList.toggle('hidden');
+  }
 }
 
 // ========================================
 // CHALLENGE SUBMISSION & VALIDATION
 // ========================================
+
+// Wait for SQL.js initialization (from dataset-loader.js)
+async function waitForSQLInit() {
+  let attempts = 0;
+  while (!isInitialized && attempts < 100) {
+    await new Promise(resolve => setTimeout(resolve, 100));
+    attempts++;
+  }
+
+  if (!isInitialized) {
+    throw new Error('SQL engine failed to initialize. Please refresh the page.');
+  }
+}
 
 // Submit and validate challenge
 async function submitChallenge() {
@@ -828,28 +863,24 @@ async function submitChallenge() {
   showResultsState('loading');
 
   try {
-    // Load dataset
-    await loadDataset(challenge.dataset);
+    // Make sure SQL.js is ready
+    await waitForSQLInit();
 
-    // Run user's query
-    const result = runQuery(query);
+    // Load the dataset (from dataset-loader.js)
+    loadDataset(challenge.dataset);
 
-    if (!result.success) {
-      showResultsState('error');
-      document.getElementById('error-message').textContent = result.error;
-      document.getElementById('error-hint').textContent = 'Check your SQL syntax. Review the hints if you\'re stuck.';
-      return;
-    }
+    // Execute user's query (from dataset-loader.js)
+    const results = executeSQL(query);
 
     // Validate result
-    const validation = validateResult(result.data, challenge);
+    const validation = validateResult(results, challenge);
 
     if (validation.correct) {
       // Success!
       markCompleted(challenge.id);
       showResultsState('success');
       document.getElementById('success-message').textContent = validation.message;
-      displayResultTable('results-table', result.data);
+      displayResultTable('results-table', results);
     } else {
       // Wrong answer
       showResultsState('error');
@@ -857,43 +888,58 @@ async function submitChallenge() {
       document.getElementById('error-hint').innerHTML = validation.hint;
 
       // Show comparison
-      displayResultTable('user-output-table', result.data);
+      displayResultTable('user-output-table', results);
       displayExpectedOutput('expected-output-table', challenge);
     }
 
   } catch (e) {
+    console.error('Query execution error:', e);
     showResultsState('error');
-    document.getElementById('error-message').textContent = 'Failed to run query';
-    document.getElementById('error-hint').textContent = e.message;
+    document.getElementById('error-message').textContent = 'Query Error';
+    document.getElementById('error-hint').textContent = e.message || 'Check your SQL syntax.';
   }
 }
 
 // Validate if user's result matches expected
-function validateResult(userData, challenge) {
-  const formatted = formatResults(userData);
+function validateResult(results, challenge) {
+  // Handle empty results
+  if (!results || results.length === 0) {
+    return {
+      correct: false,
+      message: 'Query returned no results',
+      hint: 'Your query executed but returned 0 rows. Check your WHERE clause and table name.'
+    };
+  }
+
+  const result = results[0]; // SQL.js returns array of result sets
+  const userColumns = result.columns || [];
+  const userRows = result.values || [];
   const expected = challenge.expectedOutput;
 
   // Check column names
   if (expected.columns) {
-    const userCols = formatted.columns.map(c => c.toLowerCase());
-    const expectedCols = expected.columns.map(c => c.toLowerCase());
+    const userColsLower = userColumns.map(c => c.toLowerCase());
+    const expectedColsLower = expected.columns.map(c => c.toLowerCase());
 
-    if (JSON.stringify(userCols) !== JSON.stringify(expectedCols)) {
+    // Check if columns match (order matters)
+    const columnsMatch = JSON.stringify(userColsLower) === JSON.stringify(expectedColsLower);
+
+    if (!columnsMatch) {
       return {
         correct: false,
         message: 'Column names don\'t match',
-        hint: `Expected columns: ${expected.columns.join(', ')}<br>Your columns: ${formatted.columns.join(', ')}`
+        hint: `<strong>Expected columns:</strong> ${expected.columns.join(', ')}<br><strong>Your columns:</strong> ${userColumns.join(', ')}`
       };
     }
   }
 
   // Check row count
-  if (expected.rowCount) {
-    if (formatted.rows.length !== expected.rowCount) {
+  if (expected.rowCount !== undefined) {
+    if (userRows.length !== expected.rowCount) {
       return {
         correct: false,
         message: `Wrong number of rows`,
-        hint: `Expected ${expected.rowCount} rows, but got ${formatted.rows.length} rows.<br>Check your WHERE clause and LIMIT.`
+        hint: `Expected <strong>${expected.rowCount} rows</strong>, but got <strong>${userRows.length} rows</strong>.<br>Check your WHERE clause and LIMIT.`
       };
     }
   }
@@ -906,24 +952,41 @@ function validateResult(userData, challenge) {
 }
 
 // Display result in table
-function displayResultTable(tableId, data) {
+function displayResultTable(tableId, results) {
   const table = document.getElementById(tableId);
   if (!table) return;
 
-  const formatted = formatResults(data);
-
-  if (!formatted.rows || formatted.rows.length === 0) {
+  if (!results || results.length === 0) {
     table.innerHTML = '<tbody><tr><td class="p-4 txt2">No results</td></tr></tbody>';
     return;
   }
 
-  const headerHTML = '<tr>' + formatted.columns.map(col => `<th>${col}</th>`).join('') + '</tr>';
-  const rowsHTML = formatted.rows.slice(0, 10).map(row => {
-    const cells = row.map(cell => `<td>${cell === null ? '<span class="txt2">NULL</span>' : cell}</td>`).join('');
+  const result = results[0];
+  const columns = result.columns || [];
+  const rows = result.values || [];
+
+  if (rows.length === 0) {
+    table.innerHTML = '<tbody><tr><td class="p-4 txt2">No results</td></tr></tbody>';
+    return;
+  }
+
+  const headerHTML = '<tr>' + columns.map(col => `<th>${col}</th>`).join('') + '</tr>';
+  const rowsHTML = rows.slice(0, 10).map(row => {
+    const cells = row.map(cell => {
+      if (cell === null) {
+        return '<td><span class="txt2 italic">NULL</span></td>';
+      }
+      return `<td>${cell}</td>`;
+    }).join('');
     return '<tr>' + cells + '</tr>';
   }).join('');
 
   table.innerHTML = `<thead>${headerHTML}</thead><tbody>${rowsHTML}</tbody>`;
+
+  if (rows.length > 10) {
+    const moreRow = `<tr><td colspan="${columns.length}" class="text-center txt2 text-xs py-2">... and ${rows.length - 10} more rows</td></tr>`;
+    table.querySelector('tbody').insertAdjacentHTML('beforeend', moreRow);
+  }
 }
 
 // Display expected output
@@ -933,23 +996,31 @@ function displayExpectedOutput(tableId, challenge) {
 
   const cols = challenge.expectedOutput.columns || [];
 
+  if (cols.length === 0) {
+    table.innerHTML = '<tbody><tr><td class="p-4 txt2">See problem description</td></tr></tbody>';
+    return;
+  }
+
   const headerHTML = '<tr>' + cols.map(col => `<th>${col}</th>`).join('') + '</tr>';
-  const infoHTML = '<tr><td colspan="' + cols.length + '" class="p-4 txt2 text-center">See problem description for details</td></tr>';
+  const infoHTML = '<tr><td colspan="' + cols.length + '" class="p-4 txt2 text-center">See problem description for expected data</td></tr>';
 
   table.innerHTML = `<thead>${headerHTML}</thead><tbody>${infoHTML}</tbody>`;
 }
 
 // Show different result states
 function showResultsState(state) {
-  document.getElementById('results-empty').classList.add('hidden');
-  document.getElementById('results-loading').classList.add('hidden');
-  document.getElementById('results-success').classList.add('hidden');
-  document.getElementById('results-error').classList.add('hidden');
+  const states = ['empty', 'loading', 'success', 'error'];
 
-  if (state === 'empty') document.getElementById('results-empty').classList.remove('hidden');
-  if (state === 'loading') document.getElementById('results-loading').classList.remove('hidden');
-  if (state === 'success') document.getElementById('results-success').classList.remove('hidden');
-  if (state === 'error') document.getElementById('results-error').classList.remove('hidden');
+  states.forEach(s => {
+    const el = document.getElementById(`results-${s}`);
+    if (el) {
+      if (s === state) {
+        el.classList.remove('hidden');
+      } else {
+        el.classList.add('hidden');
+      }
+    }
+  });
 }
 
 // ========================================
@@ -958,7 +1029,11 @@ function showResultsState(state) {
 
 // Clear editor
 function clearEditor() {
-  document.getElementById('challenge-editor').value = '';
+  const editor = document.getElementById('challenge-editor');
+  if (editor) {
+    editor.value = '';
+    editor.focus();
+  }
 }
 
 // Go to next challenge
@@ -979,7 +1054,6 @@ function skipChallenge() {
 
 // Reset progress
 function resetProgress() {
-  // Confirm before deleting
   const confirmed = confirm(
     '⚠️ Are you sure you want to reset all progress?\n\n' +
     'This will:\n' +
@@ -1004,7 +1078,7 @@ function resetProgress() {
   // Show success message
   alert('✅ Progress reset! All challenges are now available again.');
 
-  console.log('Progress reset successfully');
+  console.log('✅ Progress reset successfully');
 }
 
 // ========================================
@@ -1012,26 +1086,33 @@ function resetProgress() {
 // ========================================
 
 document.addEventListener('DOMContentLoaded', async function() {
-  console.log('Challenges page loading...');
+  console.log('🚀 Challenges page loading...');
 
-  // Load user progress
-  loadProgress();
+  try {
+    // Load user progress
+    loadProgress();
 
-  // Initialize database
-  await initDB();
+    // Wait for SQL.js to initialize
+    console.log('⏳ Waiting for SQL.js...');
+    await waitForSQLInit();
+    console.log('✅ SQL.js ready!');
 
-  // Render challenges
-  renderChallenges();
-  updateProgressDisplay();
+    // Render challenges
+    renderChallenges();
+    updateProgressDisplay();
 
-  // Check URL for challenge ID
-  const hash = window.location.hash;
-  if (hash.startsWith('#challenge-')) {
-    const id = parseInt(hash.replace('#challenge-', ''));
-    if (id >= 1 && id <= challenges.length) {
-      loadChallenge(id);
+    // Check URL for challenge ID
+    const hash = window.location.hash;
+    if (hash.startsWith('#challenge-')) {
+      const id = parseInt(hash.replace('#challenge-', ''));
+      if (id >= 1 && id <= challenges.length) {
+        loadChallenge(id);
+      }
     }
-  }
 
-  console.log('Challenges ready with 35 problems across 7 datasets!');
+    console.log('✅ Challenges ready with 35 problems across 7 datasets!');
+  } catch (e) {
+    console.error('❌ Failed to initialize challenges:', e);
+    alert('Failed to load challenges. Please refresh the page.');
+  }
 });

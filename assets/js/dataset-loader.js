@@ -6,31 +6,68 @@ let db = null;
 let SQL = null;
 let isInitialized = false;
 
+// Wait for SQL.js to be available
+async function waitForSQLjs() {
+    let attempts = 0;
+    while (typeof initSqlJs === 'undefined' && attempts < 50) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        attempts++;
+    }
+
+    if (typeof initSqlJs === 'undefined') {
+        throw new Error('SQL.js library failed to load. Please refresh the page.');
+    }
+}
+
 // Initialize SQL.js on page load
 async function initSQLjs() {
     try {
+        console.log('🔄 Waiting for SQL.js...');
+
+        // Wait for SQL.js to be available
+        await waitForSQLjs();
+
         console.log('🔄 Initializing SQL.js...');
 
-        // Check if initSqlJs is available
-        if (typeof initSqlJs === 'undefined') {
-            throw new Error('SQL.js library not loaded from CDN');
+        // Try Cloudflare CDN first, fallback to jsDelivr
+        let locateFile;
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            // Local development
+            locateFile = file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/${file}`;
+        } else {
+            // Production - try both CDNs
+            locateFile = file => {
+                // Try Cloudflare first
+                return `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/${file}`;
+            };
         }
 
         // Initialize SQL.js
-        SQL = await initSqlJs({
-            locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/${file}`
-        });
+        SQL = await initSqlJs({ locateFile });
 
         // Create database
         db = new SQL.Database();
         isInitialized = true;
 
         console.log('✅ SQL.js initialized successfully!');
+
+        // Trigger custom event
+        window.dispatchEvent(new Event('sqljs-ready'));
+
         return true;
 
     } catch (error) {
         console.error('❌ Failed to initialize SQL.js:', error);
-        showError('Failed to load SQL engine: ' + error.message);
+        isInitialized = false;
+
+        // Show error to user
+        const errorDiv = document.getElementById('error');
+        const errorMsg = document.getElementById('error-msg');
+        if (errorDiv && errorMsg) {
+            errorDiv.classList.remove('hidden');
+            errorMsg.textContent = 'Failed to load SQL engine: ' + error.message + '. Please refresh the page.';
+        }
+
         return false;
     }
 }
@@ -38,11 +75,13 @@ async function initSQLjs() {
 // Load dataset into database
 function loadDataset(datasetName) {
     if (!isInitialized || !db) {
-        console.error('Database not initialized');
+        console.error('❌ Database not initialized');
         return false;
     }
 
     try {
+        console.log(`🔄 Loading dataset: ${datasetName}`);
+
         // Drop existing tables
         try {
             const tables = db.exec("SELECT name FROM sqlite_master WHERE type='table'");
@@ -67,12 +106,11 @@ function loadDataset(datasetName) {
         // Insert data
         db.run(dataset.data);
 
-        console.log(`✅ Loaded dataset: ${datasetName}`);
+        console.log(`✅ Loaded dataset: ${datasetName} (${dataset.rows} rows)`);
         return true;
 
     } catch (error) {
         console.error('❌ Error loading dataset:', error);
-        showError('Failed to load dataset: ' + error.message);
         return false;
     }
 }
@@ -80,7 +118,7 @@ function loadDataset(datasetName) {
 // Execute SQL query
 function executeSQL(query) {
     if (!isInitialized || !db) {
-        throw new Error('Database not initialized. Please refresh the page.');
+        throw new Error('Database not initialized. Please wait a moment and try again.');
     }
 
     try {
@@ -88,6 +126,21 @@ function executeSQL(query) {
         return results;
     } catch (error) {
         throw error;
+    }
+}
+
+// Get database info
+function getDatabaseInfo() {
+    if (!isInitialized || !db) {
+        return null;
+    }
+
+    try {
+        const tables = db.exec("SELECT name FROM sqlite_master WHERE type='table'");
+        return tables;
+    } catch (error) {
+        console.error('Error getting database info:', error);
+        return null;
     }
 }
 
@@ -317,4 +370,8 @@ const DATASETS = {
 };
 
 // Initialize on page load
-window.addEventListener('load', initSQLjs);
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSQLjs);
+} else {
+    initSQLjs();
+}
