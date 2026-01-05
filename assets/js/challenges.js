@@ -703,16 +703,16 @@ function renderChallenges() {
   const intermediateContainer = document.getElementById('intermediate-challenges');
 
   if (!beginnerContainer) {
-    console.error('❌ beginner-challenges container NOT FOUND');
+    console.error('❌ #beginner-challenges NOT FOUND');
     return false;
   }
 
   if (!intermediateContainer) {
-    console.error('❌ intermediate-challenges container NOT FOUND');
+    console.error('❌ #intermediate-challenges NOT FOUND');
     return false;
   }
 
-  console.log('✅ Found both containers, rendering...');
+  console.log('✅ Both containers found');
 
   beginnerContainer.innerHTML = '';
   intermediateContainer.innerHTML = '';
@@ -732,7 +732,7 @@ function renderChallenges() {
     }
   });
 
-  console.log(`✅ Rendered ${beginnerCount} beginner + ${intermediateCount} intermediate = ${challenges.length} total`);
+  console.log(`✅ Rendered ${beginnerCount} beginner + ${intermediateCount} intermediate challenges`);
   return true;
 }
 
@@ -1110,63 +1110,50 @@ function resetProgress() {
 }
 
 // ========================================
-// INITIALIZATION - RETRY UNTIL CONTAINERS EXIST
+// INITIALIZATION - BULLETPROOF VERSION
 // ========================================
 
-function initializeChallenges() {
-  console.log('🚀 initializeChallenges() starting...');
+(function initChallengesPage() {
+  console.log('🚀 Challenges script loaded');
+  console.log('📍 readyState:', document.readyState);
 
-  // Load progress first
-  loadProgress();
-  console.log('✅ Progress loaded:', Object.keys(userProgress).length, 'completed');
+  function init() {
+    console.log('🔧 Running init...');
 
-  // Try to render - if containers don't exist, retry
-  const success = tryRenderWithRetry();
+    // Load progress
+    loadProgress();
+    console.log('✅ Progress loaded:', Object.keys(userProgress).length, 'completed');
 
-  if (!success) {
-    console.warn('⚠️ Containers not ready, will retry...');
-  }
+    // Update progress display
+    updateProgressDisplay();
 
-  // Check URL for challenge ID
-  const hash = window.location.hash;
-  if (hash.startsWith('#challenge-')) {
-    const id = parseInt(hash.replace('#challenge-', ''));
-    if (id >= 1 && id <= challenges.length) {
-      console.log('🔗 Loading challenge from URL:', id);
-      // Wait a bit before loading challenge to ensure DOM is ready
-      setTimeout(() => loadChallenge(id), 100);
+    // Try to render
+    const success = renderChallenges();
+
+    if (success) {
+      console.log('✅ Challenges initialized successfully!');
+
+      // Check URL for challenge ID
+      const hash = window.location.hash;
+      if (hash.startsWith('#challenge-')) {
+        const id = parseInt(hash.replace('#challenge-', ''));
+        if (id >= 1 && id <= challenges.length) {
+          console.log('🔗 Loading challenge from URL:', id);
+          setTimeout(() => loadChallenge(id), 50);
+        }
+      }
+    } else {
+      console.warn('⚠️ Render failed, will retry...');
+      setTimeout(init, 100);
     }
   }
-}
 
-function tryRenderWithRetry(attempt = 0) {
-  const maxAttempts = 50; // 5 seconds max
-
-  if (attempt >= maxAttempts) {
-    console.error('❌ FATAL: Containers never appeared after', maxAttempts, 'attempts');
-    return false;
+  // Multiple initialization strategies for maximum compatibility
+  if (document.readyState === 'loading') {
+    // DOM still loading
+    document.addEventListener('DOMContentLoaded', init);
+  } else if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    // DOM already loaded, run immediately
+    init();
   }
-
-  const beginnerContainer = document.getElementById('beginner-challenges');
-  const intermediateContainer = document.getElementById('intermediate-challenges');
-
-  if (!beginnerContainer || !intermediateContainer) {
-    // Containers don't exist yet, retry in 100ms
-    setTimeout(() => tryRenderWithRetry(attempt + 1), 100);
-    return false;
-  }
-
-  // Containers exist! Render now
-  console.log(`✅ Containers found on attempt ${attempt + 1}`);
-  updateProgressDisplay();
-  renderChallenges();
-  console.log('✅ Challenges page fully initialized!');
-  return true;
-}
-
-// Start initialization when script loads
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeChallenges);
-} else {
-  initializeChallenges();
-}
+})();
