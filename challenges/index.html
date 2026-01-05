@@ -4,6 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- ✅ ADD THIS CSP META TAG -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+  style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+  connect-src 'self';
+  img-src 'self' data: https:;
+  font-src 'self' data:;
+  worker-src 'self' blob:;
+  child-src 'self' blob:;
+">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMDYXFQTJ1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KMDYXFQTJ1');
+</script>
 
 <!-- Primary Meta Tags -->
 <title>SQL Challenges - Learn SQL Step by Step | ToolSpry</title>
