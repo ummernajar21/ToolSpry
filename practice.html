@@ -625,11 +625,9 @@ Tip: SQL keywords aren't case-sensitive"
                      script.onload = function() { window.sqlJsLoaded = true; console.log('✅ SQL.js loaded from jsDelivr'); };
                      document.head.appendChild(script);"></script>
 
-
-    <!-- Our scripts -->
+    <!-- Our scripts: loader first, then practice -->
     <script src="/assets/js/dataset-loader.js"></script>
     <script src="/assets/js/practice.js"></script>
-
 
     <script>
         // theme on load
@@ -639,9 +637,7 @@ Tip: SQL keywords aren't case-sensitive"
             }
         })();
 
-
         document.addEventListener('DOMContentLoaded', function() {
-
 
             const menuBtn = document.getElementById('menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -650,14 +646,12 @@ Tip: SQL keywords aren't case-sensitive"
             const themeIcon = document.getElementById('theme-icon');
             const themeIconMobile = document.getElementById('theme-icon-mobile');
 
-
             // mobile menu
             if (menuBtn && mobileMenu) {
                 menuBtn.addEventListener('click', () => {
                     mobileMenu.classList.toggle('active');
                 });
             }
-
 
             // theme
             function updateIcons(dark) {
@@ -666,9 +660,7 @@ Tip: SQL keywords aren't case-sensitive"
                 if (themeIconMobile) themeIconMobile.textContent = icon;
             }
 
-
             updateIcons(localStorage.getItem('theme') === 'dark');
-
 
             function toggleTheme() {
                 const dark = document.documentElement.classList.toggle('dark');
@@ -676,10 +668,8 @@ Tip: SQL keywords aren't case-sensitive"
                 updateIcons(dark);
             }
 
-
             if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
             if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
-
 
             // close menu on outside click
             document.addEventListener('click', (e) => {
@@ -687,7 +677,6 @@ Tip: SQL keywords aren't case-sensitive"
                     mobileMenu.classList.remove('active');
                 }
             });
-
 
             // close menu on resize
             window.addEventListener('resize', () => {
@@ -697,7 +686,6 @@ Tip: SQL keywords aren't case-sensitive"
             });
         });
     </script>
-
 
 </body>
 </html>
