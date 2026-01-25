@@ -970,3 +970,7 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('✅ Event listeners ready');
   init();
 });
+
+// expose helpers globally (fixes load order issues)
+window.getDatasetInfo = getDatasetInfo;
+window.switchDataset = switchDataset;
