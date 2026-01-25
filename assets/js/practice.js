@@ -10,29 +10,34 @@ let sqlReady = false; // ✅ FIX: guard SQL readiness
 // INITIALIZATION
 // ========================================
 
-async function init() {
-  console.log('🔄 Initializing practice page...');
-  showLoading('Loading SQL engine...');
-
-  try {
-    if (!window.initSqlJs) {
-      throw new Error('SQL.js not loaded. Check sql-wasm.js path.');
-    }
-
-    console.log('Step 1: Waiting for SQL.js...');
-    await waitForSQLInit();
-
-    console.log('Step 2: Loading default dataset...');
-    await switchDataset('employees');
-
-    sqlReady = true; // ✅ FIX: mark ready only after dataset loads
-
-    console.log('✅ Initialization complete!');
-    hideLoading();
-  } catch (e) {
-    console.error('❌ Initialization failed:', e);
-    showError('Failed to initialize', e.message || String(e));
+function getDatasetInfo(name) {
+  if (!window.DATASETS || !DATASETS[name]) {
+    console.error('Dataset not found:', name);
+    return null;
   }
+
+  const dataset = DATASETS[name];
+  const columns = [];
+
+  const schemaLines = dataset.schema.split('\n');
+  for (const line of schemaLines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('CREATE') || trimmed.startsWith(');')) continue;
+
+    const match = trimmed.match(/(\w+)\s+(INTEGER|TEXT|REAL|DATE|BOOLEAN)/i);
+    if (match) {
+      columns.push({
+        name: match[1],
+        type: match[2].toUpperCase()
+      });
+    }
+  }
+
+  return {
+    name: dataset.name,
+    rows: dataset.rows,
+    columns
+  };
 }
 
 // ========================================
