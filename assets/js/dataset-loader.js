@@ -27,7 +27,7 @@ async function waitForSQLjsScript() {
 // Public helper: wait until DB is ready (used by practice.js / challenges.js)
 async function waitForSQLInit() {
   let attempts = 0;
-  while (!isInitialized && attempts < 100) {
+  while ((!isInitialized || !db) && attempts < 100) {
     await new Promise(resolve => setTimeout(resolve, 100));
     attempts++;
   }
@@ -392,4 +392,9 @@ const DATASETS = {
       (10, 1, '2024-01-16 09:00:00', -50.00, 'Refund', 'Completed', 'Credit Card');
     `
   }
+
 };
+
+window.waitForSQLInit = waitForSQLInit;
+window.loadDataset = loadDataset;
+window.executeSQL = executeSQL;

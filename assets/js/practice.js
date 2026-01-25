@@ -4,6 +4,7 @@
 
 let currentDataset = 'employees';
 let lastQueryResult = null;
+let sqlReady = false; // ✅ FIX: guard SQL readiness
 
 // ========================================
 // INITIALIZATION
@@ -14,12 +15,17 @@ async function init() {
   showLoading('Loading SQL engine...');
 
   try {
-    // waitForSQLInit is defined in dataset-loader.js
+    if (!window.initSqlJs) {
+      throw new Error('SQL.js not loaded. Check sql-wasm.js path.');
+    }
+
     console.log('Step 1: Waiting for SQL.js...');
     await waitForSQLInit();
 
     console.log('Step 2: Loading default dataset...');
     await switchDataset('employees');
+
+    sqlReady = true; // ✅ FIX: mark ready only after dataset loads
 
     console.log('✅ Initialization complete!');
     hideLoading();
@@ -43,10 +49,7 @@ async function switchDataset(name) {
     if (editor) editor.value = '';
 
     const success = loadDataset(name); // from dataset-loader.js
-
-    if (!success) {
-      throw new Error('Failed to load dataset');
-    }
+    if (!success) throw new Error('Failed to load dataset');
 
     const datasetInfo = getDatasetInfo(name);
 
@@ -64,42 +67,16 @@ async function switchDataset(name) {
   }
 }
 
-// Build dataset info from DATASETS schema
-function getDatasetInfo(name) {
-  if (!DATASETS || !DATASETS[name]) {
-    console.error('Dataset not found:', name);
-    return null;
-  }
-
-  const dataset = DATASETS[name];
-  const columns = [];
-  const schemaLines = dataset.schema.split('\n');
-
-  for (const line of schemaLines) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('CREATE') || trimmed.startsWith(');')) continue;
-
-    const match = trimmed.match(/(\w+)\s+(INTEGER|TEXT|REAL|DATE|BOOLEAN)/i);
-    if (match) {
-      columns.push({
-        name: match[1],
-        type: match[2].toUpperCase()
-      });
-    }
-  }
-
-  return {
-    name: dataset.name,
-    rows: dataset.rows,
-    columns: columns
-  };
-}
-
 // ========================================
 // QUERY EXECUTION
 // ========================================
 
 function executeQuery() {
+  if (!sqlReady) { // ✅ FIX: prevent early execution
+    showError('SQL not ready', 'Database engine is still loading. Please wait a moment.');
+    return;
+  }
+
   const editor = document.getElementById('editor');
   if (!editor) return;
 
@@ -109,24 +86,39 @@ function executeQuery() {
     return;
   }
 
+  // ================================
+  // STEP 5 — Missing LIMIT warning
+  // ================================
+  if (
+    /^SELECT\s+\*\s+FROM\s+\w+/i.test(query) &&
+    !/LIMIT\s+\d+/i.test(query)
+  ) {
+    const proceed = confirm(
+      'This query may return many rows.\n\nTip: Add LIMIT 10 for faster results.\n\nRun anyway?'
+    );
+    if (!proceed) {
+      hideAllStates();
+      return;
+    }
+  }
+
   console.log('▶️ Executing query:', query);
   saveQueryToHistory(query);
 
   hideAllStates();
   showLoading('Running query...');
 
-  setTimeout(() => {
-    try {
-      const results = executeSQL(query); // from dataset-loader.js
-      console.log('✅ Query results:', results);
-      hideLoading();
-      displayResults(results);
-    } catch (error) {
-      console.error('❌ Query error:', error);
-      hideLoading();
-      displayError(error.message || String(error));
-    }
-  }, 150);
+  try {
+    const results = executeSQL(query); // from dataset-loader.js
+    if (!results) throw new Error('Query executed but returned no result set');
+
+    hideLoading();
+    displayResults(results);
+  } catch (error) {
+    console.error('❌ Query error:', error);
+    hideLoading();
+    displayError(error.message || String(error));
+  }
 }
 
 // ========================================
@@ -200,8 +192,78 @@ function displayResults(results) {
 // ========================================
 // ERROR DISPLAY WITH SMART HINTS
 // ========================================
-
 function displayError(errorMsg) {
+  // ================================
+  // STEP 1A — Beginner typo hints
+  // ================================
+  const upper = errorMsg.toUpperCase();
+
+  if (upper.includes('SELEECT')) {
+    errorMsg = 'Syntax error: Did you mean SELECT?';
+  }
+
+  if (upper.includes('FORM ')) {
+    errorMsg = 'Syntax error: Did you mean FROM?';
+  }
+
+  if (upper.includes('FRM ')) {
+    errorMsg = 'Syntax error: Did you mean FROM?';
+  }
+
+  if (upper.includes('WHRE ')) {
+    errorMsg = 'Syntax error: Did you mean WHERE?';
+  }
+
+  // ================================
+// STEP 1B — Missing comma detection
+// ================================
+if (/SELECT\s+[^,]+?\s+[^,]+?\s+FROM/i.test(errorMsg)) {
+  errorMsg = 'Syntax error: Missing comma between column names.';
+}
+
+// ================================
+// STEP 2A — NULL comparison hint
+// ================================
+if (/=\s*NULL/i.test(errorMsg) || /!=\s*NULL/i.test(errorMsg) || /<>\s*NULL/i.test(errorMsg)) {
+  errorMsg = 'Logical error: NULL is not a value. Use IS NULL or IS NOT NULL instead.';
+  suggestion = `
+💡 Correct usage:
+<code>WHERE manager_id IS NULL</code><br>
+<code>WHERE manager_id IS NOT NULL</code>
+`;
+}
+
+// ================================
+// STEP 3 — WHERE vs HAVING hint
+// ================================
+if (/WHERE\s+.*(COUNT|SUM|AVG|MIN|MAX)\s*\(/i.test(errorMsg)) {
+  errorMsg = 'Logical error: Aggregate functions cannot be used in WHERE. Use HAVING instead.';
+
+  suggestion = `
+  💡 Correct pattern:<br>
+  <code>SELECT col, COUNT(*) FROM table GROUP BY col HAVING COUNT(*) &gt; 5</code><br><br>
+  WHERE filters rows before grouping.<br>
+  HAVING filters groups after grouping.
+  `;
+}
+
+// ================================
+// STEP 4 — JOIN without ON clause
+// ================================
+if (/JOIN\s+\w+\s*(;|$|\n)/i.test(errorMsg)) {
+  errorMsg = 'Logical error: JOIN requires an ON condition to match rows.';
+
+  suggestion = `
+  💡 Correct usage:<br>
+  <code>
+  SELECT *<br>
+  FROM employees e<br>
+  JOIN departments d ON e.department = d.department_name
+  </code><br><br>
+  ON tells SQL how rows from both tables are related.
+  `;
+}
+
   console.error('⚠️ Displaying error:', errorMsg);
   hideAllStates();
 
