@@ -233,37 +233,6 @@ if (/=\s*NULL/i.test(errorMsg) || /!=\s*NULL/i.test(errorMsg) || /<>\s*NULL/i.te
 `;
 }
 
-// ================================
-// STEP 3 — WHERE vs HAVING hint
-// ================================
-if (/WHERE\s+.*(COUNT|SUM|AVG|MIN|MAX)\s*\(/i.test(errorMsg)) {
-  errorMsg = 'Logical error: Aggregate functions cannot be used in WHERE. Use HAVING instead.';
-
-  suggestion = `
-  💡 Correct pattern:<br>
-  <code>SELECT col, COUNT(*) FROM table GROUP BY col HAVING COUNT(*) &gt; 5</code><br><br>
-  WHERE filters rows before grouping.<br>
-  HAVING filters groups after grouping.
-  `;
-}
-
-// ================================
-// STEP 4 — JOIN without ON clause
-// ================================
-if (/JOIN\s+\w+\s*(;|$|\n)/i.test(errorMsg)) {
-  errorMsg = 'Logical error: JOIN requires an ON condition to match rows.';
-
-  suggestion = `
-  💡 Correct usage:<br>
-  <code>
-  SELECT *<br>
-  FROM employees e<br>
-  JOIN departments d ON e.department = d.department_name
-  </code><br><br>
-  ON tells SQL how rows from both tables are related.
-  `;
-}
-
   console.error('⚠️ Displaying error:', errorMsg);
   hideAllStates();
 
