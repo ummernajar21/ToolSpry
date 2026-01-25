@@ -72,7 +72,7 @@ async function switchDataset(name) {
 // ========================================
 
 function executeQuery() {
-  if (!sqlReady) {
+  if (!sqlReady) { // ✅ FIX: prevent early execution
     showError('SQL not ready', 'Database engine is still loading. Please wait a moment.');
     return;
   }
@@ -93,7 +93,7 @@ function executeQuery() {
   showLoading('Running query...');
 
   try {
-    const results = executeSQL(query);
+    const results = executeSQL(query); // from dataset-loader.js
     if (!results) throw new Error('Query executed but returned no result set');
 
     hideLoading();
@@ -104,7 +104,6 @@ function executeQuery() {
     displayError(error.message || String(error));
   }
 }
-
 
 // ========================================
 // RESULTS DISPLAY
