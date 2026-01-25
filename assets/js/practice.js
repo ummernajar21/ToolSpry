@@ -72,7 +72,7 @@ async function switchDataset(name) {
 // ========================================
 
 function executeQuery() {
-  if (!sqlReady) { // ✅ FIX: prevent early execution
+  if (!sqlReady) {
     showError('SQL not ready', 'Database engine is still loading. Please wait a moment.');
     return;
   }
@@ -86,22 +86,6 @@ function executeQuery() {
     return;
   }
 
-  // ================================
-  // STEP 5 — Missing LIMIT warning
-  // ================================
-  if (
-    /^SELECT\s+\*\s+FROM\s+\w+/i.test(query) &&
-    !/LIMIT\s+\d+/i.test(query)
-  ) {
-    const proceed = confirm(
-      'This query may return many rows.\n\nTip: Add LIMIT 10 for faster results.\n\nRun anyway?'
-    );
-    if (!proceed) {
-      hideAllStates();
-      return;
-    }
-  }
-
   console.log('▶️ Executing query:', query);
   saveQueryToHistory(query);
 
@@ -109,7 +93,7 @@ function executeQuery() {
   showLoading('Running query...');
 
   try {
-    const results = executeSQL(query); // from dataset-loader.js
+    const results = executeSQL(query);
     if (!results) throw new Error('Query executed but returned no result set');
 
     hideLoading();
@@ -120,6 +104,7 @@ function executeQuery() {
     displayError(error.message || String(error));
   }
 }
+
 
 // ========================================
 // RESULTS DISPLAY
